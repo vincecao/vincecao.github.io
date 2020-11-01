@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build & Depoly
+        run: |
+          sudo npm install hexo-cli -g
+          cd blog && npm install && hexo g && cd ..
+          cd profile-react && npm install && CI=false yarn build && cd ..
+          rm -rf public && mkdir public
+          mv blog/public/blog public
+          mv profile-react/build/* public
+          cp -r public_source/* public
+      - name: Deploy to GitHub Pages
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v2
+        with:
+          target_branch: gh-pages
+          build_dir: public
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
