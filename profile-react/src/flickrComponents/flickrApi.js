@@ -1,5 +1,5 @@
-import axios from "axios";
-import { defaultImageList } from "../const";
+import axios from 'axios';
+import { defaultImageList } from '../const';
 const API_KEY = process.env.REACT_APP_API_KEY;
 const USER_ID = process.env.REACT_APP_USER_ID;
 const PHOTOSETS_ID = process.env.REACT_APP_PHOTOSETS_ID;
@@ -7,12 +7,12 @@ const PHOTOSETS_ID = process.env.REACT_APP_PHOTOSETS_ID;
 export const getPublicPhotosPromise = () =>
   new Promise((resolve, reject) =>
     axios
-      .get("https://www.flickr.com/services/rest/", {
+      .get('https://www.flickr.com/services/rest/', {
         params: {
-          method: "flickr.people.getPublicPhotos",
+          method: 'flickr.people.getPublicPhotos',
           api_key: API_KEY,
           user_id: USER_ID,
-          format: "json",
+          format: 'json',
           nojsoncallback: 1,
         },
       })
@@ -24,24 +24,24 @@ export const getPublicPhotosPromise = () =>
         if (imgs.photos.photo) {
           let res = imgs.data.photos.photo.map(
             (photo) =>
-              "https://farm" +
+              'https://farm' +
               photo.farm +
-              ".staticflickr.com/" +
+              '.staticflickr.com/' +
               photo.server +
-              "/" +
+              '/' +
               photo.id +
-              "_" +
+              '_' +
               photo.secret +
-              "_b.jpg"
+              '_b.jpg'
           );
 
           resolve({
-            status: "success",
-            msg: "getPublicPhotosPromise",
+            status: 'success',
+            msg: 'getPublicPhotosPromise',
             data: res,
           });
         } else {
-          console.log("no photo find");
+          console.log('no photo find');
           reject();
         }
       })
@@ -54,14 +54,14 @@ export const getPublicPhotosPromise = () =>
 export const getPhotoSetsPromise = () =>
   new Promise((resolve, reject) =>
     axios
-      .get("https://www.flickr.com/services/rest/", {
+      .get('https://www.flickr.com/services/rest/', {
         params: {
-          method: "flickr.photosets.getPhotos",
+          method: 'flickr.photosets.getPhotos',
           api_key: API_KEY,
           user_id: USER_ID,
           photoset_id: PHOTOSETS_ID,
-          extras: "url_h",
-          format: "json",
+          extras: 'url_h',
+          format: 'json',
           nojsoncallback: 1,
         },
       })
@@ -73,22 +73,22 @@ export const getPhotoSetsPromise = () =>
         if (imgs.photoset.photo) {
           let res = imgs.data.photoset.photo.map((photo) => photo.url_h);
           resolve({
-            status: "success",
-            msg: "getPhotoSetsPromise",
+            status: 'success',
+            msg: 'getPhotoSetsPromise',
             data: res,
           });
         } else {
           reject({
-            status: "error",
-            msg: "getPhotoSetsPromise Error: no photo find",
+            status: 'error',
+            msg: 'getPhotoSetsPromise Error: no photo find',
           });
         }
       })
       .catch((error) => {
         console.log(error);
         resolve({
-          status: "success",
-          msg: "error, use backup",
+          status: 'success',
+          msg: 'error, use backup',
           data: defaultImageList,
         });
       })

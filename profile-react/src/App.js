@@ -1,11 +1,7 @@
-import React, { useEffect, useState } from "react";
-import {
-  getPhotoSetsPromise,
-  getPublicPhotosPromise,
-} from "./flickrComponents/flickrApi";
-import { motion, AnimatePresence } from "framer-motion";
-import { indexData } from "./const";
-// import "./App.css";
+import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { getPhotoSetsPromise } from './flickrComponents/flickrApi';
+import { indexData } from './const';
 
 const App = () => {
   const [imgData, setImgData] = useState([]);
@@ -57,9 +53,7 @@ const App = () => {
         />
       </AnimatePresence>
       <div
-        className={`absolute top-0 bottom-0 left-0 right-0 border-4 border-white ${
-          isHover ? "backdrop-blur" : ""
-        }`}
+        className={`absolute top-0 bottom-0 left-0 right-0 border-4 border-white ${isHover ? 'backdrop-blur' : ''}`}
       ></div>
       <div
         // initial={{ scale: 0.95, opacity: 0 }}
@@ -78,13 +72,13 @@ const App = () => {
         <AnimatePresence exitBeforeEnter>
           <motion.div
             key={`text-${index}`}
-            initial={{ color: "#000000" }}
+            initial={{ color: '#000000' }}
             animate={{
-              color: "#ffffff",
+              color: '#ffffff',
               transition: { duration: 1 },
             }}
             exit={{
-              color: "#000000",
+              color: '#000000',
               transition: { duration: 1 },
             }}
             className="text-shadow w-full h-full font-index p-6 antialiased leading-10 tracking-widest"

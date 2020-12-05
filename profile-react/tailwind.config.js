@@ -1,5 +1,8 @@
 module.exports = {
-  purge: [],
+  purge: {
+    enabled: true,
+    content: ['./src/**/*.html', './src/**/*.jsx', './src/**/*.js'],
+  },
   theme: {
     // fontFamily: {
     //   sans: ["-apple-system", "BlinkMacSystemFont"],
@@ -10,18 +13,24 @@ module.exports = {
     // },
     extend: {
       colors: {
-        primary: "#FF6363",
+        primary: '#FF6363',
         secondary: {
-          100: "#E2E2D5",
-          200: "#888883",
+          100: '#E2E2D5',
+          200: '#888883',
         },
       },
       fontFamily: {
-        body: ["CloudKaiXingGBK"],
-        index: ["Vollkorn"],
+        body: ['CloudKaiXingGBK'],
+        index: ['Vollkorn'],
       },
     },
   },
-  variants: {},
+  variants: {
+    opacity: ['hover', 'disabled', 'focus'],
+    cursor: ['hover', 'disabled', 'focus'],
+  },
   plugins: [],
+  corePlugins: {
+    float: false,
+  },
 };
