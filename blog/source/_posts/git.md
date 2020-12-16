@@ -1,12 +1,63 @@
 ---
-title: Git
-date: 2018-06-19 14:11:40
+title: Git Note
+date: 2020-12-15 22:02:40
 tags: 
 - Linux
 - Windows
 - MacOS
 categories: Notes
 ---
+
+_Update -12/15/2020-_
+
+## Git pull error message
+`Pulling without specifying how to reconcile divergent branches is discouraged`
+
+```
+  git config pull.rebase false  # merge (the default strategy)
+```
+
+This is the existing default behaviour; set this for no warning, and no change in behaviour; `git` will merge the remote branch into your local one.
+
+```
+  git config pull.rebase true   # rebase
+```
+
+Here, `git` will attempt to rebase your changes on top of the remote branch. See [When should I use git pull --rebase?](https://stackoverflow.com/questions/2472254/when-should-i-use-git-pull-rebase) for more detail on why you might want that.
+
+```
+  git config pull.ff only       # fast-forward only
+```
+
+If a fast-forward merge is not possible, `git` will refuse to proceed. As [Difference between git pull --rebase and git pull --ff-only](https://stackoverflow.com/questions/25430600/difference-between-git-pull-rebase-and-git-pull-ff-only)
+
+## Git commit message style
+``` bash
+
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer]
+
+---
+
+feat: add hat wobble
+^--^  ^------------^
+|     |
+|     +-> Summary in present tense.
+|
++-------> Type: chore, docs, feat, fix, refactor, style, or test
+```
+
+More Examples:
+- `feat`: (new feature for the user, not a new feature for build script)
+- `fix`: (bug fix for the user, not a fix to a build script)
+- `docs`: (changes to the documentation)
+- `style`: (formatting, missing semi colons, etc; no production code change)
+- `refactor`: (refactoring production code, eg. renaming a variable)
+- `test`: (adding missing tests, refactoring tests; no production code change)
+- `chore`: (updating grunt tasks etc; no production code change)
 
 _Update -3/10/2020-_
 ## Git merge from other branch but isolate some file 
@@ -212,6 +263,7 @@ xclip -sel clip < ~/.ssh/id_rsa.pub
 #make config file local
 git config --global user.name "John Doe"
 git config --global user.email johndoe@example.com
+git config --global core.ignorecase false
 
 #check list
 git config --list
@@ -234,3 +286,10 @@ git config --list
 - [Git fetch和git pull的区别](https://blog.csdn.net/hudashi/article/details/7664457)
 - [git 拉取和获取 pull 和 fetch 区别](https://blog.csdn.net/u010094934/article/details/52775653)
 - [git pull 和 git fetch 有什么区别？](https://ruby-china.org/topics/15729)
+- [Changing capitalization of filenames in Git](https://stackoverflow.com/questions/10523849/changing-capitalization-of-filenames-in-git)
+- [I change the capitalization of a directory and Git doesn't seem to pick up on it](https://stackoverflow.com/questions/6899582/i-change-the-capitalization-of-a-directory-and-git-doesnt-seem-to-pick-up-on-it)
+- [Conventional Commits](https://www.conventionalcommits.org/)
+- [Semantic Commit Messages](https://seesparkbox.com/foundry/semantic_commit_messages)
+- [Git Commit Msg](http://karma-runner.github.io/1.0/dev/git-commit-msg.html)
+- [How are you writing a commit message?](https://dev.to/puritanic/how-are-you-writing-a-commit-message-1ih7)
+- [How to deal with this git warning? “Pulling without specifying how to reconcile divergent branches is discouraged”](https://stackoverflow.com/questions/62653114/how-to-deal-with-this-git-warning-pulling-without-specifying-how-to-reconcile)
