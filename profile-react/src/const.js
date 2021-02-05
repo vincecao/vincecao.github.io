@@ -10,7 +10,7 @@ export const indexData = {
     },
     {
       title: 'Resume',
-      link: './res/resume/Resume_03_09_2020.pdf',
+      link: './res/resume/Resume_02_04_2021.pdf',
       name: 'Resume',
     },
     {
