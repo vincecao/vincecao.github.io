@@ -68,6 +68,8 @@ $ nginx -s reload
 
 # OBS
 
+_Notice: the latest OBS version is not working, version 23-2-1 under windows is working as expected, could [download here](https://open-broadcaster-software.en.uptodown.com/windows/download/2048010) _
+
 ![](https://i.imgur.com/YEMZ9l4.png)
 
 ![](https://i.imgur.com/vyFMzwq.png)
