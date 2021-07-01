@@ -231,6 +231,51 @@ Arrays |
 Structs | 
 
 
+### Pointer
+
+```go
+func main() {
+	n := 0
+	add(&n) // pass address
+	fmt.Println(n)
+}
+
+func add(n *int) {
+	*n = *n + 1
+}
+```
+
+### struct
+
+```
+type cat struct {
+	name string
+	age int
+}
+
+func main() {
+	newCat := cat{name: "Kit", age: 3}
+	newCat.age = 4
+}
+
+```
+
+### Define new types
+
+```go
+type MyFloat float64
+
+func (n MyFloat) show() {
+	fmt.Println(n)
+}
+
+func main() {
+	var a MyFloat = 1.5
+	a.show()
+}
+
+```
+
 ## Ref
 
 - [Package builtin](https://golang.org/pkg/builtin/)
