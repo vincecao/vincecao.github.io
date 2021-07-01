@@ -1,0 +1,3238 @@
+<!DOCTYPE html>
+<html>
+    <!-- title -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="VINCEC">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="VINCEC">
+    <meta name="keywords" content="THE GREAT VINCE | VINCEC">
+    <meta name="description" content="">
+    <meta name="Cache-Control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>Ruby 学习笔记 · Vincec&#39;s Dimension</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/blog/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s 1;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= /blog/css/style.css?v=20180524 as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= /blog/css/mobile.css?v=20180524 media="(max-width: 980px)">
+    
+    <!-- <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" /> -->
+    <link rel="preload" href="/blog/css/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+        
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/blog/assets/favicon.ico" />
+    <!-- <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />     -->
+    <link rel="preload" href="/blog/scripts/webfontloader.min.js" as="script" />    
+    <!-- <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" /> -->
+    <link rel="preload" href="/blog/scripts/zepto.min.js" as="script" />
+    <link rel="preload" href="/blog/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/blog/font/Oswald-Regular.ttf" crossorigin>
+    <!-- <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin> -->
+    <link rel="preload" as="font" href="/blog/font/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-89931236-2"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-89931236-2');
+    </script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/blog/" >Vincec&#39;s Dimension</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">Ruby 学习笔记</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/blog/>Vincec's Dimension</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style=
+
+
+
+
+
+
+
+
+height:70vh;
+
+>
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(29, 29, 29, 1.5)), url(/blog/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            Ruby 学习笔记
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Ruby">Ruby</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count">1.7k</span> / Reading time: <span class="post-count">9 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2017/08/08</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+  
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/blog/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/blog/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="安装（不走rvm）"><a href="#安装（不走rvm）" class="headerlink" title="安装（不走rvm）"></a>安装（不走rvm）</h2><ul>
+<li>Manjaro下用Pacman装 ruby，nodejs：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; sudo pacman -S nodejs</span><br><span class="line">&gt; sudo pacman -S ruby</span><br></pre></td></tr></table></figure>
+<ul>
+<li>改.bashrc</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">nano ~/.bashrc</span><br><span class="line"><span class="comment">#add</span></span><br><span class="line"><span class="keyword">if</span> <span class="built_in">which</span> ruby &gt;/dev/null &amp;&amp; <span class="built_in">which</span> gem &gt;/dev/null; <span class="keyword">then</span></span><br><span class="line">PATH=<span class="string">&quot;<span class="subst">$(ruby -rubygems -e &#x27;puts Gem.user_dir&#x27;)</span>/bin:<span class="variable">$PATH</span>&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="built_in">exec</span> <span class="variable">$SHELL</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装rails（国内最好换源）</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo gem install rails --no-document</span><br><span class="line">gem update</span><br></pre></td></tr></table></figure>
+<ul>
+<li>国内换源（<a target="_blank" rel="noopener" href="https://gems.ruby-china.org/%EF%BC%89">https://gems.ruby-china.org/）</a></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; gem sources --add https://gems.ruby-china.org/ --remove https://rubygems.org/</span><br><span class="line">&gt; gem sources -l</span><br><span class="line">https://gems.ruby-china.org</span><br><span class="line"><span class="comment"># 确保只有 gems.ruby-china.org</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="初步使用"><a href="#初步使用" class="headerlink" title="初步使用"></a>初步使用</h2><ul>
+<li><p>安装barckets（-bin）</p>
+<p>  <code>yaourt barckets</code></p>
+</li>
+<li><p>或安装sublime</p>
+<p>  <code>yaourt sublime-text</code> / <code>sudo pacman -S sublime-text</code></p>
+</li>
+<li><p>或安装visual-code</p>
+<p>  <code>sudo pacman -S visual-studio-code</code></p>
+</li>
+<li><p>Rails</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; rails new HelloWorld</span><br><span class="line">&gt; <span class="built_in">cd</span> HelloWorld/</span><br><span class="line">&gt; rails g controller home  <span class="comment">#rails d controller home</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>编辑 <code>controllers/home_controller.rb</code></li>
+</ul>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HomeController</span> &lt; ApplicationController</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">index</span></span></span><br><span class="line">    <span class="keyword">end</span>   </span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>编辑 <code>views/home/index.html.erb</code></li>
+</ul>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello World</span><br></pre></td></tr></table></figure>
+<ul>
+<li>编辑 <code>configs/routes.rb</code></li>
+</ul>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Rails.application.routes.draw <span class="keyword">do</span></span><br><span class="line"><span class="comment"># For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html</span></span><br><span class="line">    root <span class="string">&quot;home#index&quot;</span></span><br><span class="line">	<span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Rails Server</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; rails s</span><br></pre></td></tr></table></figure>
+
+<h2 id="禁用caffee"><a href="#禁用caffee" class="headerlink" title="禁用caffee"></a>禁用caffee</h2><ul>
+<li>Terminal</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; rails d controller home</span><br></pre></td></tr></table></figure>
+<ul>
+<li>编辑<code>Gemfile</code>，注释<code>caffee</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">23 <span class="comment"># gem &#x27;coffee-rails&#x27;, &#x27;~&gt; 4.2&#x27;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>重新编辑 <code>controllers/home_controller.rb</code>，<code>views/home/index.html.erb</code>， <code>routes</code>可不动</p>
+</li>
+<li><p>Terminal</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; rake tmp:cache:clear</span><br></pre></td></tr></table></figure>
+<ul>
+<li>rails s</li>
+</ul>
+<h2 id="禁用turbolinks-容易和前端架构冲突，如react，轻量化可开启"><a href="#禁用turbolinks-容易和前端架构冲突，如react，轻量化可开启" class="headerlink" title="禁用turbolinks, 容易和前端架构冲突，如react，轻量化可开启"></a>禁用turbolinks, 容易和前端架构冲突，如react，轻量化可开启</h2><ul>
+<li>编辑<code>Gemfile</code>，注释<code>turbolinks</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">25 <span class="comment"># gem &#x27;turbolinks&#x27;, &#x27;~&gt; 5&#x27;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>重新编辑 <code>app/assets/javascripts/application.js</code>，删除</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">14</span> <span class="comment">//= require turbolinks</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>重新编辑 <code>app/views/layouts/application.html.erb</code>，更改</li>
+</ul>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">7</span>  &lt;%= stylesheet_link_tag    <span class="string">&#x27;application&#x27;</span>, <span class="symbol">media:</span> <span class="string">&#x27;all&#x27;</span>, <span class="string">&#x27;data-turbolinks-track&#x27;</span>: <span class="string">&#x27;reload&#x27;</span> %&gt;</span><br><span class="line"><span class="number">8</span>  &lt;%= javascript_include_tag <span class="string">&#x27;application&#x27;</span>, <span class="string">&#x27;data-turbolinks-track&#x27;</span>: <span class="string">&#x27;reload&#x27;</span> %&gt;</span><br><span class="line">-&gt;</span><br><span class="line"><span class="number">7</span>  &lt;%= stylesheet_link_tag    <span class="string">&#x27;application&#x27;</span>, <span class="symbol">media:</span> <span class="string">&#x27;all&#x27;</span> %&gt;</span><br><span class="line"><span class="number">8</span>  &lt;%= javascript_include_tag <span class="string">&#x27;application&#x27;</span> %&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Terminal</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; rake tmp:cache:clear</span><br></pre></td></tr></table></figure>
+<ul>
+<li>rails s</li>
+</ul>
+<hr>
+<h2 id="增加转跳-Get-页面"><a href="#增加转跳-Get-页面" class="headerlink" title="增加转跳 Get 页面"></a>增加转跳 Get 页面</h2><h3 id="增加-Get-在-config-routes-rb"><a href="#增加-Get-在-config-routes-rb" class="headerlink" title="增加 Get 在 config/routes.rb"></a>增加 Get 在 <code>config/routes.rb</code></h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Rails.application.routes.draw <span class="keyword">do</span></span><br><span class="line">  <span class="comment"># For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html</span></span><br><span class="line"></span><br><span class="line">    root <span class="string">&quot;home#index&quot;</span></span><br><span class="line"></span><br><span class="line">    get <span class="string">&quot;first&quot;</span>, <span class="symbol">to:</span> <span class="string">&quot;home#first&quot;</span></span><br><span class="line">    get <span class="string">&quot;second&quot;</span>, <span class="symbol">to:</span> <span class="string">&quot;home#second&quot;</span></span><br><span class="line">    get <span class="string">&quot;post/:id&quot;</span>, <span class="symbol">to:</span> <span class="string">&quot;home#show_post&quot;</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="def-controller-在app-controllers-home-controller-rb-也可不定义默认不报错"><a href="#def-controller-在app-controllers-home-controller-rb-也可不定义默认不报错" class="headerlink" title="def controller 在app/controllers/home_controller.rb (也可不定义默认不报错)"></a>def controller 在<code>app/controllers/home_controller.rb</code> (也可不定义默认不报错)</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HomeController</span> &lt; ApplicationController</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">index</span></span></span><br><span class="line">    <span class="keyword">end</span>   </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">first</span></span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">second</span></span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">show_post</span></span></span><br><span class="line">        <span class="variable">@TestName</span> = <span class="string">&quot;Test&quot;</span> <span class="comment">#@为全局变量</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="增加first-html-erb-second-html-erb-show-post-html-erb-在app-views-home-目录下"><a href="#增加first-html-erb-second-html-erb-show-post-html-erb-在app-views-home-目录下" class="headerlink" title="增加first.html.erb, second.html.erb, show_post.html.erb 在app/views/home/目录下"></a>增加<code>first.html.erb</code>, <code>second.html.erb</code>, <code>show_post.html.erb</code> 在<code>app/views/home/</code>目录下</h3><h2 id="显示所有routes"><a href="#显示所有routes" class="headerlink" title="显示所有routes"></a>显示所有routes</h2><p>需 cd 至 rubyrails 文件夹下运行， 如果在更子目录下会自动跳转至主目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; rake routes</span><br></pre></td></tr></table></figure>
+
+<h2 id="用ruby语法安全替换html语法（预防死链）"><a href="#用ruby语法安全替换html语法（预防死链）" class="headerlink" title="用ruby语法安全替换html语法（预防死链）"></a>用ruby语法安全替换html语法（预防死链）</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;%= link_to &quot;First&quot;, first_url %&gt;</span><br><span class="line"><span class="comment">&lt;!--path始终从根目录--&gt;</span></span><br><span class="line">&lt;%= link_to &quot;First&quot;, first_path %&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;%= link_to &quot;Second&quot;, second_path %&gt;</span><br><span class="line">&lt;%= link_to &quot;Posts/1&quot;, controller: :home, action: :show_post, id: 2, name: &#x27;NameInBar&#x27; %&gt;</span><br><span class="line">&lt;%= @testName %&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="对于具体Html安全操作的ruby语句"><a href="#对于具体Html安全操作的ruby语句" class="headerlink" title="对于具体Html安全操作的ruby语句"></a>对于具体Html安全操作的ruby语句</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;%= link_to &quot;<span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">&#x27;color: brown;&#x27;</span>&gt;</span>Hello<span class="tag">&lt;/<span class="name">h1</span>&gt;</span>&quot;.html_safe, root_path %&gt;</span><br><span class="line"><span class="comment">&lt;!--or--&gt;</span></span><br><span class="line">&lt;%= link_to raw(&quot;<span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">&#x27;color: brown;&#x27;</span>&gt;</span>Hello<span class="tag">&lt;/<span class="name">h1</span>&gt;</span>&quot;), root_path %&gt;</span><br><span class="line"><span class="comment">&lt;!--or--&gt;</span></span><br><span class="line">&lt;%= link_to root_path do %&gt;</span><br><span class="line">	<span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">&#x27;color: brown;&#x27;</span>&gt;</span>Hello<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">&lt;% end %&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="制作-partial-的-layout"><a href="#制作-partial-的-layout" class="headerlink" title="制作 partial 的 layout"></a>制作 partial 的 layout</h2><p>html.erb 端(比如，<code>app/views/layouts/application.html.erb</code>)</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	&lt;%= render partial: &#x27;layouts/nav&#x27; %&gt;</span><br><span class="line">	&lt;%= yield %&gt;</span><br><span class="line">	&lt;% if footerShow %&gt;</span><br><span class="line">		&lt;%= render partial: &#x27;layouts/footer&#x27; %&gt;</span><br><span class="line">	&lt;% end %&gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>layout 端，命名需加下划线（如，添加<code>_nav.html.erb</code>, <code>_footer.html.erb</code> 至 <code>app/views/layouts/</code>）</p>
+<h2 id="Ruby-precompile-feature"><a href="#Ruby-precompile-feature" class="headerlink" title="Ruby precompile feature"></a>Ruby precompile feature</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; rake assets: precompile <span class="comment">#为了改变每次cache，生成随机</span></span><br></pre></td></tr></table></figure>
+<h3 id="使用ruby链接至源文件（默认assets目录）"><a href="#使用ruby链接至源文件（默认assets目录）" class="headerlink" title="使用ruby链接至源文件（默认assets目录）"></a>使用ruby链接至源文件（默认assets目录）</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--图片保存在assets里. --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;&lt;%= image_path &quot;</span><span class="attr">1.jpg</span>&quot; %&gt;</span>&quot; &gt;</span><br><span class="line">&lt;%= image_tag &quot;34.jpg&quot; %&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--图片保存在`public/images`里,但无法被precompile. --&gt;</span></span><br><span class="line">&lt;%= image_tag &quot;/images/34.jpg&quot;, width: 300, hight: 200 %&gt;</span><br><span class="line">&lt;%= image_tag &quot;/images/34.jpg&quot;, style:&quot;width:300px; height: 200px;&quot; %&gt;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="增加字体-precompile"><a href="#增加字体-precompile" class="headerlink" title="增加字体 precompile"></a>增加字体 precompile</h2><h3 id="Add-fonts-scss-erb-file-first-do-ruby-then-css-先-ruby-再-css-in-app-assets-stylesheets"><a href="#Add-fonts-scss-erb-file-first-do-ruby-then-css-先-ruby-再-css-in-app-assets-stylesheets" class="headerlink" title="Add fonts.scss.erb file_(first do ruby then css 先 ruby 再 css)_ in app/assets/stylesheets/"></a>Add <code>fonts.scss.erb</code> file_(first do ruby then css 先 ruby 再 css)_ in <code>app/assets/stylesheets/</code></h3><p>For example, <code>https://fonts.google.com/specimen/Encode+Sans?selection.family=Encode+Sans</code></p>
+<p><code>app/assets/stylesheets/fonts.scss</code></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* latin-ext */</span></span><br><span class="line"><span class="keyword">@font-face</span> &#123;</span><br><span class="line">  <span class="attribute">font-family</span>: <span class="string">&#x27;Encode Sans&#x27;</span>;</span><br><span class="line">  <span class="attribute">font-style</span>: normal;</span><br><span class="line">  <span class="attribute">font-weight</span>: <span class="number">400</span>;</span><br><span class="line">  <span class="attribute">src</span>: <span class="built_in">local</span>(<span class="string">&#x27;Encode Sans Regular&#x27;</span>), <span class="built_in">local</span>(<span class="string">&#x27;EncodeSans-Regular&#x27;</span>), <span class="built_in">url</span>(<span class="string">&#x27;&lt;%= assets_url(&quot;EncodeSans-Regular.ttf&quot;)%&gt;&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;truetype&#x27;</span>);</span><br><span class="line">  <span class="attribute">unicode-range</span>: U+<span class="number">0100</span>-<span class="number">024</span>F, U+<span class="number">1</span>E00-<span class="number">1</span>EFF, U+<span class="number">20</span>A0-<span class="number">20</span>AB, U+<span class="number">20</span>AD-<span class="number">20</span>CF, U+<span class="number">2</span>C60-<span class="number">2</span>C7F, U+A720-A7FF;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* latin */</span></span><br><span class="line"><span class="keyword">@font-face</span> &#123;</span><br><span class="line">  <span class="attribute">font-family</span>: <span class="string">&#x27;Encode Sans&#x27;</span>;</span><br><span class="line">  <span class="attribute">font-style</span>: normal;</span><br><span class="line">  <span class="attribute">font-weight</span>: <span class="number">400</span>;</span><br><span class="line">  <span class="attribute">src</span>: <span class="built_in">local</span>(<span class="string">&#x27;Encode Sans Regular&#x27;</span>), <span class="built_in">local</span>(<span class="string">&#x27;EncodeSans-Regular&#x27;</span>), <span class="built_in">url</span>(<span class="string">&#x27;&lt;%= assets_url(&quot;EncodeSans-Regular.ttf&quot;)%&gt;&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;truetype&#x27;</span>);</span><br><span class="line">  <span class="attribute">unicode-range</span>: U+<span class="number">0000</span>-<span class="number">00</span>FF, U+<span class="number">0131</span>, U+<span class="number">0152</span>-<span class="number">0153</span>, U+<span class="number">02</span>C6, U+<span class="number">02</span>DA, U+<span class="number">02</span>DC, U+<span class="number">2000</span>-<span class="number">206</span>F, U+<span class="number">2074</span>, U+<span class="number">20</span>AC, U+<span class="number">2212</span>, U+<span class="number">2215</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>app/assets/stylesheets/application.css</code></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span>&#123;</span><br><span class="line">	<span class="attribute">ont-family</span>: <span class="string">&#x27;Encode Sans&#x27;</span>, sans-serif;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Add-fonts-folder-in-app-assets-and-copy-the-font-file"><a href="#Add-fonts-folder-in-app-assets-and-copy-the-font-file" class="headerlink" title="Add fonts folder in app/assets/ and copy the font file"></a>Add <code>fonts</code> folder in <code>app/assets/</code> and copy the font file</h3><p><a target="_blank" rel="noopener" href="https://fonts.google.com/specimen/Encode+Sans?selection.family=Encode+Sans">EncodeSans-Regular.ttf</a></p>
+<h3 id="config-initialzers-assets-rb-for-add-font-compile"><a href="#config-initialzers-assets-rb-for-add-font-compile" class="headerlink" title="config/initialzers/assets.rb for add font compile"></a><code>config/initialzers/assets.rb</code> for add font compile</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Add</span></span><br><span class="line">Rails.application.config.assets.paths &lt;&lt; Rails.root.join(<span class="string">&#x27;app&#x27;</span>, <span class="string">&#x27;asssets&#x27;</span>, <span class="string">&#x27;fonts&#x27;</span>)</span><br><span class="line">Rails.application.config.assets.precompile += <span class="string">%w( .svg .eot .woff .ttf)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="改变-app-assets-中-js-和-css-的加载顺序（不改变按照字母顺序加载）"><a href="#改变-app-assets-中-js-和-css-的加载顺序（不改变按照字母顺序加载）" class="headerlink" title="改变 app/assets/ 中 js 和 css 的加载顺序（不改变按照字母顺序加载）"></a>改变 <code>app/assets/</code> 中 js 和 css 的加载顺序（不改变按照字母顺序加载）</h2><p><code>app/assets/javascipts/application.js</code> （jq需手动下载）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//= require jquery/jquery-3.2.1.min</span></span><br><span class="line"><span class="comment">//= require_tree ./jquery</span></span><br><span class="line"><span class="comment">//= require z</span></span><br><span class="line"><span class="comment">//= require a</span></span><br></pre></td></tr></table></figure>
+
+<p><code>app/assets/javascipts/application.css</code></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*= require z</span><br><span class="line">*= require a</span><br></pre></td></tr></table></figure>
+
+<h2 id="增加-BootStrap"><a href="#增加-BootStrap" class="headerlink" title="增加 BootStrap"></a>增加 BootStrap</h2><ul>
+<li><h4 id="改-js"><a href="#改-js" class="headerlink" title="改 js"></a>改 js</h4><p><code>app/assets/javascipts/application.js</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//= require rails-ujs</span></span><br><span class="line"><span class="comment">//= require_tree ./jquery</span></span><br><span class="line"><span class="comment">//= require_tree ./bootstrap</span></span><br><span class="line"><span class="comment">//= require_tree .</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="改-css"><a href="#改-css" class="headerlink" title="改 css"></a>改 css</h4><p><code>app/assets/javascipts/application.css</code></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">*= require bootstrap/bootstrap</span><br><span class="line">*= require bootstrap/bootstrap-theme</span><br><span class="line">*= require_tree .</span><br><span class="line">*= require_self</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="改-font-为-precompile-或者-直接放至-public-文件夹下"><a href="#改-font-为-precompile-或者-直接放至-public-文件夹下" class="headerlink" title="改 font 为 precompile 或者 直接放至 public 文件夹下"></a>改 font 为 precompile 或者 直接放至 <code>public</code> 文件夹下</h4><p>change <code>app/assets/stylesheets/bootstrap.css/</code> to <code>app/assets/stylesheets/bootstrap.css.erb/</code><br>加入字体至 <code>app/assets/fonts/bootstrap/</code></p>
+</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@font-face</span> &#123;</span><br><span class="line">  <span class="attribute">font-family</span>: <span class="string">&#x27;Glyphicons Halflings&#x27;</span>;</span><br><span class="line">  <span class="attribute">src</span>: <span class="built_in">url</span>(<span class="string">&#x27;&lt;%= assets_url(&quot;bootstrap/glyphicons-halflings-regular.ttf&quot;)%&gt;&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;truetype&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用-Gem-安装-bootstrap-3"><a href="#使用-Gem-安装-bootstrap-3" class="headerlink" title="使用 Gem 安装 bootstrap 3"></a>使用 Gem 安装 bootstrap 3</h2><ul>
+<li><p><code>/Gemfile</code>改版本号</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gem <span class="string">&#x27;sass-rails&#x27;</span>, <span class="string">&#x27;-&gt; 5.0&#x27;</span></span><br><span class="line">gem <span class="string">&#x27;bootstrap-sass&#x27;</span>, <span class="string">&#x27;-&gt; 3.3.7&#x27;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>终端更新</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; bundle install</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>rename <code>application.css</code> to <code>application.scss</code></p>
+</li>
+<li><p>import Bootstrap style in <code>app/assets/stylesheets/application.scss</code></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@import</span> <span class="string">&quot;bootstrap-sprockets&quot;</span>;</span><br><span class="line"><span class="keyword">@import</span> <span class="string">&quot;bootstrap&quot;</span>;</span><br></pre></td></tr></table></figure></li>
+<li><p>调整js <code>app/assets/javascipts/application.js</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//= require jquery</span></span><br><span class="line"><span class="comment">//= require bootstrap-sprockets</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="只用-sass-丢进-RoR"><a href="#只用-sass-丢进-RoR" class="headerlink" title="*只用 sass 丢进 RoR"></a>*只用 sass 丢进 RoR</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://getbootstrap.com/getting-started/">下载sass</a></p>
+</li>
+<li><p>在 <code>app/assets</code> 放 <code>fonts</code>, <code>images</code>; <code>app/assets/javascript</code> 放 js； <code>app/assets/styelesheets</code>放 css</p>
+</li>
+<li><p>删掉 compile 的 js</p>
+</li>
+<li><p>调整js <code>app/assets/javascipts/application.js</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//= require jquery</span></span><br><span class="line"><span class="comment">//= require bootstrap-sprockets</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>rename <code>application.css</code> to <code>application.scss</code></p>
+</li>
+<li><p>调整<code>app/assets/stylesheets/application.scss</code>, <strong>remove all the <code>*= require_self</code> and <code>*= require_tree .</code>,</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@import</span> <span class="string">&quot;bootstrap-sprockets&quot;</span>;</span><br><span class="line"><span class="keyword">@import</span> <span class="string">&quot;bootstrap&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<hr>
+<h2 id="Rails-ruby-console-mode"><a href="#Rails-ruby-console-mode" class="headerlink" title="Rails ruby console mode"></a>Rails ruby console mode</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt; rails c</span><br><span class="line"></span><br><span class="line">a = <span class="string">&quot;aaa&quot;</span></span><br><span class="line">b = <span class="string">&quot;bbb&quot;</span></span><br><span class="line">a.<span class="keyword">class</span></span><br><span class="line">a.methods</span><br><span class="line">ab = a + b <span class="comment">#&quot;aaabbb&quot;</span></span><br><span class="line">ab = <span class="string">&quot;<span class="subst">#&#123;a&#125;</span><span class="subst">#&#123;b&#125;</span>&quot;</span> <span class="comment">#&quot;aaabbb&quot;</span></span><br><span class="line">ab = <span class="string">&#x27;<span class="subst">#&#123;a&#125;</span><span class="subst">#&#123;b&#125;</span>&#x27;</span> <span class="comment">#&quot;\#&#123;a&#125;\#&#123;b&#125;&quot;</span></span><br><span class="line">ab = <span class="string">&quot;a+b: <span class="subst">#&#123;a&#125;</span>, <span class="subst">#&#123;b&#125;</span>&quot;</span> <span class="comment">#&quot;a+b: aaa, bbb&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Hash"><a href="#Hash" class="headerlink" title="Hash"></a>Hash</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&gt; rails c</span><br><span class="line"></span><br><span class="line">o = &#123;&#125;</span><br><span class="line">o.<span class="keyword">class</span> <span class="comment">#hash</span></span><br><span class="line">o.a = <span class="string">&quot;a&quot;</span> <span class="comment">#!wrong</span></span><br><span class="line">o[<span class="string">&quot;a&quot;</span>] = <span class="string">&quot;a&quot;</span></span><br><span class="line">o[<span class="string">&quot;a&quot;</span>] <span class="comment">#&quot;a&quot;</span></span><br><span class="line">o.a <span class="comment">#!wrong</span></span><br><span class="line"></span><br><span class="line">o[<span class="symbol">:a</span>] = <span class="string">&quot;a1&quot;</span></span><br><span class="line">o[<span class="string">&quot;a&quot;</span>] = <span class="string">&quot;a2&quot;</span></span><br><span class="line"><span class="string">&quot;a&quot;</span>.to_sym <span class="comment">#:a</span></span><br><span class="line"><span class="string">&quot;a&quot;</span>.<span class="keyword">class</span> <span class="comment"># String</span></span><br><span class="line"><span class="symbol">:a</span>.<span class="keyword">class</span> <span class="comment"># Symbol 更有效率</span></span><br><span class="line"></span><br><span class="line">o = &#123; <span class="symbol">:a</span> =&gt; <span class="string">&quot;a&quot;</span> &#125; <span class="comment">#&#123;:a=&gt;&quot;a&quot;&#125;</span></span><br><span class="line">o = &#123; <span class="symbol">a:</span> <span class="string">&quot;a&quot;</span>&#125; <span class="comment">#&#123;:a=&gt;&quot;a&quot;&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p><code>app/controllers/home_controller.rb</code></p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HomeController</span> &lt; ApplicationController</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">index</span></span></span><br><span class="line">        <span class="variable">@ad</span> = &#123;</span><br><span class="line">            <span class="symbol">title:</span> <span class="string">&quot;大型广告&quot;</span>,</span><br><span class="line">            <span class="symbol">des:</span> <span class="string">&quot;这是一个广告&quot;</span>,</span><br><span class="line">            <span class="symbol">action_title:</span> <span class="string">&quot;点击&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">#<span class="doctag">@ad</span>_title = &quot;大型广告&quot;</span></span><br><span class="line">        <span class="comment">#<span class="doctag">@ad</span>_des = &quot;这是一个广告&quot;</span></span><br><span class="line">        <span class="comment">#<span class="doctag">@ad</span>_action_title = &quot;点击&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">end</span>   </span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p><code>app/views/home/index.html.erb</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;jumbotron col-xs-12&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span> &lt;%= @ad[:title] %&gt; <span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span> &lt;%= @ad[:des] %&gt; <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;btn btn-primary btn-lg&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span> <span class="attr">role</span>=<span class="string">&quot;button&quot;</span>&gt;</span> &lt;%= @ad[:action_title] %&gt; <span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p><em>more…</em></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://lvasquez.github.io/2014/08/10/Install-Ruby-on-Rails-Manjaro/">Install-Ruby-on-Rails-Manjaro/</a></li>
+<li><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/Ruby_on_Rails">Ruby_on_Rails</a></li>
+<li><a target="_blank" rel="noopener" href="https://gems.ruby-china.org/">ruby-china.org</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL2SrkGHjnWcxjbzuSI0k43hiIBJAqLHvh">Progress Bar</a></li>
+<li><a target="_blank" rel="noopener" href="https://getbootstrap.com/getting-started/">Bootstrap</a></li>
+<li><a target="_blank" rel="noopener" href="https://getbootstrap.com/docs/3.3/components/#navbar-forms/">Bootstrap CSS component</a></li>
+</ul>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>Author: <a href="https://vince-amazing/blog">VINCEC</a>
+            <p>Permalink: <a href="https://vince-amazing/blog/2017/08/08/ruby-learning-note/">https://vince-amazing/blog/2017/08/08/ruby-learning-note/</a>
+            <p>Date: <a href="https://vince-amazing/blog/2017/08/08/ruby-learning-note/">August 8th 2017, 1:43:39</a>
+            <p>Copyright license: The article using<a rel="license noopener" target="_blank" href="//creativecommons.org/licenses/by-nc/4.0/">CC licensing 4.0</a></p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/blog/2017/08/08/dns/" title= DNS相关 >
+                    <div class="nextTitle">DNS相关</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/blog/2017/05/02/bilibili-get-xml/" title= b站转跳到弹幕xml的网站 >
+                    <div class="prevTitle">b站转跳到弹幕xml的网站</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:linengca@usc.edu" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/vincecao" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="//instagram.com/__viiiince" class="iconfont-archer instagram" target="_blank" title=instagram></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="//linkedin.com/in/lineng-vince-cao-36b693121" class="iconfont-archer linkedin" target="_blank" title=linkedin></a>
+            
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a><span class="iconfont-archer power">&#xe635;</span>Vince Modified</span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:70vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%EF%BC%88%E4%B8%8D%E8%B5%B0rvm%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">安装（不走rvm）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E6%AD%A5%E4%BD%BF%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">初步使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A6%81%E7%94%A8caffee"><span class="toc-number">3.</span> <span class="toc-text">禁用caffee</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A6%81%E7%94%A8turbolinks-%E5%AE%B9%E6%98%93%E5%92%8C%E5%89%8D%E7%AB%AF%E6%9E%B6%E6%9E%84%E5%86%B2%E7%AA%81%EF%BC%8C%E5%A6%82react%EF%BC%8C%E8%BD%BB%E9%87%8F%E5%8C%96%E5%8F%AF%E5%BC%80%E5%90%AF"><span class="toc-number">4.</span> <span class="toc-text">禁用turbolinks, 容易和前端架构冲突，如react，轻量化可开启</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A2%9E%E5%8A%A0%E8%BD%AC%E8%B7%B3-Get-%E9%A1%B5%E9%9D%A2"><span class="toc-number">5.</span> <span class="toc-text">增加转跳 Get 页面</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A2%9E%E5%8A%A0-Get-%E5%9C%A8-config-routes-rb"><span class="toc-number">5.1.</span> <span class="toc-text">增加 Get 在 config&#x2F;routes.rb</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#def-controller-%E5%9C%A8app-controllers-home-controller-rb-%E4%B9%9F%E5%8F%AF%E4%B8%8D%E5%AE%9A%E4%B9%89%E9%BB%98%E8%AE%A4%E4%B8%8D%E6%8A%A5%E9%94%99"><span class="toc-number">5.2.</span> <span class="toc-text">def controller 在app&#x2F;controllers&#x2F;home_controller.rb (也可不定义默认不报错)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A2%9E%E5%8A%A0first-html-erb-second-html-erb-show-post-html-erb-%E5%9C%A8app-views-home-%E7%9B%AE%E5%BD%95%E4%B8%8B"><span class="toc-number">5.3.</span> <span class="toc-text">增加first.html.erb, second.html.erb, show_post.html.erb 在app&#x2F;views&#x2F;home&#x2F;目录下</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E6%89%80%E6%9C%89routes"><span class="toc-number">6.</span> <span class="toc-text">显示所有routes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8ruby%E8%AF%AD%E6%B3%95%E5%AE%89%E5%85%A8%E6%9B%BF%E6%8D%A2html%E8%AF%AD%E6%B3%95%EF%BC%88%E9%A2%84%E9%98%B2%E6%AD%BB%E9%93%BE%EF%BC%89"><span class="toc-number">7.</span> <span class="toc-text">用ruby语法安全替换html语法（预防死链）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E4%BA%8E%E5%85%B7%E4%BD%93Html%E5%AE%89%E5%85%A8%E6%93%8D%E4%BD%9C%E7%9A%84ruby%E8%AF%AD%E5%8F%A5"><span class="toc-number">8.</span> <span class="toc-text">对于具体Html安全操作的ruby语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%B6%E4%BD%9C-partial-%E7%9A%84-layout"><span class="toc-number">9.</span> <span class="toc-text">制作 partial 的 layout</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ruby-precompile-feature"><span class="toc-number">10.</span> <span class="toc-text">Ruby precompile feature</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8ruby%E9%93%BE%E6%8E%A5%E8%87%B3%E6%BA%90%E6%96%87%E4%BB%B6%EF%BC%88%E9%BB%98%E8%AE%A4assets%E7%9B%AE%E5%BD%95%EF%BC%89"><span class="toc-number">10.1.</span> <span class="toc-text">使用ruby链接至源文件（默认assets目录）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A2%9E%E5%8A%A0%E5%AD%97%E4%BD%93-precompile"><span class="toc-number">11.</span> <span class="toc-text">增加字体 precompile</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Add-fonts-scss-erb-file-first-do-ruby-then-css-%E5%85%88-ruby-%E5%86%8D-css-in-app-assets-stylesheets"><span class="toc-number">11.1.</span> <span class="toc-text">Add fonts.scss.erb file_(first do ruby then css 先 ruby 再 css)_ in app&#x2F;assets&#x2F;stylesheets&#x2F;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Add-fonts-folder-in-app-assets-and-copy-the-font-file"><span class="toc-number">11.2.</span> <span class="toc-text">Add fonts folder in app&#x2F;assets&#x2F; and copy the font file</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#config-initialzers-assets-rb-for-add-font-compile"><span class="toc-number">11.3.</span> <span class="toc-text">config&#x2F;initialzers&#x2F;assets.rb for add font compile</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%B9%E5%8F%98-app-assets-%E4%B8%AD-js-%E5%92%8C-css-%E7%9A%84%E5%8A%A0%E8%BD%BD%E9%A1%BA%E5%BA%8F%EF%BC%88%E4%B8%8D%E6%94%B9%E5%8F%98%E6%8C%89%E7%85%A7%E5%AD%97%E6%AF%8D%E9%A1%BA%E5%BA%8F%E5%8A%A0%E8%BD%BD%EF%BC%89"><span class="toc-number">12.</span> <span class="toc-text">改变 app&#x2F;assets&#x2F; 中 js 和 css 的加载顺序（不改变按照字母顺序加载）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A2%9E%E5%8A%A0-BootStrap"><span class="toc-number">13.</span> <span class="toc-text">增加 BootStrap</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%94%B9-js"><span class="toc-number">13.0.1.</span> <span class="toc-text">改 js</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%94%B9-css"><span class="toc-number">13.0.2.</span> <span class="toc-text">改 css</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%94%B9-font-%E4%B8%BA-precompile-%E6%88%96%E8%80%85-%E7%9B%B4%E6%8E%A5%E6%94%BE%E8%87%B3-public-%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8B"><span class="toc-number">13.0.3.</span> <span class="toc-text">改 font 为 precompile 或者 直接放至 public 文件夹下</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Gem-%E5%AE%89%E8%A3%85-bootstrap-3"><span class="toc-number">14.</span> <span class="toc-text">使用 Gem 安装 bootstrap 3</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AA%E7%94%A8-sass-%E4%B8%A2%E8%BF%9B-RoR"><span class="toc-number">15.</span> <span class="toc-text">*只用 sass 丢进 RoR</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Rails-ruby-console-mode"><span class="toc-number">16.</span> <span class="toc-text">Rails ruby console mode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hash"><span class="toc-number">17.</span> <span class="toc-text">Hash</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8"><span class="toc-number">17.1.</span> <span class="toc-text">应用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">18.</span> <span class="toc-text">Reference</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 108 </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2021 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/19</span><a class="archive-post-title" href= "/blog/2021/06/19/go-lang-notes/" >Go Language Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/21</span><a class="archive-post-title" href= "/blog/2021/03/21/ux-design-learning-notes/" >UX Design Learning Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/17</span><a class="archive-post-title" href= "/blog/2021/01/17/move-to-chrome-os-with-my-hp/" >Chrome OS on my HP Elitebook 840 G5 & Installation</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/blog/2020/12/15/git/" >Git Note</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/11</span><a class="archive-post-title" href= "/blog/2020/03/11/set-up-nginx-streaming-media-server/" >Set up Nginx Streaming Media Server</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/29</span><a class="archive-post-title" href= "/blog/2019/09/29/docker-notes/" >Docker Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/27</span><a class="archive-post-title" href= "/blog/2019/09/27/mongodb-notes/" >Mongodb Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/02</span><a class="archive-post-title" href= "/blog/2019/08/02/anyconnection-setup-and-config/" >AnyConnect Server(Ocserv) & Client(Openwrt, Linux, Windows & Mac) Configuares</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/07</span><a class="archive-post-title" href= "/blog/2019/07/07/make-emby-plex-work-with-external-ntfs/" >Make Emby(Plex) support nfts external hdd driver</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/01</span><a class="archive-post-title" href= "/blog/2019/07/01/ibus-final-in-linux/" >ibus Chinese input config - finally</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/25</span><a class="archive-post-title" href= "/blog/2019/06/25/arduino-notes/" >Arduino Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/24</span><a class="archive-post-title" href= "/blog/2019/06/24/bit-operate-with-unsign/" >Bit Operate with Unsigned Integer</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/blog/2019/06/12/sort-review/" >Sort Review</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/10</span><a class="archive-post-title" href= "/blog/2019/06/10/desktop-app-converter-note/" >Desktop App Converter Note</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/08</span><a class="archive-post-title" href= "/blog/2019/06/08/tree-review/" >Tree Review</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/05</span><a class="archive-post-title" href= "/blog/2019/06/05/vSymLinks/" >vSymLinks - for Windows Symbolic Links</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/blog/2019/05/30/vconsole/" >vConsole</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/27</span><a class="archive-post-title" href= "/blog/2019/05/27/structure-review/" >Java Sytax & Structure Review</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/17</span><a class="archive-post-title" href= "/blog/2019/05/17/csharp-syntax-notes/" >C# Syntax Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/25</span><a class="archive-post-title" href= "/blog/2019/04/25/gifsicle-usage/" >Gifsicle - powerful tools for gif on web</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span><a class="archive-post-title" href= "/blog/2019/03/07/angular-notes/" >Angular7 Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span><a class="archive-post-title" href= "/blog/2019/03/07/bootstrap-notes/" >Bootstrap Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/18</span><a class="archive-post-title" href= "/blog/2019/02/18/javascript-notes/" >Javascript Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span><a class="archive-post-title" href= "/blog/2019/02/13/regex-notes/" >Regual Expressions Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span><a class="archive-post-title" href= "/blog/2019/02/03/android-notes/" >Android Development Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/29</span><a class="archive-post-title" href= "/blog/2019/01/29/nodejs-notes/" >NodeJS Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/25</span><a class="archive-post-title" href= "/blog/2019/01/25/sql-notes/" >SQL Notes</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href= "/blog/2018/11/26/lecture-alg-randomized-review-note/" >Algorithm Review Notes - Randomized Algorithms</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href= "/blog/2018/11/26/lecture-alg-approx-review-note/" >Algorithm Review Notes - Approximation Algorithms</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href= "/blog/2018/11/26/lecture-alg-lp-review-note/" >Algorithm Review Notes - Linear Programming</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href= "/blog/2018/11/26/lecture-alg-np-review-note/" >Algorithm Review Notes - NP Problem</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/25</span><a class="archive-post-title" href= "/blog/2018/11/25/lecture-alg-network-flow-review-note/" >Algorithm Review Notes - Network Flow</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/25</span><a class="archive-post-title" href= "/blog/2018/11/25/lecture-alg-dp-review-note/" >Algorithm Review Notes - Dynamic Programming</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/22</span><a class="archive-post-title" href= "/blog/2018/11/22/lecture-ai-learning-review-note/" >AI Review Note - Learning</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/21</span><a class="archive-post-title" href= "/blog/2018/11/21/lecture-ai-probability-review-note/" >AI Review Note - Probability</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/21</span><a class="archive-post-title" href= "/blog/2018/11/21/dell-latitude-7390-hackintosh/" >Dell Latitude 7390 Hackintosh Mojave</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/19</span><a class="archive-post-title" href= "/blog/2018/11/19/solus-efi-repair/" >Solus Efi Repair</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/27</span><a class="archive-post-title" href= "/blog/2018/10/27/install-davinci-on-elementry-os/" >Install DaVinCi 15 on Elementry OS</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/23</span><a class="archive-post-title" href= "/blog/2018/10/23/lecture-ai-logic-review-note/" >AI Review Note - Logic</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/13</span><a class="archive-post-title" href= "/blog/2018/10/13/zenbook-pro-ux550ge-linux-tweaks/" >Asus Zenbook Pro UX550GE Linux Configure</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/blog/2018/10/04/lecture-alg-search-review-note/" >Algorithm Review Notes - Search Methods</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/02</span><a class="archive-post-title" href= "/blog/2018/09/02/good-bye-thinkpad-hello-ipad/" >Welcome new arrived iPad Pro and its friends</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href= "/blog/2018/08/21/upgrade-the-wireless-card-intel-9260/" >Upgraded My Wireless Adapter for 720s 13ARR with Intel 9260</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/05</span><a class="archive-post-title" href= "/blog/2018/08/05/taobao-a-lot/" >淘宝了一些东西</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/01</span><a class="archive-post-title" href= "/blog/2018/08/01/change-chrome-in-fresh-look/" >Chrome 新 UI</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/03</span><a class="archive-post-title" href= "/blog/2018/07/03/php-visual-studio-code-setting/" >在 VS Code 中配置 php</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/03</span><a class="archive-post-title" href= "/blog/2018/07/03/mustache-templates/" >Some examples of using Mustache templates.</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/02</span><a class="archive-post-title" href= "/blog/2018/07/02/fix-flex-in-ie/" >Let IE9 Support Flex?</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/01</span><a class="archive-post-title" href= "/blog/2018/07/01/vnormalize-css/" >Vincec Normalize CSS - vnorm.css</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/30</span><a class="archive-post-title" href= "/blog/2018/06/30/php-learning-notes/" >PHP Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/28</span><a class="archive-post-title" href= "/blog/2018/06/28/make-bash-and-npm-work-in-windows/" >在 Windows 下优雅使用 npm 和 git bash</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/28</span><a class="archive-post-title" href= "/blog/2018/06/28/symbolic-link/" >Symbolic Links</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/27</span><a class="archive-post-title" href= "/blog/2018/06/27/linux-cpu-stress/" >Linux CPU 压力测试</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/21</span><a class="archive-post-title" href= "/blog/2018/06/21/setup-blog-on-gitlab-page/" >部署你的博客到 Gitlab page</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/20</span><a class="archive-post-title" href= "/blog/2018/06/20/react-web-note/" >React for web 学习笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/20</span><a class="archive-post-title" href= "/blog/2018/06/20/rc-local/" >在 Linux 启动的时候加载自定义脚本自己的 —— rc.local</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/19</span><a class="archive-post-title" href= "/blog/2018/06/19/opensuse-tumbleweed-notes/" >Opensuse Tumbleweed 大蜥蜴的配置清单</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/19</span><a class="archive-post-title" href= "/blog/2018/06/19/grub-note/" >Linux 下 Grub 的各种问题笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/15</span><a class="archive-post-title" href= "/blog/2018/06/15/macbook-jpn-keyboard-rice/" >Macbook 日版键盘终极解决方案（伪）—— Karabiner</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/15</span><a class="archive-post-title" href= "/blog/2018/06/15/nodejs-webpack3-learn-notes/" >Nodejs - Webpack3 学习笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/10</span><a class="archive-post-title" href= "/blog/2018/06/10/fake-elecom-dux-open-box/" >Elecom DUX70BK, a mouse for MMORPG players</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span><a class="archive-post-title" href= "/blog/2018/06/01/lenovo-does-not-love-amd/" >Lenovo 720s 13ARR Bios Manual Update to 6KCN38WW</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span><a class="archive-post-title" href= "/blog/2018/06/01/vincec-side-nav/" >VINCEC Side Navegation Bar</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/blog/2018/05/30/opera-is-suge/" >Opera 大佬真厉害</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/29</span><a class="archive-post-title" href= "/blog/2018/05/29/fire-hd-10-rice/" >(7/28/2018 updated) Fire HD 10 tablet 7 Tweaks and Root tutorial</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/15</span><a class="archive-post-title" href= "/blog/2018/05/15/ss-ssr/" >酸酸 和 酸酸乳</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/23</span><a class="archive-post-title" href= "/blog/2018/04/23/linux-software/" >Linux 的日常安利集合</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span><a class="archive-post-title" href= "/blog/2018/04/20/ubuntu-18-04-notes/" >Ubuntu 18.04 配置笔记 (720s)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span><a class="archive-post-title" href= "/blog/2018/04/20/lenovo-720s/" >新的神坑 720s 13ARR Ryzen</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/blog/2018/04/15/linux-i3-configuation/" >我的 i3 桌面配置笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/08</span><a class="archive-post-title" href= "/blog/2018/04/08/my-manjaro-setup-II/" >我的 Manjaro 配置 Mark II</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2017 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/09</span><a class="archive-post-title" href= "/blog/2017/10/09/unblock-flickr-downloader/" >VINCEC's Flickr Downloader / VINCEC Flickr 原图下载器</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/29</span><a class="archive-post-title" href= "/blog/2017/09/29/my-manjaro-setup/" >我的 Manjaro 配置</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/08</span><a class="archive-post-title" href= "/blog/2017/08/08/dns/" >DNS相关</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/08</span><a class="archive-post-title" href= "/blog/2017/08/08/ruby-learning-note/" >Ruby 学习笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/02</span><a class="archive-post-title" href= "/blog/2017/05/02/bilibili-get-xml/" >b站转跳到弹幕xml的网站</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/26</span><a class="archive-post-title" href= "/blog/2017/03/26/uwp-learning-note/" >UWP LEARNING</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/07</span><a class="archive-post-title" href= "/blog/2017/01/07/zerochan-anime-searcher-in-uwp/" >Zerochan Anime Searcher UWP</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span><a class="archive-post-title" href= "/blog/2017/01/05/swift/" >Swift3</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2016 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/05</span><a class="archive-post-title" href= "/blog/2016/12/05/online-vince-crypography-toolkit/" >Online Vince Crypography Toolkits</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/15</span><a class="archive-post-title" href= "/blog/2016/08/15/a-html-page-with-tab-features/" >A html page with tab features</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/24</span><a class="archive-post-title" href= "/blog/2016/06/24/nvidia-Shield-rice/" >Nvidia Shield 折腾记－吐血篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/18</span><a class="archive-post-title" href= "/blog/2016/06/18/collage-ranking/" >College Select</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/08</span><a class="archive-post-title" href= "/blog/2016/06/08/my-gaokao/" >我的高考</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/29</span><a class="archive-post-title" href= "/blog/2016/05/29/google-scared-me/" >妈妈呀谷歌好可怕</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/26</span><a class="archive-post-title" href= "/blog/2016/05/26/the-meaning-of-camera/" >相机的意义</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/20</span><a class="archive-post-title" href= "/blog/2016/05/20/dian-dian-is-dead/" >辛苦弄起来的点点图床都跟别人跑啦</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2015 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/27</span><a class="archive-post-title" href= "/blog/2015/10/27/build-a-bike/" >花闲钱自己组了辆车，妈妈再也不用担心我的动手能力</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/01</span><a class="archive-post-title" href= "/blog/2015/02/01/lucky-day/" >今天难道是我的幸运日吗</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/30</span><a class="archive-post-title" href= "/blog/2015/01/30/unkonwn-title/" >无题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/15</span><a class="archive-post-title" href= "/blog/2015/01/15/no-one-knows-my-closet-even-me/" >呀趴里，寝室衣柜的结构我一个学期都不曾弄明白</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/14</span><a class="archive-post-title" href= "/blog/2015/01/14/09-26-and-11/" >反正也没人看的看了也白看的 09，26和11</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/11</span><a class="archive-post-title" href= "/blog/2015/01/11/music-recomm/" >Music</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/10</span><a class="archive-post-title" href= "/blog/2015/01/10/time-to-sleep/" >该睡觉了</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2014 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/23</span><a class="archive-post-title" href= "/blog/2014/09/23/ios-app-recomm/" >推荐几款个人很喜欢的IOS应用好了</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/18</span><a class="archive-post-title" href= "/blog/2014/09/18/back-to-acg/" >杀回二次元</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/11</span><a class="archive-post-title" href= "/blog/2014/09/11/japanese-calligraphy/" >签名神软——日文書法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/03</span><a class="archive-post-title" href= "/blog/2014/09/03/keys/" >若干软件通用密钥</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/31</span><a class="archive-post-title" href= "/blog/2014/08/31/hand-to-hand-to-shanxun-wifi/" >“手把手”教你WKU闪讯连接WIFI</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/26</span><a class="archive-post-title" href= "/blog/2014/08/26/new-domain/" >换了新域名</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/22</span><a class="archive-post-title" href= "/blog/2014/08/22/mac-postvideo-app/" >MAC上的后期相关APP来一发</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/13</span><a class="archive-post-title" href= "/blog/2014/08/13/kulucolo-benefit-diary/" >KuluColo的完善日记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/05</span><a class="archive-post-title" href= "/blog/2014/08/05/windows-font-rander/" >能使你的Windows字体显示效果接近Mac？</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/04</span><a class="archive-post-title" href= "/blog/2014/08/04/free-vpn-vppn/" >分享免费试用的日本vpn——vppn</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/24</span><a class="archive-post-title" href= "/blog/2014/07/24/music-manage/" >音乐管理，Media Go 还是 iTunes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/19</span><a class="archive-post-title" href= "/blog/2014/07/19/broswer-a-to-z/" >浏览器A到Z</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/19</span><a class="archive-post-title" href= "/blog/2014/07/19/link-your-router/" >将你家的路由器“串联”起来吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/17</span><a class="archive-post-title" href= "/blog/2014/07/17/hello-sekai/" >Hello Sekai</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="随笔"><span class="iconfont-archer">&#xe606;</span>随笔</span>
+    
+        <span class="sidebar-tag-name" data-tags="Javascript"><span class="iconfont-archer">&#xe606;</span>Javascript</span>
+    
+        <span class="sidebar-tag-name" data-tags="Angular"><span class="iconfont-archer">&#xe606;</span>Angular</span>
+    
+        <span class="sidebar-tag-name" data-tags="科学"><span class="iconfont-archer">&#xe606;</span>科学</span>
+    
+        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="Windows"><span class="iconfont-archer">&#xe606;</span>Windows</span>
+    
+        <span class="sidebar-tag-name" data-tags="MacOS"><span class="iconfont-archer">&#xe606;</span>MacOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="IOS"><span class="iconfont-archer">&#xe606;</span>IOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
+    
+        <span class="sidebar-tag-name" data-tags="C++"><span class="iconfont-archer">&#xe606;</span>C++</span>
+    
+        <span class="sidebar-tag-name" data-tags="Anime"><span class="iconfont-archer">&#xe606;</span>Anime</span>
+    
+        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
+    
+        <span class="sidebar-tag-name" data-tags="Leetcode"><span class="iconfont-archer">&#xe606;</span>Leetcode</span>
+    
+        <span class="sidebar-tag-name" data-tags="生活"><span class="iconfont-archer">&#xe606;</span>生活</span>
+    
+        <span class="sidebar-tag-name" data-tags="教程"><span class="iconfont-archer">&#xe606;</span>教程</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tutorial"><span class="iconfont-archer">&#xe606;</span>Tutorial</span>
+    
+        <span class="sidebar-tag-name" data-tags="Csharp"><span class="iconfont-archer">&#xe606;</span>Csharp</span>
+    
+        <span class="sidebar-tag-name" data-tags="UWP"><span class="iconfont-archer">&#xe606;</span>UWP</span>
+    
+        <span class="sidebar-tag-name" data-tags="KuluColo"><span class="iconfont-archer">&#xe606;</span>KuluColo</span>
+    
+        <span class="sidebar-tag-name" data-tags="Blog"><span class="iconfont-archer">&#xe606;</span>Blog</span>
+    
+        <span class="sidebar-tag-name" data-tags="剁手 / Chopping Hands"><span class="iconfont-archer">&#xe606;</span>剁手 / Chopping Hands</span>
+    
+        <span class="sidebar-tag-name" data-tags="CSS"><span class="iconfont-archer">&#xe606;</span>CSS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Gif"><span class="iconfont-archer">&#xe606;</span>Gif</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tools"><span class="iconfont-archer">&#xe606;</span>Tools</span>
+    
+        <span class="sidebar-tag-name" data-tags="Go"><span class="iconfont-archer">&#xe606;</span>Go</span>
+    
+        <span class="sidebar-tag-name" data-tags="技巧"><span class="iconfont-archer">&#xe606;</span>技巧</span>
+    
+        <span class="sidebar-tag-name" data-tags="Course"><span class="iconfont-archer">&#xe606;</span>Course</span>
+    
+        <span class="sidebar-tag-name" data-tags="Algorithm"><span class="iconfont-archer">&#xe606;</span>Algorithm</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tips"><span class="iconfont-archer">&#xe606;</span>Tips</span>
+    
+        <span class="sidebar-tag-name" data-tags="Nodejs"><span class="iconfont-archer">&#xe606;</span>Nodejs</span>
+    
+        <span class="sidebar-tag-name" data-tags="ChromeOS"><span class="iconfont-archer">&#xe606;</span>ChromeOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Laptop"><span class="iconfont-archer">&#xe606;</span>Laptop</span>
+    
+        <span class="sidebar-tag-name" data-tags="Music"><span class="iconfont-archer">&#xe606;</span>Music</span>
+    
+        <span class="sidebar-tag-name" data-tags="html"><span class="iconfont-archer">&#xe606;</span>html</span>
+    
+        <span class="sidebar-tag-name" data-tags="Crypography"><span class="iconfont-archer">&#xe606;</span>Crypography</span>
+    
+        <span class="sidebar-tag-name" data-tags="Made-bt-V"><span class="iconfont-archer">&#xe606;</span>Made-bt-V</span>
+    
+        <span class="sidebar-tag-name" data-tags="PHP"><span class="iconfont-archer">&#xe606;</span>PHP</span>
+    
+        <span class="sidebar-tag-name" data-tags="Html"><span class="iconfont-archer">&#xe606;</span>Html</span>
+    
+        <span class="sidebar-tag-name" data-tags="Ruby"><span class="iconfont-archer">&#xe606;</span>Ruby</span>
+    
+        <span class="sidebar-tag-name" data-tags="SQL"><span class="iconfont-archer">&#xe606;</span>SQL</span>
+    
+        <span class="sidebar-tag-name" data-tags="Database"><span class="iconfont-archer">&#xe606;</span>Database</span>
+    
+        <span class="sidebar-tag-name" data-tags="Swift"><span class="iconfont-archer">&#xe606;</span>Swift</span>
+    
+        <span class="sidebar-tag-name" data-tags="ux-design"><span class="iconfont-archer">&#xe606;</span>ux-design</span>
+    
+        <span class="sidebar-tag-name" data-tags="CSS3"><span class="iconfont-archer">&#xe606;</span>CSS3</span>
+    
+        <span class="sidebar-tag-name" data-tags="Bootstrap"><span class="iconfont-archer">&#xe606;</span>Bootstrap</span>
+    
+        <span class="sidebar-tag-name" data-tags="React"><span class="iconfont-archer">&#xe606;</span>React</span>
+    
+        <span class="sidebar-tag-name" data-tags="CSharp"><span class="iconfont-archer">&#xe606;</span>CSharp</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="Life"><span class="iconfont-archer">&#xe60a;</span>Life</span>
+    
+        <span class="sidebar-category-name" data-categories="Rice"><span class="iconfont-archer">&#xe60a;</span>Rice</span>
+    
+        <span class="sidebar-category-name" data-categories="Notes"><span class="iconfont-archer">&#xe60a;</span>Notes</span>
+    
+        <span class="sidebar-category-name" data-categories="Config"><span class="iconfont-archer">&#xe60a;</span>Config</span>
+    
+        <span class="sidebar-category-name" data-categories="Path"><span class="iconfont-archer">&#xe60a;</span>Path</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: '/blog/',
+        author: 'VINCEC'
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/blog/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/blog/scripts/main.js"></script>
+    <!-- busuanzi  -->
+    
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/blog/scripts/share.js" async></script>    
+    
+    </body>
+</html>
+
+

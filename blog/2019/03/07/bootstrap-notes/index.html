@@ -1,0 +1,3375 @@
+<!DOCTYPE html>
+<html>
+    <!-- title -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="VINCEC">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="VINCEC">
+    <meta name="keywords" content="THE GREAT VINCE | VINCEC">
+    <meta name="description" content="">
+    <meta name="Cache-Control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>Bootstrap Notes · Vincec&#39;s Dimension</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/blog/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s 1;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= /blog/css/style.css?v=20180524 as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= /blog/css/mobile.css?v=20180524 media="(max-width: 980px)">
+    
+    <!-- <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" /> -->
+    <link rel="preload" href="/blog/css/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+        
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/blog/assets/favicon.ico" />
+    <!-- <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />     -->
+    <link rel="preload" href="/blog/scripts/webfontloader.min.js" as="script" />    
+    <!-- <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" /> -->
+    <link rel="preload" href="/blog/scripts/zepto.min.js" as="script" />
+    <link rel="preload" href="/blog/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/blog/font/Oswald-Regular.ttf" crossorigin>
+    <!-- <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin> -->
+    <link rel="preload" as="font" href="/blog/font/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-89931236-2"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-89931236-2');
+    </script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/blog/" >Vincec&#39;s Dimension</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">Bootstrap Notes</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/blog/>Vincec's Dimension</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style=
+
+
+
+
+
+
+
+
+height:70vh;
+
+>
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(29, 29, 29, 1.5)), url(/blog/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            Bootstrap Notes
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Javascript">Javascript</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "CSS">CSS</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Bootstrap">Bootstrap</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count">4k</span> / Reading time: <span class="post-count">25 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/03/07</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+  
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/blog/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/blog/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="Heading-Class"><a href="#Heading-Class" class="headerlink" title="Heading Class"></a>Heading Class</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;h1&quot;</span>&gt;</span>this is heading 1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;display-4&quot;</span>&gt;</span>this is bigger display font<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;lead&quot;</span>&gt;</span>this is lead paragraph<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Alignment-Utilities-Class"><a href="#Alignment-Utilities-Class" class="headerlink" title="Alignment Utilities Class"></a>Alignment Utilities Class</h2><ul>
+<li><code>text-center</code> / left / right</li>
+<li><code>text-justify</code></li>
+<li><code>text-nowrap</code></li>
+<li><code>text-(xx)-(pos)</code>; xx: sm(&gt;576), md(&gt;768), lg(&gt;992), xl(&gt;1200) ; pos: left, center, right  </li>
+</ul>
+<hr>
+<ul>
+<li><code>text-lowercase</code></li>
+<li><code>text-uppercase</code></li>
+<li><code>text-capitalize</code></li>
+</ul>
+<hr>
+<ul>
+<li><code>font-weight-bold</code></li>
+<li><code>font-weight-normal</code></li>
+<li><code>font-weight-italic</code></li>
+</ul>
+<h2 id="List-Class"><a href="#List-Class" class="headerlink" title="List Class"></a>List Class</h2><ul>
+<li><code>list-unstyled</code>: no bullets</li>
+<li><code>list-inline</code> and <code>list-inline-item</code></li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;list-inline&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;list-inline-item&quot;</span>&gt;</span>item 1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;list-inline-item&quot;</span>&gt;</span>item 2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;list-inline-item&quot;</span>&gt;</span>item 3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;list-inline-item&quot;</span>&gt;</span>item 4<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;list-inline-item&quot;</span>&gt;</span>item 5<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;list-inline-item&quot;</span>&gt;</span>item 6<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Blockquote-Class"><a href="#Blockquote-Class" class="headerlink" title="Blockquote Class"></a>Blockquote Class</h2><ul>
+<li><code>blockquote</code></li>
+<li><code>blockquote-reverse</code></li>
+<li><code>blockquote-fotter</code></li>
+</ul>
+<h2 id="Text-Color"><a href="#Text-Color" class="headerlink" title="Text Color"></a>Text Color</h2><ul>
+<li><code>text-COLOR</code>, primary, secondary, success, danger, warning, info, light, dark, white</li>
+<li><code>bg-COLOR</code>, background: faded</li>
+</ul>
+<h2 id="Image-Class"><a href="#Image-Class" class="headerlink" title="Image Class"></a>Image Class</h2><h3 id="Image"><a href="#Image" class="headerlink" title="Image"></a>Image</h3><ul>
+<li><code>img-fluid</code></li>
+<li><code>rounded</code>, <code>rounded-DIR</code>: top, right, bottom, left, circle, rounded-0</li>
+<li><code>img-thumbnail</code>, 1px boder</li>
+</ul>
+<h3 id="Image-Align"><a href="#Image-Align" class="headerlink" title="Image Align"></a>Image Align</h3><ul>
+<li><code>float-left</code></li>
+<li><code>text-center</code></li>
+<li><code>mx-auto</code>, horizontally centering fixed-width block level content</li>
+</ul>
+<h3 id="Figure"><a href="#Figure" class="headerlink" title="Figure"></a>Figure</h3><ul>
+<li><code>figure</code> in <figure></li>
+<li><code>figure-img</code></li>
+<li><code>figure-caption</code>, in <figcaption></li>
+</ul>
+<h2 id="Varibles"><a href="#Varibles" class="headerlink" title="Varibles"></a>Varibles</h2><h3 id="Color-Contextual-Variables"><a href="#Color-Contextual-Variables" class="headerlink" title="Color/Contextual Variables"></a>Color/Contextual Variables</h3><ul>
+<li><code>--blue</code>, <code>--indigo</code>, <code>--purple</code>, <code>--pink</code>, <code>--red</code>, <code>--orange</code>, <code>--yellow</code>, <code>--green</code>, <code>--teal</code>, <code>--cyan</code>, <code>--white</code>, <code>--gray</code>, <code>--gray-dark</code></li>
+<li><code>--light</code>, <code>--dark</code></li>
+<li><code>--primary</code>, <code>--secondary</code>, <code>--success</code>, <code>--info</code>, <code>--warning</code>, <code>--danger</code></li>
+</ul>
+<h3 id="Media-Queries"><a href="#Media-Queries" class="headerlink" title="Media Queries"></a>Media Queries</h3><ul>
+<li><code>--breakpoint-xs</code>, <code>--breakpoint-sm</code>, <code>--breakpoint-md</code>, <code>--breakpoint-lg</code>, <code>--breakpoint-xl</code></li>
+</ul>
+<h3 id="Fonts"><a href="#Fonts" class="headerlink" title="Fonts"></a>Fonts</h3><ul>
+<li><code>--font-family-sans-serif</code>, <code>--font-family-monospace</code></li>
+</ul>
+<h3 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h2</span> <span class="attr">style</span>=<span class="string">&quot;color: var(--yellow);&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Redefine"><a href="#Redefine" class="headerlink" title="Redefine"></a>Redefine</h3><p>Can only alternative with css variable but not rebuild class</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-pseudo">:root</span>&#123;</span><br><span class="line">    <span class="attribute">--pink</span>: <span class="number">#C4226F</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Grid"><a href="#Grid" class="headerlink" title="Grid"></a>Grid</h2><ul>
+<li>Responsive 12-column</li>
+<li>Flexbox Based</li>
+</ul>
+<h3 id="Structure"><a href="#Structure" class="headerlink" title="Structure"></a>Structure</h3><ul>
+<li>Containers<ul>
+<li><code>container</code></li>
+<li><code>container-fluid</code></li>
+<li>12px padding</li>
+<li>BreakPoints: <strong>&lt;576px</strong>, <strong>576px</strong>, <strong>768px</strong>, <strong>992px</strong>, <strong>1200px</strong></li>
+</ul>
+</li>
+<li>Rows/Columns, <code>row</code> should inside the <code>container</code>, col inside the <code>row</code><ul>
+<li>Columns<ul>
+<li>12 col grid and can Span</li>
+<li><code>col(-BP)(-COL)</code>, BP, breakpoint: sm, md, lg, xl / COL, always try to span # of 12: 1-12, e.g. <ul>
+<li><code>col-md-6</code>: if bigger than md, col will take 50%, otherwise will not work</li>
+<li><code>col-6</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="example"><a href="#example" class="headerlink" title="example"></a>example</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;row&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col-sm-6 col-md-4 col-lg-3 col-xl-2&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">p</span>&gt;</span>Bootstrap also includes an .mx-auto class for horizontally centering fixed-width block level content—that is, content that has display: block and a width set—by setting the horizontal margins to auto.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col-sm-6 col-md-4 col-lg-3 col-xl-2&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">p</span>&gt;</span>Bootstrap also includes an .mx-auto class for horizontally centering fixed-width block level content—that is, content that has display: block and a width set—by setting the horizontal margins to auto.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col-sm-6 col-md-4 col-lg-3 col-xl-2&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">p</span>&gt;</span>Bootstrap also includes an .mx-auto class for horizontally centering fixed-width block level content—that is, content that has display: block and a width set—by setting the horizontal margins to auto.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col-sm-6 col-md-4 col-lg-3 col-xl-2&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">p</span>&gt;</span>Bootstrap also includes an .mx-auto class for horizontally centering fixed-width block level content—that is, content that has display: block and a width set—by setting the horizontal margins to auto.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="comment">&lt;!--&lt;row&gt; --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="comment">&lt;!--&lt;container&gt; --&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Offset-col"><a href="#Offset-col" class="headerlink" title="Offset col"></a>Offset col</h3><p>for move # in 12 of col at the begining, <code>offset-sm-2</code>,<br><code>offset-md-3</code></p>
+<h3 id="Delete-Gutters"><a href="#Delete-Gutters" class="headerlink" title="Delete Gutters"></a>Delete Gutters</h3><p><code>no-gutters</code></p>
+<h3 id="Nesting-col"><a href="#Nesting-col" class="headerlink" title="Nesting col"></a>Nesting col</h3><p>Create Row inside Col</p>
+<h3 id="Order-of-Column"><a href="#Order-of-Column" class="headerlink" title="Order of Column"></a>Order of Column</h3><p><code>order-ORD</code>, ord is number, assign all column one by one is best</p>
+<h3 id="Make-flex"><a href="#Make-flex" class="headerlink" title="Make flex"></a>Make flex</h3><p>e.g.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">&quot;col d-flex flex-column&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">&quot;order-2&quot;</span> <span class="attr">src</span>=<span class="string">&quot;images/image.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;sample image&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h4</span>&gt;</span>1. Exotic Pets<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>We offer <span class="tag">&lt;<span class="name">strong</span>&gt;</span>specialized<span class="tag">&lt;/<span class="name">strong</span>&gt;</span> care for <span class="tag">&lt;<span class="name">em</span>&gt;</span>reptiles, rodents, birds,<span class="tag">&lt;/<span class="name">em</span>&gt;</span> and other exotic pets.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Grid-Alignment"><a href="#Grid-Alignment" class="headerlink" title="Grid Alignment"></a>Grid Alignment</h3><h4 id="Vertial-Alignment"><a href="#Vertial-Alignment" class="headerlink" title="Vertial Alignment"></a>Vertial Alignment</h4><ul>
+<li>Use in Row</li>
+<li><code>align-items-ALN</code>, ALN: start, center, end</li>
+<li>Works on nested cols</li>
+</ul>
+<p>e.g. with one center example that match the img</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;row&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col align-items-center&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;row&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;col align-items-start&quot;</span>&gt;</span> <span class="comment">&lt;!--or not, start is default--&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="individal-Alignment"><a href="#individal-Alignment" class="headerlink" title="individal Alignment"></a>individal Alignment</h4><ul>
+<li>Use in Col</li>
+<li><code>align-self-ALN</code>, ALN: start, center, end</li>
+</ul>
+<h4 id="Horizontal-Alignment"><a href="#Horizontal-Alignment" class="headerlink" title="Horizontal Alignment"></a>Horizontal Alignment</h4><ul>
+<li>Use in rows</li>
+<li>Need col width</li>
+<li><code>justify-content-ALN</code>, ALN: start, center, end, around, between</li>
+</ul>
+<h2 id="Positioon"><a href="#Positioon" class="headerlink" title="Positioon"></a>Positioon</h2><ul>
+<li><code>fixed-top</code></li>
+<li><code>fixed-bottom</code></li>
+<li><code>sticky-top</code></li>
+</ul>
+<h2 id="Basic-Display"><a href="#Basic-Display" class="headerlink" title="Basic Display"></a>Basic Display</h2><ul>
+<li><code>d(-BP)-TYP</code>， BP: sm, md, lg, xl; TYP: none, inline, inline-block, block, table, table-row, table-cell, flex, inline-flex</li>
+<li><code>d-none d-print-block</code>, only showing in printer</li>
+</ul>
+<h2 id="Flex"><a href="#Flex" class="headerlink" title="Flex"></a>Flex</h2><h3 id="Flex-Container"><a href="#Flex-Container" class="headerlink" title="Flex Container"></a><a target="_blank" rel="noopener" href="https://www.lynda.com/Bootstrap-tutorials/Flexbox-container-options/372545/702965-4.html?autoplay=true">Flex Container</a></h3><ul>
+<li>display, <code>d(-BP)(-inline)-flex</code></li>
+<li>direction, <code>flex(-BP)(-DIR)(-reverse)</code>, DIR: row, column</li>
+<li>order, <code>order(-BP)-ORD</code></li>
+<li>justify, <code>justify-content(-BP)-ALG</code>, ALG: start, center, end, around, between</li>
+<li>Wrap, <code>flex(-BP)-WRP(-reverse)</code>, WRP: wrap, nowrap</li>
+<li>Vertical Alignment, <code>align-content(-BP)-ALG</code>,ALG: start, center, end, around, between, stretch(fit the containter vertically)</li>
+</ul>
+<h3 id="Flex-individual-item"><a href="#Flex-individual-item" class="headerlink" title="Flex individual item"></a><a target="_blank" rel="noopener" href="https://www.lynda.com/Bootstrap-tutorials/Individual-flex-elements/372545/722291-4.html?autoplay=true">Flex individual item</a></h3><ul>
+<li>Align Self, <code>align-self(-BP)-ALG</code>,ALG: start, center, end, baseline, stretch</li>
+<li>Controlling order, <code>order(-BP)-ORD</code></li>
+</ul>
+<h2 id="Float"><a href="#Float" class="headerlink" title="Float"></a><a target="_blank" rel="noopener" href="https://www.lynda.com/Bootstrap-tutorials/Floating-elements/372545/702967-4.html?autoplay=true">Float</a></h2><h2 id="Sizing"><a href="#Sizing" class="headerlink" title="Sizing"></a><a target="_blank" rel="noopener" href="https://getbootstrap.com/docs/4.1/utilities/sizing/">Sizing</a></h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.lynda.com/Bootstrap-tutorials/Margin-padding/372545/702968-4.html?autoplay=true">Margin and padding</a><ul>
+<li>m-(1-5, auto)</li>
+<li>mx-(1-5, auto)</li>
+<li>my-(1-5, auto)</li>
+<li>p-(1-5, auto)</li>
+<li>px-(1-5, auto)</li>
+<li>py-(1-5, auto)</li>
+</ul>
+</li>
+<li>Width<ul>
+<li><code>w-25</code></li>
+<li><code>w-50</code></li>
+<li><code>w-75</code></li>
+<li><code>w-100</code></li>
+</ul>
+</li>
+<li>Height<ul>
+<li><code>h-25</code></li>
+<li><code>h-50</code></li>
+<li><code>h-75</code></li>
+<li><code>h-100</code></li>
+<li><code>mh-100</code>, maxheight</li>
+</ul>
+</li>
+</ul>
+<h2 id="Visibility"><a href="#Visibility" class="headerlink" title="Visibility"></a>Visibility</h2><p><code>visible</code>, <code>invisible</code>, use <code>d-sm-none</code> more useful</p>
+<h2 id="Sizing-1"><a href="#Sizing-1" class="headerlink" title="Sizing"></a><a target="_blank" rel="noopener" href="https://www.lynda.com/Bootstrap-tutorials/Sizing-utilities/372545/702970-4.html?autoplay=true">Sizing</a></h2><h2 id="Border"><a href="#Border" class="headerlink" title="Border"></a>Border</h2><ul>
+<li><code>border(-SID)(-COLOR)(-0)</code>, SID: top, right, left, bottom / COLOR: primary, secondary, success, danger, warning, info, light, dark, white</li>
+<li>Border-radius, <code>ROUNDED(-SID)(-CIRCLE)(-0)</code>, SID: right, left, top, bottom</li>
+</ul>
+<h2 id="Navigation"><a href="#Navigation" class="headerlink" title="Navigation"></a>Navigation</h2><ul>
+<li>Navs</li>
+<li>Tabs</li>
+<li>Pills</li>
+<li>Navbars</li>
+</ul>
+<h3 id="Nav"><a href="#Nav" class="headerlink" title="Nav"></a>Nav</h3><ul>
+<li><code>nav</code></li>
+<li><code>nav-item</code></li>
+<li><code>nav-link</code><ul>
+<li><code>active</code></li>
+<li><code>disabled</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="Nav-style"><a href="#Nav-style" class="headerlink" title="Nav style"></a>Nav style</h3><ul>
+<li><code>nav-pills</code></li>
+<li><code>nav-tabs</code></li>
+</ul>
+<h3 id="Nav-Alignment"><a href="#Nav-Alignment" class="headerlink" title="Nav Alignment"></a>Nav Alignment</h3><ul>
+<li><code>justify-content-center</code></li>
+<li><code>justify-content-end</code></li>
+<li><code>nav-fill</code>, auto width</li>
+<li><code>nav-justified</code>, all same width</li>
+<li><code>flex-column</code></li>
+</ul>
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;nav nav-pills nav-justified&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;nav-item&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;nav-item nav-link active&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>aaaaa<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;nav-item&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;nav-link&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>b<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;nav-item&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;nav-link&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>vvvv<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;nav-item&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;nav-link disabled&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>d<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">nav</span> <span class="attr">class</span>=<span class="string">&quot;nav nav-tabs justify-content-end&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;nav-item nav-link active&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>a<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;nav-item nav-link&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>b<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;nav-item nav-link&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>c<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;nav-item nav-link disabled&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>d<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">nav</span> <span class="attr">class</span>=<span class="string">&quot;nav nav-pills flex-column flex-sm-row&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;nav-item nav-link active&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>a<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;nav-item nav-link&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>bbbbbbb<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;nav-item nav-link&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>c<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;nav-item nav-link disabled&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>ddddddd<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Navbar-in-Bootstrap4"><a href="#Navbar-in-Bootstrap4" class="headerlink" title="Navbar in Bootstrap4"></a><a target="_blank" rel="noopener" href="https://www.lynda.com/Bootstrap-tutorials/Create-navbar/372545/702972-4.html?autoplay=true">Navbar in Bootstrap4</a></h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">nav</span> <span class="attr">class</span>=<span class="string">&quot;navbar bg-dark navbar-dark navbar-expand-sm&quot;</span> <span class="attr">style</span>=<span class="string">&quot;background: yellow;&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h2</span> <span class="attr">class</span>=<span class="string">&quot;navbar-brand m-0&quot;</span>&gt;</span>ABC<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;navbar-nav&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;nav-item nav-link active&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>a<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;nav-item nav-link&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>bbbbbbb<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;dropdown&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;nav-item nav-link dropdown-toggle&quot;</span> <span class="attr">data-toggle</span>=<span class="string">&quot;dropdown&quot;</span> <span class="attr">id</span>=<span class="string">&quot;servicesDropdown&quot;</span> <span class="attr">aria-haspopup</span>=<span class="string">&quot;true&quot;</span> <span class="attr">aria-expanded</span>=<span class="string">&quot;false&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>service<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;dropdown-menu&quot;</span> <span class="attr">aria-labelledby</span>=<span class="string">&quot;servicesDropdown&quot;</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;dropdown-item&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>item1<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;dropdown-item&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>item2<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;dropdown-item&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>item3<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;dropdown-item&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>item4<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;nav-item nav-link disabled&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>ddddddd<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--form example--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">nav</span> <span class="attr">class</span>=<span class="string">&quot;navbar navbar-dark navbar-expand-sm fixed-top&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;navbar-nav&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;nav-item&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;nav-link&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>item1<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;nav-item&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;nav-link&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>item2<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;nav-item&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;nav-link&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>item3<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;nav-item&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;nav-link&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>item4<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">form</span> <span class="attr">class</span>=<span class="string">&quot;form-inline&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">&quot;form-control mr-2&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;Search&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn btn-outline-light&quot;</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Collapseble"><a href="#Collapseble" class="headerlink" title="Collapseble"></a>Collapseble</h3><ul>
+<li><code>collapse</code></li>
+<li><code>navbar-collapse</code></li>
+<li><code>id</code></li>
+<li>Toggle Classes, <code>navbar-toggler</code></li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">nav</span> <span class="attr">class</span>=<span class="string">&quot;navbar navbar-dark bg-dark navbar-expand-sm&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;navbar-toggler&quot;</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">data-toggle</span>=<span class="string">&quot;collapse&quot;</span> <span class="attr">data-target</span>=<span class="string">&quot;#myToggleNav&quot;</span> <span class="attr">aria-controls</span>=<span class="string">&quot;myToggleNav&quot;</span> <span class="attr">aria-expanded</span>=<span class="string">&quot;false&quot;</span> <span class="attr">aria-label</span>=<span class="string">&quot;Toggle Nav&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;navbar-toggler-icon&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span> <span class="attr">class</span>=<span class="string">&quot;navbar-brand&quot;</span>&gt;</span>Wisdom Pet Medicine<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;collapse navbar-collapse&quot;</span> <span class="attr">id</span>=<span class="string">&quot;myToggleNav&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;navbar-nav&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;nav-item nav-link active&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>Home<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;nav-item nav-link&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>Mission<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;nav-item nav-link&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>Services<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;nav-item nav-link&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>Staff<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;nav-item nav-link&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>Testimonials<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="comment">&lt;!-- navbar --&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="comment">&lt;!--collapse--&gt;</span></span><br><span class="line">    </span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="comment">&lt;!-- container --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">nav</span>&gt;</span><span class="comment">&lt;!-- nav --&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Button"><a href="#Button" class="headerlink" title="Button"></a>Button</h2><ul>
+<li><code>btn-SIZ</code>, SIZ: sm, lg, block</li>
+<li><code>btn-outline-COLOR</code></li>
+<li><code>btn-COLOR</code></li>
+</ul>
+<h2 id="List-Group"><a href="#List-Group" class="headerlink" title="List Group"></a>List Group</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;list-group mb-3&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;list-group-item list-group-item-action list-group-item-success&quot;</span>&gt;</span>AAAAAA<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;list-group-item list-group-item-action list-group-item-danger&quot;</span>&gt;</span>BBBBBB<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;list-group-item list-group-item-action list-group-item-info d-flex justify-content-between align-items-center&quot;</span>&gt;</span>Nutrition</span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;badge badge-primary badge-pill&quot;</span>&gt;</span>12<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Jumbotron-for-highlight"><a href="#Jumbotron-for-highlight" class="headerlink" title="Jumbotron for highlight"></a>Jumbotron for highlight</h2><ul>
+<li><code>jumbotron</code></li>
+<li><code>jumbotron-fluid</code></li>
+</ul>
+<h2 id="Card"><a href="#Card" class="headerlink" title="Card"></a>Card</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;card-columns&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">&quot;card mb-5&quot;</span> <span class="attr">id</span>=<span class="string">&quot;drwinthrop&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">&quot;card-img-top&quot;</span> <span class="attr">src</span>=<span class="string">&quot;images/doctor-winthrop.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;Doctor Winthrop Photo&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;card-body&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">h2</span> <span class="attr">class</span>=<span class="string">&quot;card-title&quot;</span>&gt;</span>Dr. Stanley Winthrop<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">h5</span> <span class="attr">class</span>=<span class="string">&quot;card-subtitle&quot;</span>&gt;</span>Behaviorist<span class="tag">&lt;/<span class="name">h5</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;card-text&quot;</span>&gt;</span>Dr. Winthrop is the guardian of Missy, a three-year old Llaso mix, who he adopted at the shelter. Dr. Winthrop is</span><br><span class="line">              passionate about spay and neuter and pet adoption, and works tireless hours outside the clinic, performing free</span><br><span class="line">              spay and neuter surgeries for the shelter.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;card-footer&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;card-link text-dark&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>About Me<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;card-link text-dark&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>My Pets<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;card-link text-dark&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>Client Slideshow<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">&quot;card mb-5&quot;</span> <span class="attr">id</span>=<span class="string">&quot;drchase&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">&quot;card-img&quot;</span> <span class="attr">src</span>=<span class="string">&quot;images/doctor-chase.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;Doctor Chase Photo&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;card-img-overlay text-light&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">h2</span> <span class="attr">class</span>=<span class="string">&quot;card-title&quot;</span>&gt;</span>Dr. Elizabeth Chase<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">h5</span> <span class="attr">class</span>=<span class="string">&quot;card-subtitle&quot;</span>&gt;</span>Dentistry<span class="tag">&lt;/<span class="name">h5</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;card-text&quot;</span>&gt;</span>Dr. Chase spends much of her free time helping the local bunny rescue organization find homes for bunnies, such as</span><br><span class="line">              Kibbles - a Dalmatian bunny who is part of the large Chase household, including two dogs, three cats, and a turtle.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">            </span><br><span class="line">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;card-footer&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;card-link text-dark&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>About Me<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;card-link text-dark&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>My Pets<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;card-link text-dark&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>Client Slideshow<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">section</span>&gt;</span><span class="comment">&lt;!-- card --&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">&quot;card mb-5&quot;</span> <span class="attr">id</span>=<span class="string">&quot;drsanders&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;card-body&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">&quot;card-img img-fluid&quot;</span> <span class="attr">src</span>=<span class="string">&quot;images/doctor-sanders.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;Doctor Sanders Photo&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">h2</span> <span class="attr">class</span>=<span class="string">&quot;card-title&quot;</span>&gt;</span>Dr. Kenneth Sanders<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">h5</span> <span class="attr">class</span>=<span class="string">&quot;card-subtitle&quot;</span>&gt;</span>Nutritionist<span class="tag">&lt;/<span class="name">h5</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;card-text&quot;</span>&gt;</span>Leroy walked into Dr. Sanders front door when she was moving into a new house. After searching for weeks for Leroy&#x27;s</span><br><span class="line">              guardians, she decided to make Leroy a part of her pet family, and now has three cats.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;list-group list-group-flush&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;list-group-item&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>About Me<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;list-group-item&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>My Pets<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;list-group-item&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>Client Slideshow<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">section</span>&gt;</span><span class="comment">&lt;!-- card --&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">&quot;card mb-5&quot;</span> <span class="attr">id</span>=<span class="string">&quot;drgardner&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">&quot;card-img-top&quot;</span> <span class="attr">src</span>=<span class="string">&quot;images/doctor-gardner.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;Doctor Gardner Photo&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;card-body&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">h2</span> <span class="attr">class</span>=<span class="string">&quot;card-title&quot;</span>&gt;</span>Dr. Michael Gardner<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">h5</span> <span class="attr">class</span>=<span class="string">&quot;card-subtitle&quot;</span>&gt;</span>Practitioner<span class="tag">&lt;/<span class="name">h5</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;card-text&quot;</span>&gt;</span>When Dr. Gardner was 8 his family moved to Colorado, where he spent most of his free time playing on his neighbors</span><br><span class="line">              farm. He came to love spending time with the horses, chickens, and goats. He still considers all of his family&#x27;s</span><br><span class="line">              farm animals his own, but Frank, his Cattle dog is his nearest and dearest friend.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;list-group list-group-flush&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;list-group-item&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>About Me<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;list-group-item&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>My Pets<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;list-group-item&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>Client Slideshow<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">section</span>&gt;</span><span class="comment">&lt;!-- card --&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">&quot;card mb-5&quot;</span> <span class="attr">id</span>=<span class="string">&quot;drruiz&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">&quot;card-img-top&quot;</span> <span class="attr">src</span>=<span class="string">&quot;images/doctor-ruiz.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;Doctor Ruiz Photo&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;card-body&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">h2</span> <span class="attr">class</span>=<span class="string">&quot;card-title&quot;</span>&gt;</span>Dr. Brook Ruiz<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">h5</span> <span class="attr">class</span>=<span class="string">&quot;card-subtitle&quot;</span>&gt;</span>Radiology<span class="tag">&lt;/<span class="name">h5</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;card-text&quot;</span>&gt;</span>Dr. Brook has spent countless hours helping the local animal shelter with injured animals ,that find their way into</span><br><span class="line">              their doors. She recently adopted a new feline friend, Trish, that she helped rescue from a flooded area. Trish</span><br><span class="line">              loves playing with her new sister, Else.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="comment">&lt;!-- card-body --&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;list-group list-group-flush&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;list-group-item&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>About Me<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;list-group-item&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>My Pets<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;list-group-item&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>Client Slideshow<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">section</span>&gt;</span><span class="comment">&lt;!-- card --&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">&quot;card mb-5&quot;</span> <span class="attr">id</span>=<span class="string">&quot;drwong&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">img</span> <span class="attr">class</span>=<span class="string">&quot;card-img-top&quot;</span> <span class="attr">src</span>=<span class="string">&quot;images/doctor-wong.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;Doctor Wong Photo&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;card-body&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">h2</span> <span class="attr">class</span>=<span class="string">&quot;card-title&quot;</span>&gt;</span>Dr. Olivia Wong<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">h5</span> <span class="attr">class</span>=<span class="string">&quot;card-subtitle&quot;</span>&gt;</span>Preventive Care<span class="tag">&lt;/<span class="name">h5</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;card-text&quot;</span>&gt;</span>Dr. Wong is a cancer survivor who was fortunate enough to get to spend time with a therapy dog during her recovery.</span><br><span class="line">              She became passionate about therapy animals, and has started her own foundation to train and provide education</span><br><span class="line">              to patients in recovery. Now she gets her own dose of daily therapy from her husky, Lilla.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="comment">&lt;!-- card-body --&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;list-group list-group-flush&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;list-group-item&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>About Me<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;list-group-item&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>My Pets<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;list-group-item&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>Client Slideshow<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">section</span>&gt;</span><span class="comment">&lt;!-- card --&gt;</span></span><br><span class="line"></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      </span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="comment">&lt;!-- content container --&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Form"><a href="#Form" class="headerlink" title="Form"></a>Form</h2><p><a target="_blank" rel="noopener" href="https://www.lynda.com/Bootstrap-tutorials/Size-validation-styles/372545/600633-4.html?autoplay=true">ref1</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.lynda.com/Bootstrap-tutorials/Multicolumn-forms/372545/722296-4.html?autoplay=true">ref2</a></p>
+<ul>
+<li><code>form-group</code></li>
+<li><code>form-text</code>, <code>text-muted</code></li>
+<li>input / select / textarea, <code>form-control</code>. file-input with <code>form-control-file</code></li>
+<li>label, <code>form-control-label</code></li>
+<li>checkbox div, <code>form-check</code> and <code>form-check-inline</code> / checkbox label, <code>form-check-label</code> / checkbox input,  <code>form-check-input</code></li>
+<li><code>form-contorl-sm / lg</code></li>
+<li><code>has-COLOR</code>, sucess, warning, danger, outside the input</li>
+<li><code>form-contorl-COLOR</code>, sucess, warning, danger, text of the input</li>
+</ul>
+<h2 id="Tooltips"><a href="#Tooltips" class="headerlink" title="Tooltips"></a>Tooltips</h2><ul>
+<li>Link or content</li>
+<li><code>data-toggle=&quot;tooltip&quot;</code></li>
+<li><code>title = &quot;text&quot;</code></li>
+</ul>
+<h3 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h3><ul>
+<li><code>data</code> or JS config</li>
+<li>JavaScript Activation</li>
+</ul>
+<p>E.g.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    $(<span class="string">&#x27;[data-toggle=&quot;tooltip&quot;]&#x27;</span>).tooltip(&#123;OPTIONS&#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;tooltip bs-tooltip-top&quot;</span> <span class="attr">role</span>=<span class="string">&quot;tooltip&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;arrow&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;tooltip-inner&quot;</span>&gt;</span></span><br><span class="line">        Some Tooltip Text!</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Common-Option"><a href="#Common-Option" class="headerlink" title="Common Option"></a>Common Option</h3><ul>
+<li><code>placement</code>: top, right, bottom, left</li>
+<li><code>trigger</code>: click, hover, focus</li>
+<li><code>html</code>: true, false</li>
+</ul>
+<p>E.g.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span> <span class="attr">data-toggle</span>=<span class="string">&quot;tooltip&quot;</span> <span class="attr">data-placement</span>=<span class="string">&quot;bottom&quot;</span> <span class="attr">title</span>=<span class="string">&quot;blablablabla&quot;</span>&gt;</span>Here<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--load bootstrap and jquery script--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">    $(<span class="string">&#x27;[data-toggle=&quot;tooltip&quot;]&#x27;</span>).tooltip();</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="PopOvers"><a href="#PopOvers" class="headerlink" title="PopOvers"></a>PopOvers</h2><ul>
+<li><code>data-toggle=&quot;popover&quot;</code></li>
+<li><code>title=&quot;text&quot;</code></li>
+<li><code>data-content=&quot;content&quot;</code></li>
+</ul>
+<p>E.g.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    $(<span class="string">&#x27;[data-toggle=&quot;popover&quot;]&#x27;</span>).popover(&#123;OPTIONS&#125;) <span class="comment">// placement: top, right, bottom, left ; trigger: click, hover, focus; container</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">class</span>=<span class="string">&quot;btn btn-info&quot;</span> </span></span><br><span class="line"><span class="tag">  <span class="attr">data-toggle</span>=<span class="string">&quot;popover&quot;</span> </span></span><br><span class="line"><span class="tag">  <span class="attr">data-placement</span>=<span class="string">&quot;bottom&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">data-trigger</span>=<span class="string">&quot;hover&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">title</span>=<span class="string">&quot;Standard Checkups&quot;</span> </span></span><br><span class="line"><span class="tag">  <span class="attr">data-content</span>=<span class="string">&quot;Out standard checkups offer .....&quot;</span>&gt;</span></span><br><span class="line">  Checkup Info</span><br><span class="line"><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--load bootstrap and jquery script--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">    $(<span class="string">&#x27;[data-toggle=&quot;popover&quot;]&#x27;</span>).popover(&#123;</span></span><br><span class="line"><span class="javascript">      <span class="comment">//placement: &quot;top&quot;,</span></span></span><br><span class="line"><span class="javascript">      <span class="comment">//trigger: &quot;hover&quot;</span></span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Alerts"><a href="#Alerts" class="headerlink" title="Alerts"></a>Alerts</h2><ul>
+<li><code>alert</code></li>
+<li><code>alert-COLOR</code>, primary, secondary, success, danger, warning, info, light, dark</li>
+</ul>
+<h3 id="Alert-Content"><a href="#Alert-Content" class="headerlink" title="Alert Content"></a>Alert Content</h3><ul>
+<li><code>alert-heading</code></li>
+<li><code>alert-link</code></li>
+</ul>
+<h3 id="Dismissible-Alerts"><a href="#Dismissible-Alerts" class="headerlink" title="Dismissible Alerts"></a>Dismissible Alerts</h3><ul>
+<li><code>alert-dismissible fade show</code></li>
+<li>Add Close button, <code>&lt;button type=&quot;button&quot; class=&quot;close&quot; data-dismiss=&quot;alert&quot; aria-label=&quot;Close&quot;&gt;&lt;span aria-hidden=&quot;true&quot;&gt;&amp;times;&lt;/span&gt;&lt;/button&gt;</code></li>
+</ul>
+<h2 id="Dropdown"><a href="#Dropdown" class="headerlink" title="Dropdown"></a><a target="_blank" rel="noopener" href="https://getbootstrap.com/docs/4.0/components/dropdowns/">Dropdown</a></h2><ul>
+<li><code>dropdown</code></li>
+<li><code>dropdown-toggle</code></li>
+<li><code>dropdown-menu</code></li>
+<li><code>dropdown-item</code></li>
+</ul>
+<h3 id="Dropdown-Elements"><a href="#Dropdown-Elements" class="headerlink" title="Dropdown Elements"></a>Dropdown Elements</h3><ul>
+<li><code>dropdown-header</code></li>
+<li><code>dropdown-divider</code></li>
+<li><code>disabled</code></li>
+</ul>
+<h3 id="Dropdown-Options"><a href="#Dropdown-Options" class="headerlink" title="Dropdown Options"></a>Dropdown Options</h3><ul>
+<li><code>btn-sm</code>, <code>btn-lg</code></li>
+<li><code>dropup</code></li>
+<li><code>dropdown-menu-right</code></li>
+<li><code>btn-group</code>, <code>dropdown-toggle-split</code></li>
+</ul>
+<p>E.g.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;dropdown show&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;btn btn-secondary dropdown-toggle&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span> <span class="attr">role</span>=<span class="string">&quot;button&quot;</span> <span class="attr">id</span>=<span class="string">&quot;dropdownMenuLink&quot;</span> <span class="attr">data-toggle</span>=<span class="string">&quot;dropdown&quot;</span> <span class="attr">aria-haspopup</span>=<span class="string">&quot;true&quot;</span> <span class="attr">aria-expanded</span>=<span class="string">&quot;false&quot;</span>&gt;</span></span><br><span class="line">    Dropdown link</span><br><span class="line">  <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;dropdown-menu&quot;</span> <span class="attr">aria-labelledby</span>=<span class="string">&quot;dropdownMenuLink&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;dropdown-item&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>Action<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;dropdown-item&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>Another action<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">&quot;dropdown-item&quot;</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>Something else here<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Collapse-amp-Accordions"><a href="#Collapse-amp-Accordions" class="headerlink" title="Collapse &amp; Accordions"></a>Collapse &amp; Accordions</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://getbootstrap.com/docs/4.1/components/collapse/">ref</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.lynda.com/Bootstrap-tutorials/Add-collapse-accordions/372545/600642-4.html?autoplay=true">ref2</a></li>
+</ul>
+<h2 id="Modal"><a href="#Modal" class="headerlink" title="Modal"></a>Modal</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://getbootstrap.com/docs/4.0/components/modal/">ref</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.lynda.com/Bootstrap-tutorials/Use-modals/372545/600643-4.html?autoplay=true">ref2</a></li>
+</ul>
+<h2 id="Carousel-image-slider"><a href="#Carousel-image-slider" class="headerlink" title="Carousel - image slider"></a>Carousel - image slider</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://getbootstrap.com/docs/4.0/components/carousel/">ref</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.lynda.com/Bootstrap-tutorials/Build-carousels/372545/702989-4.html?autoplay=true">ref2</a></li>
+</ul>
+<h2 id="Scrollspy"><a href="#Scrollspy" class="headerlink" title="Scrollspy"></a>Scrollspy</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://getbootstrap.com/docs/4.0/components/scrollspy/">ref</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.lynda.com/Bootstrap-tutorials/Use-scrollspy/372545/702990-4.html?autoplay=true">ref2</a></li>
+</ul>
+<h2 id="Modal-1"><a href="#Modal-1" class="headerlink" title="Modal"></a><a target="_blank" rel="noopener" href="https://getbootstrap.com/docs/4.1/components/modal/">Modal</a></h2><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://getbootstrap.com/docs/4.0/utilities/spacing/">getbootstrap</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.lynda.com/Bootstrap-tutorials/Bootstrap-4-Essential-Training/372545-2.html">Bootstrap 4 Essential Training</a></li>
+</ul>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>Author: <a href="https://vince-amazing/blog">VINCEC</a>
+            <p>Permalink: <a href="https://vince-amazing/blog/2019/03/07/bootstrap-notes/">https://vince-amazing/blog/2019/03/07/bootstrap-notes/</a>
+            <p>Date: <a href="https://vince-amazing/blog/2019/03/07/bootstrap-notes/">March 7th 2019, 2:38:37</a>
+            <p>Copyright license: The article using<a rel="license noopener" target="_blank" href="//creativecommons.org/licenses/by-nc/4.0/">CC licensing 4.0</a></p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/blog/2019/03/07/angular-notes/" title= Angular7 Notes >
+                    <div class="nextTitle">Angular7 Notes</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/blog/2019/02/18/javascript-notes/" title= Javascript Notes >
+                    <div class="prevTitle">Javascript Notes</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:linengca@usc.edu" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/vincecao" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="//instagram.com/__viiiince" class="iconfont-archer instagram" target="_blank" title=instagram></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="//linkedin.com/in/lineng-vince-cao-36b693121" class="iconfont-archer linkedin" target="_blank" title=linkedin></a>
+            
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a><span class="iconfont-archer power">&#xe635;</span>Vince Modified</span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:70vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Heading-Class"><span class="toc-number">1.</span> <span class="toc-text">Heading Class</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Alignment-Utilities-Class"><span class="toc-number">2.</span> <span class="toc-text">Alignment Utilities Class</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#List-Class"><span class="toc-number">3.</span> <span class="toc-text">List Class</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Blockquote-Class"><span class="toc-number">4.</span> <span class="toc-text">Blockquote Class</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Text-Color"><span class="toc-number">5.</span> <span class="toc-text">Text Color</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Image-Class"><span class="toc-number">6.</span> <span class="toc-text">Image Class</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Image"><span class="toc-number">6.1.</span> <span class="toc-text">Image</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Image-Align"><span class="toc-number">6.2.</span> <span class="toc-text">Image Align</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Figure"><span class="toc-number">6.3.</span> <span class="toc-text">Figure</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Varibles"><span class="toc-number">7.</span> <span class="toc-text">Varibles</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Color-Contextual-Variables"><span class="toc-number">7.1.</span> <span class="toc-text">Color&#x2F;Contextual Variables</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Media-Queries"><span class="toc-number">7.2.</span> <span class="toc-text">Media Queries</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Fonts"><span class="toc-number">7.3.</span> <span class="toc-text">Fonts</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Usage"><span class="toc-number">7.4.</span> <span class="toc-text">Usage</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Redefine"><span class="toc-number">7.5.</span> <span class="toc-text">Redefine</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Grid"><span class="toc-number">8.</span> <span class="toc-text">Grid</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Structure"><span class="toc-number">8.1.</span> <span class="toc-text">Structure</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#example"><span class="toc-number">8.2.</span> <span class="toc-text">example</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Offset-col"><span class="toc-number">8.3.</span> <span class="toc-text">Offset col</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Delete-Gutters"><span class="toc-number">8.4.</span> <span class="toc-text">Delete Gutters</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nesting-col"><span class="toc-number">8.5.</span> <span class="toc-text">Nesting col</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Order-of-Column"><span class="toc-number">8.6.</span> <span class="toc-text">Order of Column</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Make-flex"><span class="toc-number">8.7.</span> <span class="toc-text">Make flex</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Grid-Alignment"><span class="toc-number">8.8.</span> <span class="toc-text">Grid Alignment</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Vertial-Alignment"><span class="toc-number">8.8.1.</span> <span class="toc-text">Vertial Alignment</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#individal-Alignment"><span class="toc-number">8.8.2.</span> <span class="toc-text">individal Alignment</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Horizontal-Alignment"><span class="toc-number">8.8.3.</span> <span class="toc-text">Horizontal Alignment</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Positioon"><span class="toc-number">9.</span> <span class="toc-text">Positioon</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Basic-Display"><span class="toc-number">10.</span> <span class="toc-text">Basic Display</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flex"><span class="toc-number">11.</span> <span class="toc-text">Flex</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Flex-Container"><span class="toc-number">11.1.</span> <span class="toc-text">Flex Container</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Flex-individual-item"><span class="toc-number">11.2.</span> <span class="toc-text">Flex individual item</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Float"><span class="toc-number">12.</span> <span class="toc-text">Float</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sizing"><span class="toc-number">13.</span> <span class="toc-text">Sizing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Visibility"><span class="toc-number">14.</span> <span class="toc-text">Visibility</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sizing-1"><span class="toc-number">15.</span> <span class="toc-text">Sizing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Border"><span class="toc-number">16.</span> <span class="toc-text">Border</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Navigation"><span class="toc-number">17.</span> <span class="toc-text">Navigation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Nav"><span class="toc-number">17.1.</span> <span class="toc-text">Nav</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nav-style"><span class="toc-number">17.2.</span> <span class="toc-text">Nav style</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nav-Alignment"><span class="toc-number">17.3.</span> <span class="toc-text">Nav Alignment</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Example"><span class="toc-number">17.4.</span> <span class="toc-text">Example</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Navbar-in-Bootstrap4"><span class="toc-number">17.5.</span> <span class="toc-text">Navbar in Bootstrap4</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Collapseble"><span class="toc-number">17.6.</span> <span class="toc-text">Collapseble</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Button"><span class="toc-number">18.</span> <span class="toc-text">Button</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#List-Group"><span class="toc-number">19.</span> <span class="toc-text">List Group</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Jumbotron-for-highlight"><span class="toc-number">20.</span> <span class="toc-text">Jumbotron for highlight</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Card"><span class="toc-number">21.</span> <span class="toc-text">Card</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Form"><span class="toc-number">22.</span> <span class="toc-text">Form</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tooltips"><span class="toc-number">23.</span> <span class="toc-text">Tooltips</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Configuration"><span class="toc-number">23.1.</span> <span class="toc-text">Configuration</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Common-Option"><span class="toc-number">23.2.</span> <span class="toc-text">Common Option</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PopOvers"><span class="toc-number">24.</span> <span class="toc-text">PopOvers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Alerts"><span class="toc-number">25.</span> <span class="toc-text">Alerts</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Alert-Content"><span class="toc-number">25.1.</span> <span class="toc-text">Alert Content</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dismissible-Alerts"><span class="toc-number">25.2.</span> <span class="toc-text">Dismissible Alerts</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dropdown"><span class="toc-number">26.</span> <span class="toc-text">Dropdown</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Dropdown-Elements"><span class="toc-number">26.1.</span> <span class="toc-text">Dropdown Elements</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dropdown-Options"><span class="toc-number">26.2.</span> <span class="toc-text">Dropdown Options</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Collapse-amp-Accordions"><span class="toc-number">27.</span> <span class="toc-text">Collapse &amp; Accordions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Modal"><span class="toc-number">28.</span> <span class="toc-text">Modal</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Carousel-image-slider"><span class="toc-number">29.</span> <span class="toc-text">Carousel - image slider</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Scrollspy"><span class="toc-number">30.</span> <span class="toc-text">Scrollspy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Modal-1"><span class="toc-number">31.</span> <span class="toc-text">Modal</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Reference"><span class="toc-number"></span> <span class="toc-text">Reference</span></a>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 108 </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2021 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/19</span><a class="archive-post-title" href= "/blog/2021/06/19/go-lang-notes/" >Go Language Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/21</span><a class="archive-post-title" href= "/blog/2021/03/21/ux-design-learning-notes/" >UX Design Learning Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/17</span><a class="archive-post-title" href= "/blog/2021/01/17/move-to-chrome-os-with-my-hp/" >Chrome OS on my HP Elitebook 840 G5 & Installation</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/blog/2020/12/15/git/" >Git Note</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/11</span><a class="archive-post-title" href= "/blog/2020/03/11/set-up-nginx-streaming-media-server/" >Set up Nginx Streaming Media Server</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/29</span><a class="archive-post-title" href= "/blog/2019/09/29/docker-notes/" >Docker Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/27</span><a class="archive-post-title" href= "/blog/2019/09/27/mongodb-notes/" >Mongodb Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/02</span><a class="archive-post-title" href= "/blog/2019/08/02/anyconnection-setup-and-config/" >AnyConnect Server(Ocserv) & Client(Openwrt, Linux, Windows & Mac) Configuares</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/07</span><a class="archive-post-title" href= "/blog/2019/07/07/make-emby-plex-work-with-external-ntfs/" >Make Emby(Plex) support nfts external hdd driver</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/01</span><a class="archive-post-title" href= "/blog/2019/07/01/ibus-final-in-linux/" >ibus Chinese input config - finally</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/25</span><a class="archive-post-title" href= "/blog/2019/06/25/arduino-notes/" >Arduino Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/24</span><a class="archive-post-title" href= "/blog/2019/06/24/bit-operate-with-unsign/" >Bit Operate with Unsigned Integer</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/blog/2019/06/12/sort-review/" >Sort Review</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/10</span><a class="archive-post-title" href= "/blog/2019/06/10/desktop-app-converter-note/" >Desktop App Converter Note</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/08</span><a class="archive-post-title" href= "/blog/2019/06/08/tree-review/" >Tree Review</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/05</span><a class="archive-post-title" href= "/blog/2019/06/05/vSymLinks/" >vSymLinks - for Windows Symbolic Links</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/blog/2019/05/30/vconsole/" >vConsole</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/27</span><a class="archive-post-title" href= "/blog/2019/05/27/structure-review/" >Java Sytax & Structure Review</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/17</span><a class="archive-post-title" href= "/blog/2019/05/17/csharp-syntax-notes/" >C# Syntax Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/25</span><a class="archive-post-title" href= "/blog/2019/04/25/gifsicle-usage/" >Gifsicle - powerful tools for gif on web</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span><a class="archive-post-title" href= "/blog/2019/03/07/angular-notes/" >Angular7 Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span><a class="archive-post-title" href= "/blog/2019/03/07/bootstrap-notes/" >Bootstrap Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/18</span><a class="archive-post-title" href= "/blog/2019/02/18/javascript-notes/" >Javascript Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span><a class="archive-post-title" href= "/blog/2019/02/13/regex-notes/" >Regual Expressions Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span><a class="archive-post-title" href= "/blog/2019/02/03/android-notes/" >Android Development Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/29</span><a class="archive-post-title" href= "/blog/2019/01/29/nodejs-notes/" >NodeJS Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/25</span><a class="archive-post-title" href= "/blog/2019/01/25/sql-notes/" >SQL Notes</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href= "/blog/2018/11/26/lecture-alg-randomized-review-note/" >Algorithm Review Notes - Randomized Algorithms</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href= "/blog/2018/11/26/lecture-alg-approx-review-note/" >Algorithm Review Notes - Approximation Algorithms</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href= "/blog/2018/11/26/lecture-alg-lp-review-note/" >Algorithm Review Notes - Linear Programming</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href= "/blog/2018/11/26/lecture-alg-np-review-note/" >Algorithm Review Notes - NP Problem</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/25</span><a class="archive-post-title" href= "/blog/2018/11/25/lecture-alg-network-flow-review-note/" >Algorithm Review Notes - Network Flow</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/25</span><a class="archive-post-title" href= "/blog/2018/11/25/lecture-alg-dp-review-note/" >Algorithm Review Notes - Dynamic Programming</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/22</span><a class="archive-post-title" href= "/blog/2018/11/22/lecture-ai-learning-review-note/" >AI Review Note - Learning</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/21</span><a class="archive-post-title" href= "/blog/2018/11/21/lecture-ai-probability-review-note/" >AI Review Note - Probability</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/21</span><a class="archive-post-title" href= "/blog/2018/11/21/dell-latitude-7390-hackintosh/" >Dell Latitude 7390 Hackintosh Mojave</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/19</span><a class="archive-post-title" href= "/blog/2018/11/19/solus-efi-repair/" >Solus Efi Repair</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/27</span><a class="archive-post-title" href= "/blog/2018/10/27/install-davinci-on-elementry-os/" >Install DaVinCi 15 on Elementry OS</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/23</span><a class="archive-post-title" href= "/blog/2018/10/23/lecture-ai-logic-review-note/" >AI Review Note - Logic</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/13</span><a class="archive-post-title" href= "/blog/2018/10/13/zenbook-pro-ux550ge-linux-tweaks/" >Asus Zenbook Pro UX550GE Linux Configure</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/blog/2018/10/04/lecture-alg-search-review-note/" >Algorithm Review Notes - Search Methods</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/02</span><a class="archive-post-title" href= "/blog/2018/09/02/good-bye-thinkpad-hello-ipad/" >Welcome new arrived iPad Pro and its friends</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href= "/blog/2018/08/21/upgrade-the-wireless-card-intel-9260/" >Upgraded My Wireless Adapter for 720s 13ARR with Intel 9260</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/05</span><a class="archive-post-title" href= "/blog/2018/08/05/taobao-a-lot/" >淘宝了一些东西</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/01</span><a class="archive-post-title" href= "/blog/2018/08/01/change-chrome-in-fresh-look/" >Chrome 新 UI</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/03</span><a class="archive-post-title" href= "/blog/2018/07/03/php-visual-studio-code-setting/" >在 VS Code 中配置 php</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/03</span><a class="archive-post-title" href= "/blog/2018/07/03/mustache-templates/" >Some examples of using Mustache templates.</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/02</span><a class="archive-post-title" href= "/blog/2018/07/02/fix-flex-in-ie/" >Let IE9 Support Flex?</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/01</span><a class="archive-post-title" href= "/blog/2018/07/01/vnormalize-css/" >Vincec Normalize CSS - vnorm.css</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/30</span><a class="archive-post-title" href= "/blog/2018/06/30/php-learning-notes/" >PHP Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/28</span><a class="archive-post-title" href= "/blog/2018/06/28/make-bash-and-npm-work-in-windows/" >在 Windows 下优雅使用 npm 和 git bash</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/28</span><a class="archive-post-title" href= "/blog/2018/06/28/symbolic-link/" >Symbolic Links</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/27</span><a class="archive-post-title" href= "/blog/2018/06/27/linux-cpu-stress/" >Linux CPU 压力测试</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/21</span><a class="archive-post-title" href= "/blog/2018/06/21/setup-blog-on-gitlab-page/" >部署你的博客到 Gitlab page</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/20</span><a class="archive-post-title" href= "/blog/2018/06/20/react-web-note/" >React for web 学习笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/20</span><a class="archive-post-title" href= "/blog/2018/06/20/rc-local/" >在 Linux 启动的时候加载自定义脚本自己的 —— rc.local</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/19</span><a class="archive-post-title" href= "/blog/2018/06/19/opensuse-tumbleweed-notes/" >Opensuse Tumbleweed 大蜥蜴的配置清单</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/19</span><a class="archive-post-title" href= "/blog/2018/06/19/grub-note/" >Linux 下 Grub 的各种问题笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/15</span><a class="archive-post-title" href= "/blog/2018/06/15/macbook-jpn-keyboard-rice/" >Macbook 日版键盘终极解决方案（伪）—— Karabiner</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/15</span><a class="archive-post-title" href= "/blog/2018/06/15/nodejs-webpack3-learn-notes/" >Nodejs - Webpack3 学习笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/10</span><a class="archive-post-title" href= "/blog/2018/06/10/fake-elecom-dux-open-box/" >Elecom DUX70BK, a mouse for MMORPG players</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span><a class="archive-post-title" href= "/blog/2018/06/01/lenovo-does-not-love-amd/" >Lenovo 720s 13ARR Bios Manual Update to 6KCN38WW</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span><a class="archive-post-title" href= "/blog/2018/06/01/vincec-side-nav/" >VINCEC Side Navegation Bar</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/blog/2018/05/30/opera-is-suge/" >Opera 大佬真厉害</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/29</span><a class="archive-post-title" href= "/blog/2018/05/29/fire-hd-10-rice/" >(7/28/2018 updated) Fire HD 10 tablet 7 Tweaks and Root tutorial</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/15</span><a class="archive-post-title" href= "/blog/2018/05/15/ss-ssr/" >酸酸 和 酸酸乳</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/23</span><a class="archive-post-title" href= "/blog/2018/04/23/linux-software/" >Linux 的日常安利集合</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span><a class="archive-post-title" href= "/blog/2018/04/20/ubuntu-18-04-notes/" >Ubuntu 18.04 配置笔记 (720s)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span><a class="archive-post-title" href= "/blog/2018/04/20/lenovo-720s/" >新的神坑 720s 13ARR Ryzen</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/blog/2018/04/15/linux-i3-configuation/" >我的 i3 桌面配置笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/08</span><a class="archive-post-title" href= "/blog/2018/04/08/my-manjaro-setup-II/" >我的 Manjaro 配置 Mark II</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2017 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/09</span><a class="archive-post-title" href= "/blog/2017/10/09/unblock-flickr-downloader/" >VINCEC's Flickr Downloader / VINCEC Flickr 原图下载器</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/29</span><a class="archive-post-title" href= "/blog/2017/09/29/my-manjaro-setup/" >我的 Manjaro 配置</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/08</span><a class="archive-post-title" href= "/blog/2017/08/08/dns/" >DNS相关</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/08</span><a class="archive-post-title" href= "/blog/2017/08/08/ruby-learning-note/" >Ruby 学习笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/02</span><a class="archive-post-title" href= "/blog/2017/05/02/bilibili-get-xml/" >b站转跳到弹幕xml的网站</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/26</span><a class="archive-post-title" href= "/blog/2017/03/26/uwp-learning-note/" >UWP LEARNING</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/07</span><a class="archive-post-title" href= "/blog/2017/01/07/zerochan-anime-searcher-in-uwp/" >Zerochan Anime Searcher UWP</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span><a class="archive-post-title" href= "/blog/2017/01/05/swift/" >Swift3</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2016 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/05</span><a class="archive-post-title" href= "/blog/2016/12/05/online-vince-crypography-toolkit/" >Online Vince Crypography Toolkits</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/15</span><a class="archive-post-title" href= "/blog/2016/08/15/a-html-page-with-tab-features/" >A html page with tab features</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/24</span><a class="archive-post-title" href= "/blog/2016/06/24/nvidia-Shield-rice/" >Nvidia Shield 折腾记－吐血篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/18</span><a class="archive-post-title" href= "/blog/2016/06/18/collage-ranking/" >College Select</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/08</span><a class="archive-post-title" href= "/blog/2016/06/08/my-gaokao/" >我的高考</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/29</span><a class="archive-post-title" href= "/blog/2016/05/29/google-scared-me/" >妈妈呀谷歌好可怕</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/26</span><a class="archive-post-title" href= "/blog/2016/05/26/the-meaning-of-camera/" >相机的意义</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/20</span><a class="archive-post-title" href= "/blog/2016/05/20/dian-dian-is-dead/" >辛苦弄起来的点点图床都跟别人跑啦</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2015 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/27</span><a class="archive-post-title" href= "/blog/2015/10/27/build-a-bike/" >花闲钱自己组了辆车，妈妈再也不用担心我的动手能力</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/01</span><a class="archive-post-title" href= "/blog/2015/02/01/lucky-day/" >今天难道是我的幸运日吗</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/30</span><a class="archive-post-title" href= "/blog/2015/01/30/unkonwn-title/" >无题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/15</span><a class="archive-post-title" href= "/blog/2015/01/15/no-one-knows-my-closet-even-me/" >呀趴里，寝室衣柜的结构我一个学期都不曾弄明白</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/14</span><a class="archive-post-title" href= "/blog/2015/01/14/09-26-and-11/" >反正也没人看的看了也白看的 09，26和11</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/11</span><a class="archive-post-title" href= "/blog/2015/01/11/music-recomm/" >Music</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/10</span><a class="archive-post-title" href= "/blog/2015/01/10/time-to-sleep/" >该睡觉了</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2014 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/23</span><a class="archive-post-title" href= "/blog/2014/09/23/ios-app-recomm/" >推荐几款个人很喜欢的IOS应用好了</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/18</span><a class="archive-post-title" href= "/blog/2014/09/18/back-to-acg/" >杀回二次元</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/11</span><a class="archive-post-title" href= "/blog/2014/09/11/japanese-calligraphy/" >签名神软——日文書法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/03</span><a class="archive-post-title" href= "/blog/2014/09/03/keys/" >若干软件通用密钥</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/31</span><a class="archive-post-title" href= "/blog/2014/08/31/hand-to-hand-to-shanxun-wifi/" >“手把手”教你WKU闪讯连接WIFI</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/26</span><a class="archive-post-title" href= "/blog/2014/08/26/new-domain/" >换了新域名</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/22</span><a class="archive-post-title" href= "/blog/2014/08/22/mac-postvideo-app/" >MAC上的后期相关APP来一发</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/13</span><a class="archive-post-title" href= "/blog/2014/08/13/kulucolo-benefit-diary/" >KuluColo的完善日记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/05</span><a class="archive-post-title" href= "/blog/2014/08/05/windows-font-rander/" >能使你的Windows字体显示效果接近Mac？</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/04</span><a class="archive-post-title" href= "/blog/2014/08/04/free-vpn-vppn/" >分享免费试用的日本vpn——vppn</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/24</span><a class="archive-post-title" href= "/blog/2014/07/24/music-manage/" >音乐管理，Media Go 还是 iTunes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/19</span><a class="archive-post-title" href= "/blog/2014/07/19/broswer-a-to-z/" >浏览器A到Z</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/19</span><a class="archive-post-title" href= "/blog/2014/07/19/link-your-router/" >将你家的路由器“串联”起来吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/17</span><a class="archive-post-title" href= "/blog/2014/07/17/hello-sekai/" >Hello Sekai</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="随笔"><span class="iconfont-archer">&#xe606;</span>随笔</span>
+    
+        <span class="sidebar-tag-name" data-tags="Javascript"><span class="iconfont-archer">&#xe606;</span>Javascript</span>
+    
+        <span class="sidebar-tag-name" data-tags="Angular"><span class="iconfont-archer">&#xe606;</span>Angular</span>
+    
+        <span class="sidebar-tag-name" data-tags="科学"><span class="iconfont-archer">&#xe606;</span>科学</span>
+    
+        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="Windows"><span class="iconfont-archer">&#xe606;</span>Windows</span>
+    
+        <span class="sidebar-tag-name" data-tags="MacOS"><span class="iconfont-archer">&#xe606;</span>MacOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="IOS"><span class="iconfont-archer">&#xe606;</span>IOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
+    
+        <span class="sidebar-tag-name" data-tags="C++"><span class="iconfont-archer">&#xe606;</span>C++</span>
+    
+        <span class="sidebar-tag-name" data-tags="Anime"><span class="iconfont-archer">&#xe606;</span>Anime</span>
+    
+        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
+    
+        <span class="sidebar-tag-name" data-tags="Leetcode"><span class="iconfont-archer">&#xe606;</span>Leetcode</span>
+    
+        <span class="sidebar-tag-name" data-tags="生活"><span class="iconfont-archer">&#xe606;</span>生活</span>
+    
+        <span class="sidebar-tag-name" data-tags="教程"><span class="iconfont-archer">&#xe606;</span>教程</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tutorial"><span class="iconfont-archer">&#xe606;</span>Tutorial</span>
+    
+        <span class="sidebar-tag-name" data-tags="Csharp"><span class="iconfont-archer">&#xe606;</span>Csharp</span>
+    
+        <span class="sidebar-tag-name" data-tags="UWP"><span class="iconfont-archer">&#xe606;</span>UWP</span>
+    
+        <span class="sidebar-tag-name" data-tags="KuluColo"><span class="iconfont-archer">&#xe606;</span>KuluColo</span>
+    
+        <span class="sidebar-tag-name" data-tags="Blog"><span class="iconfont-archer">&#xe606;</span>Blog</span>
+    
+        <span class="sidebar-tag-name" data-tags="剁手 / Chopping Hands"><span class="iconfont-archer">&#xe606;</span>剁手 / Chopping Hands</span>
+    
+        <span class="sidebar-tag-name" data-tags="CSS"><span class="iconfont-archer">&#xe606;</span>CSS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Gif"><span class="iconfont-archer">&#xe606;</span>Gif</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tools"><span class="iconfont-archer">&#xe606;</span>Tools</span>
+    
+        <span class="sidebar-tag-name" data-tags="Go"><span class="iconfont-archer">&#xe606;</span>Go</span>
+    
+        <span class="sidebar-tag-name" data-tags="技巧"><span class="iconfont-archer">&#xe606;</span>技巧</span>
+    
+        <span class="sidebar-tag-name" data-tags="Course"><span class="iconfont-archer">&#xe606;</span>Course</span>
+    
+        <span class="sidebar-tag-name" data-tags="Algorithm"><span class="iconfont-archer">&#xe606;</span>Algorithm</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tips"><span class="iconfont-archer">&#xe606;</span>Tips</span>
+    
+        <span class="sidebar-tag-name" data-tags="Nodejs"><span class="iconfont-archer">&#xe606;</span>Nodejs</span>
+    
+        <span class="sidebar-tag-name" data-tags="ChromeOS"><span class="iconfont-archer">&#xe606;</span>ChromeOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Laptop"><span class="iconfont-archer">&#xe606;</span>Laptop</span>
+    
+        <span class="sidebar-tag-name" data-tags="Music"><span class="iconfont-archer">&#xe606;</span>Music</span>
+    
+        <span class="sidebar-tag-name" data-tags="html"><span class="iconfont-archer">&#xe606;</span>html</span>
+    
+        <span class="sidebar-tag-name" data-tags="Crypography"><span class="iconfont-archer">&#xe606;</span>Crypography</span>
+    
+        <span class="sidebar-tag-name" data-tags="Made-bt-V"><span class="iconfont-archer">&#xe606;</span>Made-bt-V</span>
+    
+        <span class="sidebar-tag-name" data-tags="PHP"><span class="iconfont-archer">&#xe606;</span>PHP</span>
+    
+        <span class="sidebar-tag-name" data-tags="Html"><span class="iconfont-archer">&#xe606;</span>Html</span>
+    
+        <span class="sidebar-tag-name" data-tags="Ruby"><span class="iconfont-archer">&#xe606;</span>Ruby</span>
+    
+        <span class="sidebar-tag-name" data-tags="SQL"><span class="iconfont-archer">&#xe606;</span>SQL</span>
+    
+        <span class="sidebar-tag-name" data-tags="Database"><span class="iconfont-archer">&#xe606;</span>Database</span>
+    
+        <span class="sidebar-tag-name" data-tags="Swift"><span class="iconfont-archer">&#xe606;</span>Swift</span>
+    
+        <span class="sidebar-tag-name" data-tags="ux-design"><span class="iconfont-archer">&#xe606;</span>ux-design</span>
+    
+        <span class="sidebar-tag-name" data-tags="CSS3"><span class="iconfont-archer">&#xe606;</span>CSS3</span>
+    
+        <span class="sidebar-tag-name" data-tags="Bootstrap"><span class="iconfont-archer">&#xe606;</span>Bootstrap</span>
+    
+        <span class="sidebar-tag-name" data-tags="React"><span class="iconfont-archer">&#xe606;</span>React</span>
+    
+        <span class="sidebar-tag-name" data-tags="CSharp"><span class="iconfont-archer">&#xe606;</span>CSharp</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="Life"><span class="iconfont-archer">&#xe60a;</span>Life</span>
+    
+        <span class="sidebar-category-name" data-categories="Rice"><span class="iconfont-archer">&#xe60a;</span>Rice</span>
+    
+        <span class="sidebar-category-name" data-categories="Notes"><span class="iconfont-archer">&#xe60a;</span>Notes</span>
+    
+        <span class="sidebar-category-name" data-categories="Config"><span class="iconfont-archer">&#xe60a;</span>Config</span>
+    
+        <span class="sidebar-category-name" data-categories="Path"><span class="iconfont-archer">&#xe60a;</span>Path</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: '/blog/',
+        author: 'VINCEC'
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/blog/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/blog/scripts/main.js"></script>
+    <!-- busuanzi  -->
+    
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/blog/scripts/share.js" async></script>    
+    
+    </body>
+</html>
+
+

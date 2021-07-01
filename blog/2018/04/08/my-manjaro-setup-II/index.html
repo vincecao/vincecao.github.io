@@ -1,0 +1,3237 @@
+<!DOCTYPE html>
+<html>
+    <!-- title -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="VINCEC">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="VINCEC">
+    <meta name="keywords" content="THE GREAT VINCE | VINCEC">
+    <meta name="description" content="">
+    <meta name="Cache-Control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>我的 Manjaro 配置 Mark II · Vincec&#39;s Dimension</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/blog/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s 1;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= /blog/css/style.css?v=20180524 as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= /blog/css/mobile.css?v=20180524 media="(max-width: 980px)">
+    
+    <!-- <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" /> -->
+    <link rel="preload" href="/blog/css/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+        
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/blog/assets/favicon.ico" />
+    <!-- <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />     -->
+    <link rel="preload" href="/blog/scripts/webfontloader.min.js" as="script" />    
+    <!-- <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" /> -->
+    <link rel="preload" href="/blog/scripts/zepto.min.js" as="script" />
+    <link rel="preload" href="/blog/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/blog/font/Oswald-Regular.ttf" crossorigin>
+    <!-- <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin> -->
+    <link rel="preload" as="font" href="/blog/font/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-89931236-2"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-89931236-2');
+    </script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/blog/" >Vincec&#39;s Dimension</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">我的 Manjaro 配置 Mark II</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/blog/>Vincec's Dimension</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style=
+
+
+
+
+
+
+
+
+height:70vh;
+
+>
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(29, 29, 29, 1.5)), url(/blog/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            我的 Manjaro 配置 Mark II
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Linux">Linux</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count">1.2k</span> / Reading time: <span class="post-count">6 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2018/04/08</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+  
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/blog/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/blog/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <p>时隔多日又开始捣鼓Liunx，每到心情不好或者比较郁闷的时候就想着换换操作系统，很气。。继续胡乱做笔记</p>
+<p><img src="https://i.imgur.com/TaDW5AE.png"></p>
+<h2 id="Setup-安装时注意点"><a href="#Setup-安装时注意点" class="headerlink" title="Setup 安装时注意点:"></a>Setup 安装时注意点:</h2><ul>
+<li>alongside for pure Windows with freespace disk. 如果原来就一个 Win，分一块空磁盘分区直接使用 alongside 安装。跳过之后麻烦的步骤</li>
+<li>Manual partitioning for original linux and windows dual sys. 手动分区当原来就是双系统的时候</li>
+<li>load <code>/</code> mount point for main btrfs(ext4), <code>/boot/efi</code> for EFI(MSR) partition. 加载 <code>/</code>在 btrfs 或 efi 分区， 加载 <code>/boot/efi</code> 在 EFI 分区</li>
+<li>Swap always twice as the RAM size for keep the memory data when the computer is in sleep mode. 交换空间一般是内存的两倍，保证睡眠的时候磁盘内的数据</li>
+<li>如果之后无法引导，uefi 选择磁盘而不是 Windows boot manager。或者重新进 win CMD 操作，加载引导，参见上一篇。</li>
+</ul>
+<hr>
+<h2 id="画面撕裂问题"><a href="#画面撕裂问题" class="headerlink" title="画面撕裂问题"></a>画面撕裂问题</h2><h4 id="检测："><a href="#检测：" class="headerlink" title="检测："></a>检测：</h4><p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=gmHaa5pvpVc&t=0s&index=1&list=FLh5Vlje9XYc_5j18Wz7xlUQ">Youtube测试地址</a></p>
+<h4 id="解决方法-——-compton"><a href="#解决方法-——-compton" class="headerlink" title="解决方法 —— compton"></a>解决方法 —— compton</h4><p>example:<br><code>compton -o 0 -D 0 -b</code><br>or<br><code>compton -D0 -l -24 -t -24 -r 16 --shadow-exclude &#39;bounding_shaped&#39; --shadow-red 0.5 --shadow-green 0 --shadow-blue 1 -o 0.8</code></p>
+<p>参考:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://bbs.archlinuxcn.org/viewtopic.php?id=5412">画面撕裂的问题</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.reddit.com/r/elementaryos/comments/4nei8r/compton_compositor/">Compton Compositor</a></li>
+<li><a target="_blank" rel="noopener" href="https://askubuntu.com/questions/162516/switching-window-manager-desktop-environments">Switching window manager/desktop environments?</a></li>
+</ul>
+<h4 id="解决方法-——-NVIDIA驱动设置"><a href="#解决方法-——-NVIDIA驱动设置" class="headerlink" title="解决方法 —— NVIDIA驱动设置"></a>解决方法 —— NVIDIA驱动设置</h4><p>安装合适的驱动，（_决不能让自己手贱在之后乱改双显卡的显卡驱动，如果是最大分辨率的问题，<code>sudo nvidia-xconfig</code>之后 <code>sudo rm /etc/X11/xorg.conf</code> 试一试，一次作死之后的成功还原_）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> nvidia-xconfig</span><br><span class="line"><span class="variable">$sudo</span> nvidia-settings <span class="comment">#为了root的身份保存 Configuration File</span></span><br></pre></td></tr></table></figure>
+
+<p>Steps <em>(Source: [4])</em>:</p>
+<ul>
+<li>X Server Display Configuration</li>
+<li>Advance</li>
+<li>Force Full Composition Pipeline</li>
+<li>Apply</li>
+<li>Save to Configuration File__</li>
+</ul>
+<ol>
+<li>Enable Force Full Composition Pipeline（如果不行也可以試試看 Force Full Composition Pipeline 左邊的 Force Composition Pipeline）</li>
+<li>套用完設定後，就可以去測試還會不會撕裂了。</li>
+<li>確定沒問題後用把設定存下來，不然重開機後就沒了。</li>
+</ol>
+<p>Related Reference:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.v2ex.com/t/386133">n 卡闭源驱动，对屏幕撕裂就没有办法了吗？</a></li>
+<li><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/NVIDIA#Avoid_tearing_with_GeForce_500.2F600.2F700.2F900_series_cards">NVIDIA</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.robotshell.org/2012/linux-nvidia-driver-tweak/">Linux 下 NVIDIA 显卡闭源驱动的一些优化</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/leoleocs/article/details/50058753">Unity3d Linux 下面画面撕裂问题</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/22703223">为何一提起Linux，总有人指出显卡驱动配置不好等问题？</a></li>
+</ul>
+<hr>
+<h2 id="装自己偏好软件"><a href="#装自己偏好软件" class="headerlink" title="装自己偏好软件"></a>装自己偏好软件</h2><ul>
+<li><h4 id="Pamac"><a href="#Pamac" class="headerlink" title="Pamac"></a>Pamac</h4>替换 Octopi，个人不是很喜欢</li>
+<li><h4 id="iBus-参考-5-："><a href="#iBus-参考-5-：" class="headerlink" title="iBus (参考: [5])："></a>iBus (参考: [5])：</h4>Fcitx 版本的 sogou 在最新的版本上不知道为什么有错误。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> pacman -S ibus-qt</span><br><span class="line"><span class="variable">$sudo</span> pacman -S ibus-libpinyin <span class="comment">#Pinyin (ibus-libpinyin) 1.9.3-1</span></span><br><span class="line"><span class="variable">$sudo</span> pacman -S ibus-rime <span class="comment">#rime (f4 for config in SC)</span></span><br><span class="line"><span class="variable">$ibus</span>-setup</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#Modify ~&#x2F;.xprofile</span><br><span class="line">#export LANG&#x3D;&quot;ja_JP.UTF-8&quot;</span><br><span class="line">export XMODIFIERS&#x3D;&quot;@im&#x3D;ibus&quot;</span><br><span class="line">export XMODIFIER&#x3D;&quot;@im&#x3D;ibus&quot;</span><br><span class="line">export GTK_IM_MODULE&#x3D;ibus</span><br><span class="line">export QT_IM_MODULE&#x3D;ibus</span><br><span class="line">export DefaultIMModule&#x3D;ibus</span><br><span class="line">ibus-daemon -drx</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#Modify ~&#x2F;.bashrc</span><br><span class="line">export GTK_IM_MODULE&#x3D;ibus</span><br><span class="line">export XMODIFIERS&#x3D;@im&#x3D;ibus</span><br><span class="line">export QT_IM_MODULE&#x3D;ibus</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h4 id="i3-wm"><a href="#i3-wm" class="headerlink" title="i3-wm"></a><del>i3-wm</del></h4> <a href="/blog/2018/04/15/i3-configuation/">See the newer post</a></li>
+</ul>
+<hr>
+<h2 id="Power-Mangement"><a href="#Power-Mangement" class="headerlink" title="Power Mangement"></a>Power Mangement</h2><ul>
+<li><strong>设置盖上笔记本盖子或按下电源键休眠</strong><br><em>(source: [1])</em></li>
+</ul>
+<blockquote>
+<ol>
+<li>编辑 <code>/etc/systemd/logind.conf</code> ， 盖上盖子休眠，添加 <code>HandleLidSwitch=hibernate</code></li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="2">
+<li>按下电源键休眠，添加 <code>HandlePowerKey=hibernate</code></li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="3">
+<li>执行以下命令使其立即生效： <code>systemctl restart systemd-logind</code></li>
+</ol>
+</blockquote>
+<ul>
+<li><strong>Maximize Linux Laptop’s Battery Life</strong><br><em>(source: [2])</em></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#to install and run PowerTOP (carefully use)</span></span><br><span class="line"><span class="variable">$sudo</span> apt install powertop</span><br><span class="line"><span class="variable">$sudo</span> powertop --calibrate</span><br><span class="line"></span><br><span class="line"><span class="comment">#to install TLP</span></span><br><span class="line"><span class="variable">$sudo</span> apt install tlp</span><br><span class="line"><span class="comment">#To avoid restarting immediately, you can launch it by running</span></span><br><span class="line"><span class="variable">$sudo</span> tlp start</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="自己喜欢的-KDE-设置"><a href="#自己喜欢的-KDE-设置" class="headerlink" title="自己喜欢的 KDE 设置"></a>自己喜欢的 KDE 设置</h2><ul>
+<li><p>增加时区设置</p>
+</li>
+<li><p>Autostart</p>
+</li>
+<li><p>在桌面加 cpu 内存等参数信息</p>
+</li>
+<li><p>Corner</p>
+<ul>
+<li>Screen Edges:  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Trigger: &#96;35%&#96;</span><br><span class="line">Activation delay: &#96;50 ms&#96;</span><br><span class="line">Reactivation delay &#96;200 ms&#96;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>更改鼠标参数</p>
+<ul>
+<li>Mouse Controls -&gt;<ul>
+<li>Icons: <code>Double-click</code> ;</li>
+<li>Advanced<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Pointer acceleration: &#96;1.0 x&#96;</span><br><span class="line">Pointer threshold: &#96;2 pixels&#96;</span><br><span class="line">Double click interval: &#96;200 msec&#96;</span><br><span class="line">Drag start time: &#96;200 msec&#96;</span><br><span class="line">Drag start distance: &#96;10 pixels&#96;</span><br><span class="line">Mouse wheel scrolls by: &#96;12 lines&#96;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>改主题</p>
+<ul>
+<li>Workspace Theme  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Look And Feel: &#96;Numix&#96;</span><br><span class="line">Desktop Theme: &#96;Glassified&#96; or &#96;Breeze Transparent with Antu icons&#96; or &#96;Diamond&#96; or &#96;Bare Naked&#96;</span><br><span class="line">Cursor Theme: &#96;Capitaine Cursors&#96;</span><br><span class="line">Splash Screen: &#96;Breeze&#96;</span><br></pre></td></tr></table></figure></li>
+<li>Colors</li>
+<li>Fonts  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">General: &#96;SF Pro Display 10&#96;</span><br><span class="line">DPI: &#96;120&#96;</span><br></pre></td></tr></table></figure></li>
+<li>Icons  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Theme: &#96;Breeze Dark&#96;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Application Style<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Window Decorations - Border size: &#96;No Borders&#96;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Desktop Effects</p>
+</li>
+</ul>
+<hr>
+<h2 id="Bash-basic-Note-from-3"><a href="#Bash-basic-Note-from-3" class="headerlink" title="Bash basic (Note from: [3])"></a>Bash basic <em>(Note from: [3])</em></h2><h4 id="NAVIGATION"><a href="#NAVIGATION" class="headerlink" title="NAVIGATION"></a>NAVIGATION</h4><ul>
+<li><code>ls</code> - list directory contents</li>
+<li><code>pwd</code> - print name of current/working directory</li>
+<li><code>cd</code> - change working directory</li>
+<li><code>popd</code> - put working directory on a stack</li>
+<li><code>file</code> - determine file type</li>
+<li><code>locate</code> - find files by name</li>
+<li><code>updatedb</code> - update database for locate</li>
+<li><code>which</code> - locate a command</li>
+<li><code>history</code> - display bash command history</li>
+</ul>
+<h4 id="GETTING-HELP"><a href="#GETTING-HELP" class="headerlink" title="GETTING HELP"></a>GETTING HELP</h4><ul>
+<li><code>whatis</code> - display the on-line manual descriptions</li>
+<li><code>apropos</code> - search the manual page names and descriptions</li>
+<li><code>man</code> - an interface to the on-line reference manuals</li>
+</ul>
+<h4 id="WORKING-WITH-FILES"><a href="#WORKING-WITH-FILES" class="headerlink" title="WORKING WITH FILES"></a>WORKING WITH FILES</h4><ul>
+<li><code>mkdir</code> - create a directory/make directories</li>
+<li><code>touch</code> - change file timestamps/create empty files</li>
+<li><code>cp</code> - copy files and directories</li>
+<li><code>mv</code> - move (rename) files</li>
+<li><code>rm</code> - remove files or directories</li>
+<li><code>rmdir</code> - remove empty directories</li>
+</ul>
+<h4 id="TEXT-FILES"><a href="#TEXT-FILES" class="headerlink" title="TEXT FILES"></a>TEXT FILES</h4><ul>
+<li><code>cat</code> - concatenate files and print on the standard output</li>
+<li><code>more</code>/<code>less</code> - file perusal filter for crt viewing</li>
+<li><code>nano</code> - command line text editor</li>
+</ul>
+<h4 id="USERS"><a href="#USERS" class="headerlink" title="USERS"></a>USERS</h4><ul>
+<li><code>sudo</code> - execute a command as superuser</li>
+<li><code>su</code> - change user ID or become another user</li>
+<li><code>users</code> - print the user names of users currently logged in</li>
+<li><code>id</code> - print real and effective user and group IDs</li>
+</ul>
+<h4 id="CHANGING-FILE-PERMISSIONS"><a href="#CHANGING-FILE-PERMISSIONS" class="headerlink" title="CHANGING FILE PERMISSIONS"></a>CHANGING FILE PERMISSIONS</h4><ul>
+<li><code>chmod</code> - change permissions of a file</li>
+</ul>
+<h4 id="KILLING-PROGRAMS-AND-LOGGING-OUT"><a href="#KILLING-PROGRAMS-AND-LOGGING-OUT" class="headerlink" title="KILLING PROGRAMS AND LOGGING OUT"></a>KILLING PROGRAMS AND LOGGING OUT</h4><ul>
+<li><code>Ctrl</code>+<code>C</code> - kill a running command</li>
+<li><code>killall</code> - kill processes by name</li>
+<li><code>exit</code> - log out of bash</li>
+</ul>
+<h4 id="USEFUL-SHORTCUTS"><a href="#USEFUL-SHORTCUTS" class="headerlink" title="USEFUL SHORTCUTS"></a>USEFUL SHORTCUTS</h4><ul>
+<li><code>Ctrl</code>+<code>D</code> - signal bash that there is no more input</li>
+<li><code>Ctrl</code>+<code>L</code> - redraw the screen</li>
+<li><code>Ctrl</code>+<code>+</code> - make text bigger in terminal emulator</li>
+<li><code>Ctrl</code>+<code>-</code> - make text smaller in terminal emulator</li>
+</ul>
+<hr>
+<h2 id="Soft-Bookmark"><a href="#Soft-Bookmark" class="headerlink" title="Soft Bookmark"></a>Soft Bookmark</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/luongvo209/Awesome-Linux-Software#productivity">Awesome Linux Software</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/madbob/awesome-linux-dev">Awesome Linux Dev Tools</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/aleksandar-todorovic/awesome-linux">awesome-linux</a></li>
+<li>…</li>
+</ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://goo.gl/NkqxV7">Power management/Suspend and hibernate</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.howtogeek.com/55185/how-to-maximize-the-battery-life-on-your-linux-laptop/">How to Maximize Your Linux Laptop’s Battery Life</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=oxuRxtrO2Ag">Beginner’s Guide to the Bash Terminal</a></li>
+<li><a target="_blank" rel="noopener" href="https://ianliniblog.wordpress.com/2017/05/06/linux-%e4%b8%8a-nvidia-%e9%a1%af%e5%8d%a1%e7%95%ab%e9%9d%a2%e6%92%95%e8%a3%82%e5%95%8f%e9%a1%8c/">Linux 上 Nvidia 顯卡畫面撕裂的解法</a></li>
+<li><a target="_blank" rel="noopener" href="https://wiki.manjaro.org/index.php?title=%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%81%AE%E8%A8%AD%E5%AE%9A">日本語の設定</a></li>
+</ol>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>Author: <a href="https://vince-amazing/blog">VINCEC</a>
+            <p>Permalink: <a href="https://vince-amazing/blog/2018/04/08/my-manjaro-setup-II/">https://vince-amazing/blog/2018/04/08/my-manjaro-setup-II/</a>
+            <p>Date: <a href="https://vince-amazing/blog/2018/04/08/my-manjaro-setup-II/">April 8th 2018, 12:17:15</a>
+            <p>Copyright license: The article using<a rel="license noopener" target="_blank" href="//creativecommons.org/licenses/by-nc/4.0/">CC licensing 4.0</a></p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/blog/2018/04/15/linux-i3-configuation/" title= 我的 i3 桌面配置笔记 >
+                    <div class="nextTitle">我的 i3 桌面配置笔记</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/blog/2017/10/09/unblock-flickr-downloader/" title= VINCEC's Flickr Downloader / VINCEC Flickr 原图下载器 >
+                    <div class="prevTitle">VINCEC's Flickr Downloader / VINCEC Flickr 原图下载器</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:linengca@usc.edu" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/vincecao" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="//instagram.com/__viiiince" class="iconfont-archer instagram" target="_blank" title=instagram></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="//linkedin.com/in/lineng-vince-cao-36b693121" class="iconfont-archer linkedin" target="_blank" title=linkedin></a>
+            
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a><span class="iconfont-archer power">&#xe635;</span>Vince Modified</span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:70vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Setup-%E5%AE%89%E8%A3%85%E6%97%B6%E6%B3%A8%E6%84%8F%E7%82%B9"><span class="toc-number">1.</span> <span class="toc-text">Setup 安装时注意点:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%BB%E9%9D%A2%E6%92%95%E8%A3%82%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">画面撕裂问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B%EF%BC%9A"><span class="toc-number">2.0.1.</span> <span class="toc-text">检测：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95-%E2%80%94%E2%80%94-compton"><span class="toc-number">2.0.2.</span> <span class="toc-text">解决方法 —— compton</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95-%E2%80%94%E2%80%94-NVIDIA%E9%A9%B1%E5%8A%A8%E8%AE%BE%E7%BD%AE"><span class="toc-number">2.0.3.</span> <span class="toc-text">解决方法 —— NVIDIA驱动设置</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A3%85%E8%87%AA%E5%B7%B1%E5%81%8F%E5%A5%BD%E8%BD%AF%E4%BB%B6"><span class="toc-number">3.</span> <span class="toc-text">装自己偏好软件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Pamac"><span class="toc-number">3.0.1.</span> <span class="toc-text">Pamac</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#iBus-%E5%8F%82%E8%80%83-5-%EF%BC%9A"><span class="toc-number">3.0.2.</span> <span class="toc-text">iBus (参考: [5])：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#i3-wm"><span class="toc-number">3.0.3.</span> <span class="toc-text">i3-wm</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Power-Mangement"><span class="toc-number">4.</span> <span class="toc-text">Power Mangement</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%B7%B1%E5%96%9C%E6%AC%A2%E7%9A%84-KDE-%E8%AE%BE%E7%BD%AE"><span class="toc-number">5.</span> <span class="toc-text">自己喜欢的 KDE 设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bash-basic-Note-from-3"><span class="toc-number">6.</span> <span class="toc-text">Bash basic (Note from: [3])</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#NAVIGATION"><span class="toc-number">6.0.1.</span> <span class="toc-text">NAVIGATION</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#GETTING-HELP"><span class="toc-number">6.0.2.</span> <span class="toc-text">GETTING HELP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WORKING-WITH-FILES"><span class="toc-number">6.0.3.</span> <span class="toc-text">WORKING WITH FILES</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TEXT-FILES"><span class="toc-number">6.0.4.</span> <span class="toc-text">TEXT FILES</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#USERS"><span class="toc-number">6.0.5.</span> <span class="toc-text">USERS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CHANGING-FILE-PERMISSIONS"><span class="toc-number">6.0.6.</span> <span class="toc-text">CHANGING FILE PERMISSIONS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#KILLING-PROGRAMS-AND-LOGGING-OUT"><span class="toc-number">6.0.7.</span> <span class="toc-text">KILLING PROGRAMS AND LOGGING OUT</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#USEFUL-SHORTCUTS"><span class="toc-number">6.0.8.</span> <span class="toc-text">USEFUL SHORTCUTS</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Soft-Bookmark"><span class="toc-number">7.</span> <span class="toc-text">Soft Bookmark</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">8.</span> <span class="toc-text">Reference</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 108 </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2021 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/19</span><a class="archive-post-title" href= "/blog/2021/06/19/go-lang-notes/" >Go Language Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/21</span><a class="archive-post-title" href= "/blog/2021/03/21/ux-design-learning-notes/" >UX Design Learning Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/17</span><a class="archive-post-title" href= "/blog/2021/01/17/move-to-chrome-os-with-my-hp/" >Chrome OS on my HP Elitebook 840 G5 & Installation</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/blog/2020/12/15/git/" >Git Note</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/11</span><a class="archive-post-title" href= "/blog/2020/03/11/set-up-nginx-streaming-media-server/" >Set up Nginx Streaming Media Server</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/29</span><a class="archive-post-title" href= "/blog/2019/09/29/docker-notes/" >Docker Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/27</span><a class="archive-post-title" href= "/blog/2019/09/27/mongodb-notes/" >Mongodb Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/02</span><a class="archive-post-title" href= "/blog/2019/08/02/anyconnection-setup-and-config/" >AnyConnect Server(Ocserv) & Client(Openwrt, Linux, Windows & Mac) Configuares</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/07</span><a class="archive-post-title" href= "/blog/2019/07/07/make-emby-plex-work-with-external-ntfs/" >Make Emby(Plex) support nfts external hdd driver</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/01</span><a class="archive-post-title" href= "/blog/2019/07/01/ibus-final-in-linux/" >ibus Chinese input config - finally</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/25</span><a class="archive-post-title" href= "/blog/2019/06/25/arduino-notes/" >Arduino Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/24</span><a class="archive-post-title" href= "/blog/2019/06/24/bit-operate-with-unsign/" >Bit Operate with Unsigned Integer</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/blog/2019/06/12/sort-review/" >Sort Review</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/10</span><a class="archive-post-title" href= "/blog/2019/06/10/desktop-app-converter-note/" >Desktop App Converter Note</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/08</span><a class="archive-post-title" href= "/blog/2019/06/08/tree-review/" >Tree Review</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/05</span><a class="archive-post-title" href= "/blog/2019/06/05/vSymLinks/" >vSymLinks - for Windows Symbolic Links</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/blog/2019/05/30/vconsole/" >vConsole</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/27</span><a class="archive-post-title" href= "/blog/2019/05/27/structure-review/" >Java Sytax & Structure Review</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/17</span><a class="archive-post-title" href= "/blog/2019/05/17/csharp-syntax-notes/" >C# Syntax Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/25</span><a class="archive-post-title" href= "/blog/2019/04/25/gifsicle-usage/" >Gifsicle - powerful tools for gif on web</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span><a class="archive-post-title" href= "/blog/2019/03/07/angular-notes/" >Angular7 Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span><a class="archive-post-title" href= "/blog/2019/03/07/bootstrap-notes/" >Bootstrap Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/18</span><a class="archive-post-title" href= "/blog/2019/02/18/javascript-notes/" >Javascript Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span><a class="archive-post-title" href= "/blog/2019/02/13/regex-notes/" >Regual Expressions Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span><a class="archive-post-title" href= "/blog/2019/02/03/android-notes/" >Android Development Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/29</span><a class="archive-post-title" href= "/blog/2019/01/29/nodejs-notes/" >NodeJS Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/25</span><a class="archive-post-title" href= "/blog/2019/01/25/sql-notes/" >SQL Notes</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href= "/blog/2018/11/26/lecture-alg-randomized-review-note/" >Algorithm Review Notes - Randomized Algorithms</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href= "/blog/2018/11/26/lecture-alg-approx-review-note/" >Algorithm Review Notes - Approximation Algorithms</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href= "/blog/2018/11/26/lecture-alg-lp-review-note/" >Algorithm Review Notes - Linear Programming</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href= "/blog/2018/11/26/lecture-alg-np-review-note/" >Algorithm Review Notes - NP Problem</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/25</span><a class="archive-post-title" href= "/blog/2018/11/25/lecture-alg-network-flow-review-note/" >Algorithm Review Notes - Network Flow</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/25</span><a class="archive-post-title" href= "/blog/2018/11/25/lecture-alg-dp-review-note/" >Algorithm Review Notes - Dynamic Programming</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/22</span><a class="archive-post-title" href= "/blog/2018/11/22/lecture-ai-learning-review-note/" >AI Review Note - Learning</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/21</span><a class="archive-post-title" href= "/blog/2018/11/21/lecture-ai-probability-review-note/" >AI Review Note - Probability</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/21</span><a class="archive-post-title" href= "/blog/2018/11/21/dell-latitude-7390-hackintosh/" >Dell Latitude 7390 Hackintosh Mojave</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/19</span><a class="archive-post-title" href= "/blog/2018/11/19/solus-efi-repair/" >Solus Efi Repair</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/27</span><a class="archive-post-title" href= "/blog/2018/10/27/install-davinci-on-elementry-os/" >Install DaVinCi 15 on Elementry OS</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/23</span><a class="archive-post-title" href= "/blog/2018/10/23/lecture-ai-logic-review-note/" >AI Review Note - Logic</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/13</span><a class="archive-post-title" href= "/blog/2018/10/13/zenbook-pro-ux550ge-linux-tweaks/" >Asus Zenbook Pro UX550GE Linux Configure</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/blog/2018/10/04/lecture-alg-search-review-note/" >Algorithm Review Notes - Search Methods</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/02</span><a class="archive-post-title" href= "/blog/2018/09/02/good-bye-thinkpad-hello-ipad/" >Welcome new arrived iPad Pro and its friends</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href= "/blog/2018/08/21/upgrade-the-wireless-card-intel-9260/" >Upgraded My Wireless Adapter for 720s 13ARR with Intel 9260</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/05</span><a class="archive-post-title" href= "/blog/2018/08/05/taobao-a-lot/" >淘宝了一些东西</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/01</span><a class="archive-post-title" href= "/blog/2018/08/01/change-chrome-in-fresh-look/" >Chrome 新 UI</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/03</span><a class="archive-post-title" href= "/blog/2018/07/03/php-visual-studio-code-setting/" >在 VS Code 中配置 php</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/03</span><a class="archive-post-title" href= "/blog/2018/07/03/mustache-templates/" >Some examples of using Mustache templates.</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/02</span><a class="archive-post-title" href= "/blog/2018/07/02/fix-flex-in-ie/" >Let IE9 Support Flex?</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/01</span><a class="archive-post-title" href= "/blog/2018/07/01/vnormalize-css/" >Vincec Normalize CSS - vnorm.css</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/30</span><a class="archive-post-title" href= "/blog/2018/06/30/php-learning-notes/" >PHP Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/28</span><a class="archive-post-title" href= "/blog/2018/06/28/make-bash-and-npm-work-in-windows/" >在 Windows 下优雅使用 npm 和 git bash</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/28</span><a class="archive-post-title" href= "/blog/2018/06/28/symbolic-link/" >Symbolic Links</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/27</span><a class="archive-post-title" href= "/blog/2018/06/27/linux-cpu-stress/" >Linux CPU 压力测试</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/21</span><a class="archive-post-title" href= "/blog/2018/06/21/setup-blog-on-gitlab-page/" >部署你的博客到 Gitlab page</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/20</span><a class="archive-post-title" href= "/blog/2018/06/20/react-web-note/" >React for web 学习笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/20</span><a class="archive-post-title" href= "/blog/2018/06/20/rc-local/" >在 Linux 启动的时候加载自定义脚本自己的 —— rc.local</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/19</span><a class="archive-post-title" href= "/blog/2018/06/19/opensuse-tumbleweed-notes/" >Opensuse Tumbleweed 大蜥蜴的配置清单</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/19</span><a class="archive-post-title" href= "/blog/2018/06/19/grub-note/" >Linux 下 Grub 的各种问题笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/15</span><a class="archive-post-title" href= "/blog/2018/06/15/macbook-jpn-keyboard-rice/" >Macbook 日版键盘终极解决方案（伪）—— Karabiner</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/15</span><a class="archive-post-title" href= "/blog/2018/06/15/nodejs-webpack3-learn-notes/" >Nodejs - Webpack3 学习笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/10</span><a class="archive-post-title" href= "/blog/2018/06/10/fake-elecom-dux-open-box/" >Elecom DUX70BK, a mouse for MMORPG players</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span><a class="archive-post-title" href= "/blog/2018/06/01/lenovo-does-not-love-amd/" >Lenovo 720s 13ARR Bios Manual Update to 6KCN38WW</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span><a class="archive-post-title" href= "/blog/2018/06/01/vincec-side-nav/" >VINCEC Side Navegation Bar</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/blog/2018/05/30/opera-is-suge/" >Opera 大佬真厉害</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/29</span><a class="archive-post-title" href= "/blog/2018/05/29/fire-hd-10-rice/" >(7/28/2018 updated) Fire HD 10 tablet 7 Tweaks and Root tutorial</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/15</span><a class="archive-post-title" href= "/blog/2018/05/15/ss-ssr/" >酸酸 和 酸酸乳</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/23</span><a class="archive-post-title" href= "/blog/2018/04/23/linux-software/" >Linux 的日常安利集合</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span><a class="archive-post-title" href= "/blog/2018/04/20/ubuntu-18-04-notes/" >Ubuntu 18.04 配置笔记 (720s)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span><a class="archive-post-title" href= "/blog/2018/04/20/lenovo-720s/" >新的神坑 720s 13ARR Ryzen</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/blog/2018/04/15/linux-i3-configuation/" >我的 i3 桌面配置笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/08</span><a class="archive-post-title" href= "/blog/2018/04/08/my-manjaro-setup-II/" >我的 Manjaro 配置 Mark II</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2017 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/09</span><a class="archive-post-title" href= "/blog/2017/10/09/unblock-flickr-downloader/" >VINCEC's Flickr Downloader / VINCEC Flickr 原图下载器</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/29</span><a class="archive-post-title" href= "/blog/2017/09/29/my-manjaro-setup/" >我的 Manjaro 配置</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/08</span><a class="archive-post-title" href= "/blog/2017/08/08/dns/" >DNS相关</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/08</span><a class="archive-post-title" href= "/blog/2017/08/08/ruby-learning-note/" >Ruby 学习笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/02</span><a class="archive-post-title" href= "/blog/2017/05/02/bilibili-get-xml/" >b站转跳到弹幕xml的网站</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/26</span><a class="archive-post-title" href= "/blog/2017/03/26/uwp-learning-note/" >UWP LEARNING</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/07</span><a class="archive-post-title" href= "/blog/2017/01/07/zerochan-anime-searcher-in-uwp/" >Zerochan Anime Searcher UWP</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span><a class="archive-post-title" href= "/blog/2017/01/05/swift/" >Swift3</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2016 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/05</span><a class="archive-post-title" href= "/blog/2016/12/05/online-vince-crypography-toolkit/" >Online Vince Crypography Toolkits</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/15</span><a class="archive-post-title" href= "/blog/2016/08/15/a-html-page-with-tab-features/" >A html page with tab features</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/24</span><a class="archive-post-title" href= "/blog/2016/06/24/nvidia-Shield-rice/" >Nvidia Shield 折腾记－吐血篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/18</span><a class="archive-post-title" href= "/blog/2016/06/18/collage-ranking/" >College Select</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/08</span><a class="archive-post-title" href= "/blog/2016/06/08/my-gaokao/" >我的高考</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/29</span><a class="archive-post-title" href= "/blog/2016/05/29/google-scared-me/" >妈妈呀谷歌好可怕</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/26</span><a class="archive-post-title" href= "/blog/2016/05/26/the-meaning-of-camera/" >相机的意义</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/20</span><a class="archive-post-title" href= "/blog/2016/05/20/dian-dian-is-dead/" >辛苦弄起来的点点图床都跟别人跑啦</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2015 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/27</span><a class="archive-post-title" href= "/blog/2015/10/27/build-a-bike/" >花闲钱自己组了辆车，妈妈再也不用担心我的动手能力</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/01</span><a class="archive-post-title" href= "/blog/2015/02/01/lucky-day/" >今天难道是我的幸运日吗</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/30</span><a class="archive-post-title" href= "/blog/2015/01/30/unkonwn-title/" >无题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/15</span><a class="archive-post-title" href= "/blog/2015/01/15/no-one-knows-my-closet-even-me/" >呀趴里，寝室衣柜的结构我一个学期都不曾弄明白</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/14</span><a class="archive-post-title" href= "/blog/2015/01/14/09-26-and-11/" >反正也没人看的看了也白看的 09，26和11</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/11</span><a class="archive-post-title" href= "/blog/2015/01/11/music-recomm/" >Music</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/10</span><a class="archive-post-title" href= "/blog/2015/01/10/time-to-sleep/" >该睡觉了</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2014 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/23</span><a class="archive-post-title" href= "/blog/2014/09/23/ios-app-recomm/" >推荐几款个人很喜欢的IOS应用好了</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/18</span><a class="archive-post-title" href= "/blog/2014/09/18/back-to-acg/" >杀回二次元</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/11</span><a class="archive-post-title" href= "/blog/2014/09/11/japanese-calligraphy/" >签名神软——日文書法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/03</span><a class="archive-post-title" href= "/blog/2014/09/03/keys/" >若干软件通用密钥</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/31</span><a class="archive-post-title" href= "/blog/2014/08/31/hand-to-hand-to-shanxun-wifi/" >“手把手”教你WKU闪讯连接WIFI</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/26</span><a class="archive-post-title" href= "/blog/2014/08/26/new-domain/" >换了新域名</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/22</span><a class="archive-post-title" href= "/blog/2014/08/22/mac-postvideo-app/" >MAC上的后期相关APP来一发</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/13</span><a class="archive-post-title" href= "/blog/2014/08/13/kulucolo-benefit-diary/" >KuluColo的完善日记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/05</span><a class="archive-post-title" href= "/blog/2014/08/05/windows-font-rander/" >能使你的Windows字体显示效果接近Mac？</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/04</span><a class="archive-post-title" href= "/blog/2014/08/04/free-vpn-vppn/" >分享免费试用的日本vpn——vppn</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/24</span><a class="archive-post-title" href= "/blog/2014/07/24/music-manage/" >音乐管理，Media Go 还是 iTunes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/19</span><a class="archive-post-title" href= "/blog/2014/07/19/broswer-a-to-z/" >浏览器A到Z</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/19</span><a class="archive-post-title" href= "/blog/2014/07/19/link-your-router/" >将你家的路由器“串联”起来吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/17</span><a class="archive-post-title" href= "/blog/2014/07/17/hello-sekai/" >Hello Sekai</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="随笔"><span class="iconfont-archer">&#xe606;</span>随笔</span>
+    
+        <span class="sidebar-tag-name" data-tags="Javascript"><span class="iconfont-archer">&#xe606;</span>Javascript</span>
+    
+        <span class="sidebar-tag-name" data-tags="Angular"><span class="iconfont-archer">&#xe606;</span>Angular</span>
+    
+        <span class="sidebar-tag-name" data-tags="科学"><span class="iconfont-archer">&#xe606;</span>科学</span>
+    
+        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="Windows"><span class="iconfont-archer">&#xe606;</span>Windows</span>
+    
+        <span class="sidebar-tag-name" data-tags="MacOS"><span class="iconfont-archer">&#xe606;</span>MacOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="IOS"><span class="iconfont-archer">&#xe606;</span>IOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
+    
+        <span class="sidebar-tag-name" data-tags="C++"><span class="iconfont-archer">&#xe606;</span>C++</span>
+    
+        <span class="sidebar-tag-name" data-tags="Anime"><span class="iconfont-archer">&#xe606;</span>Anime</span>
+    
+        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
+    
+        <span class="sidebar-tag-name" data-tags="Leetcode"><span class="iconfont-archer">&#xe606;</span>Leetcode</span>
+    
+        <span class="sidebar-tag-name" data-tags="生活"><span class="iconfont-archer">&#xe606;</span>生活</span>
+    
+        <span class="sidebar-tag-name" data-tags="教程"><span class="iconfont-archer">&#xe606;</span>教程</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tutorial"><span class="iconfont-archer">&#xe606;</span>Tutorial</span>
+    
+        <span class="sidebar-tag-name" data-tags="Csharp"><span class="iconfont-archer">&#xe606;</span>Csharp</span>
+    
+        <span class="sidebar-tag-name" data-tags="UWP"><span class="iconfont-archer">&#xe606;</span>UWP</span>
+    
+        <span class="sidebar-tag-name" data-tags="KuluColo"><span class="iconfont-archer">&#xe606;</span>KuluColo</span>
+    
+        <span class="sidebar-tag-name" data-tags="Blog"><span class="iconfont-archer">&#xe606;</span>Blog</span>
+    
+        <span class="sidebar-tag-name" data-tags="剁手 / Chopping Hands"><span class="iconfont-archer">&#xe606;</span>剁手 / Chopping Hands</span>
+    
+        <span class="sidebar-tag-name" data-tags="CSS"><span class="iconfont-archer">&#xe606;</span>CSS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Gif"><span class="iconfont-archer">&#xe606;</span>Gif</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tools"><span class="iconfont-archer">&#xe606;</span>Tools</span>
+    
+        <span class="sidebar-tag-name" data-tags="Go"><span class="iconfont-archer">&#xe606;</span>Go</span>
+    
+        <span class="sidebar-tag-name" data-tags="技巧"><span class="iconfont-archer">&#xe606;</span>技巧</span>
+    
+        <span class="sidebar-tag-name" data-tags="Course"><span class="iconfont-archer">&#xe606;</span>Course</span>
+    
+        <span class="sidebar-tag-name" data-tags="Algorithm"><span class="iconfont-archer">&#xe606;</span>Algorithm</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tips"><span class="iconfont-archer">&#xe606;</span>Tips</span>
+    
+        <span class="sidebar-tag-name" data-tags="Nodejs"><span class="iconfont-archer">&#xe606;</span>Nodejs</span>
+    
+        <span class="sidebar-tag-name" data-tags="ChromeOS"><span class="iconfont-archer">&#xe606;</span>ChromeOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Laptop"><span class="iconfont-archer">&#xe606;</span>Laptop</span>
+    
+        <span class="sidebar-tag-name" data-tags="Music"><span class="iconfont-archer">&#xe606;</span>Music</span>
+    
+        <span class="sidebar-tag-name" data-tags="html"><span class="iconfont-archer">&#xe606;</span>html</span>
+    
+        <span class="sidebar-tag-name" data-tags="Crypography"><span class="iconfont-archer">&#xe606;</span>Crypography</span>
+    
+        <span class="sidebar-tag-name" data-tags="Made-bt-V"><span class="iconfont-archer">&#xe606;</span>Made-bt-V</span>
+    
+        <span class="sidebar-tag-name" data-tags="PHP"><span class="iconfont-archer">&#xe606;</span>PHP</span>
+    
+        <span class="sidebar-tag-name" data-tags="Html"><span class="iconfont-archer">&#xe606;</span>Html</span>
+    
+        <span class="sidebar-tag-name" data-tags="Ruby"><span class="iconfont-archer">&#xe606;</span>Ruby</span>
+    
+        <span class="sidebar-tag-name" data-tags="SQL"><span class="iconfont-archer">&#xe606;</span>SQL</span>
+    
+        <span class="sidebar-tag-name" data-tags="Database"><span class="iconfont-archer">&#xe606;</span>Database</span>
+    
+        <span class="sidebar-tag-name" data-tags="Swift"><span class="iconfont-archer">&#xe606;</span>Swift</span>
+    
+        <span class="sidebar-tag-name" data-tags="ux-design"><span class="iconfont-archer">&#xe606;</span>ux-design</span>
+    
+        <span class="sidebar-tag-name" data-tags="CSS3"><span class="iconfont-archer">&#xe606;</span>CSS3</span>
+    
+        <span class="sidebar-tag-name" data-tags="Bootstrap"><span class="iconfont-archer">&#xe606;</span>Bootstrap</span>
+    
+        <span class="sidebar-tag-name" data-tags="React"><span class="iconfont-archer">&#xe606;</span>React</span>
+    
+        <span class="sidebar-tag-name" data-tags="CSharp"><span class="iconfont-archer">&#xe606;</span>CSharp</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="Life"><span class="iconfont-archer">&#xe60a;</span>Life</span>
+    
+        <span class="sidebar-category-name" data-categories="Rice"><span class="iconfont-archer">&#xe60a;</span>Rice</span>
+    
+        <span class="sidebar-category-name" data-categories="Notes"><span class="iconfont-archer">&#xe60a;</span>Notes</span>
+    
+        <span class="sidebar-category-name" data-categories="Config"><span class="iconfont-archer">&#xe60a;</span>Config</span>
+    
+        <span class="sidebar-category-name" data-categories="Path"><span class="iconfont-archer">&#xe60a;</span>Path</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: '/blog/',
+        author: 'VINCEC'
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/blog/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/blog/scripts/main.js"></script>
+    <!-- busuanzi  -->
+    
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/blog/scripts/share.js" async></script>    
+    
+    </body>
+</html>
+
+

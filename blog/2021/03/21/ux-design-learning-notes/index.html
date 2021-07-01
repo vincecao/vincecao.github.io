@@ -1,0 +1,3303 @@
+<!DOCTYPE html>
+<html>
+    <!-- title -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="VINCEC">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="VINCEC">
+    <meta name="keywords" content="THE GREAT VINCE | VINCEC">
+    <meta name="description" content="">
+    <meta name="Cache-Control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>UX Design Learning Notes · Vincec&#39;s Dimension</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/blog/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s 1;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= /blog/css/style.css?v=20180524 as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= /blog/css/mobile.css?v=20180524 media="(max-width: 980px)">
+    
+    <!-- <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" /> -->
+    <link rel="preload" href="/blog/css/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+        
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/blog/assets/favicon.ico" />
+    <!-- <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />     -->
+    <link rel="preload" href="/blog/scripts/webfontloader.min.js" as="script" />    
+    <!-- <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" /> -->
+    <link rel="preload" href="/blog/scripts/zepto.min.js" as="script" />
+    <link rel="preload" href="/blog/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/blog/font/Oswald-Regular.ttf" crossorigin>
+    <!-- <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin> -->
+    <link rel="preload" as="font" href="/blog/font/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-89931236-2"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-89931236-2');
+    </script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/blog/" >Vincec&#39;s Dimension</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">UX Design Learning Notes</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/blog/>Vincec's Dimension</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style=
+
+
+
+
+
+
+
+
+height:70vh;
+
+>
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(29, 29, 29, 1.5)), url(/blog/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            UX Design Learning Notes
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "ux-design">ux-design</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count">798</span> / Reading time: <span class="post-count">4 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2021/03/21</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+  
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/blog/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/blog/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="UX-fields"><a href="#UX-fields" class="headerlink" title="UX fields"></a>UX fields</h2><ul>
+<li>Interaciton Design</li>
+<li>Information Architecture</li>
+<li>Visual Design</li>
+<li>Information Design</li>
+<li>Technical Communication</li>
+<li>Service Design</li>
+</ul>
+<h2 id="Strategies"><a href="#Strategies" class="headerlink" title="Strategies"></a>Strategies</h2><ul>
+<li>UX Strategy</li>
+<li>Content Strategy</li>
+<li>Customer experience</li>
+</ul>
+<h1 id="Interaction-Design"><a href="#Interaction-Design" class="headerlink" title="Interaction Design"></a>Interaction Design</h1><p>efficient &amp; effective design</p>
+<p>create mock-up </p>
+<ul>
+<li>Where does text go</li>
+<li>What buttons will be present</li>
+<li>How will the menus be places</li>
+<li>How are headers/footers strucured</li>
+</ul>
+<h3 id="Responsibilites"><a href="#Responsibilites" class="headerlink" title="Responsibilites"></a>Responsibilites</h3><ul>
+<li>Visual interactions</li>
+<li>Annotate and document</li>
+<li>Advocate for users</li>
+<li>Be part of user researcher</li>
+</ul>
+<h3 id="Resource"><a href="#Resource" class="headerlink" title="Resource"></a>Resource</h3><p><a target="_blank" rel="noopener" href="https://uxcareershandbook.com/interaction-design/"></a></p>
+<ul>
+<li>Interaction Design Fundamentals</li>
+<li>UX Design Techniques: Paper Prototyping</li>
+<li>The UX Design Tools series</li>
+</ul>
+<h1 id="Visual-Design"><a href="#Visual-Design" class="headerlink" title="Visual Design"></a>Visual Design</h1><p>create elements / interactivity on screen</p>
+<h3 id="Responsibilites-1"><a href="#Responsibilites-1" class="headerlink" title="Responsibilites"></a>Responsibilites</h3><ul>
+<li>Design controls</li>
+<li>Help with branding</li>
+<li>Establish guidelines</li>
+<li>Update style guides</li>
+</ul>
+<h3 id="Resource-1"><a href="#Resource-1" class="headerlink" title="Resource"></a>Resource</h3><p><a target="_blank" rel="noopener" href="https://uxcareershandbook.com/visual-design/"></a></p>
+<ul>
+<li>Universal Principles of Design</li>
+<li>User Experience Fundamentals for Web Design</li>
+<li>Web Design Fundamentals</li>
+</ul>
+<h1 id="Service-Design"><a href="#Service-Design" class="headerlink" title="Service Design"></a>Service Design</h1><p>porduct / assuing the quality of a customer’s entire interaction with a company</p>
+<h3 id="Responsibilites-2"><a href="#Responsibilites-2" class="headerlink" title="Responsibilites"></a>Responsibilites</h3><ul>
+<li>Understand needs</li>
+<li>identify processes</li>
+<li>Enhance interactions</li>
+<li>Visualize improvements</li>
+</ul>
+<h3 id="Resource-2"><a href="#Resource-2" class="headerlink" title="Resource"></a>Resource</h3><p><a target="_blank" rel="noopener" href="https://uxcareershandbook.com/service-design/"></a></p>
+<ul>
+<li>ITIL Foundations, Chapter 4</li>
+</ul>
+<h1 id="Information-architecture"><a href="#Information-architecture" class="headerlink" title="Information architecture"></a>Information architecture</h1><h3 id="Responsibilites-3"><a href="#Responsibilites-3" class="headerlink" title="Responsibilites"></a>Responsibilites</h3><ul>
+<li>Creating web resources</li>
+<li>Grouping users</li>
+<li>Designing information (let user to test and record their mouse click)</li>
+</ul>
+<h3 id="Information-Structure"><a href="#Information-Structure" class="headerlink" title="Information Structure"></a>Information Structure</h3><ul>
+<li>Creating a meaningful site structure</li>
+<li>Creating a controlled vocabulary</li>
+<li>Creating a taxonomy for tagging information</li>
+</ul>
+<h3 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a>Resources</h3><p><a target="_blank" rel="noopener" href="https://uxcareershandbook.com/information-architecture/"></a></p>
+<ul>
+<li>Foundations of UX: Information architecture</li>
+</ul>
+<h1 id="Content-Writing-Information-Design"><a href="#Content-Writing-Information-Design" class="headerlink" title="Content Writing / Information Design"></a>Content Writing / Information Design</h1><h3 id="Responsibilities"><a href="#Responsibilities" class="headerlink" title="Responsibilities"></a>Responsibilities</h3><ul>
+<li>Work with experts</li>
+<li>Design user-friendly content</li>
+<li>Create meaningful content</li>
+<li>Maintain style guide</li>
+</ul>
+<h3 id="Techinial-Writer"><a href="#Techinial-Writer" class="headerlink" title="Techinial Writer"></a>Techinial Writer</h3><p>Error message / label / tooltips / video / alert</p>
+<h3 id="Resource-3"><a href="#Resource-3" class="headerlink" title="Resource"></a>Resource</h3><p><a target="_blank" rel="noopener" href="https://uxcareershandbook.com/information-design/"></a></p>
+<ul>
+<li>Foundations of UX: Information architecture</li>
+<li>Writing for the Web</li>
+</ul>
+<h1 id="Gathering-User-Data"><a href="#Gathering-User-Data" class="headerlink" title="Gathering User Data"></a>Gathering User Data</h1><p>watch user use in real life and do observation</p>
+<ul>
+<li>3+ visits for each target user type</li>
+<li>5+ visits in total</li>
+</ul>
+<h3 id="Where-to-observe"><a href="#Where-to-observe" class="headerlink" title="Where to observe"></a>Where to observe</h3><ul>
+<li>User works from their own location</li>
+<li>User brings items to your location</li>
+<li>Behavioral interview with user</li>
+</ul>
+<h3 id="Who-should-observe"><a href="#Who-should-observe" class="headerlink" title="Who should observe"></a>Who should observe</h3><ul>
+<li>2-3 team members per visit</li>
+<li>Every team member should participate</li>
+</ul>
+<h3 id="Watch-and-listen"><a href="#Watch-and-listen" class="headerlink" title="Watch and listen"></a>Watch and listen</h3><p>tool: notebook &amp; pen (no video, no laptop) as a quite audience</p>
+<p>humble apprentice</p>
+<h3 id="quotes-handwritten"><a href="#quotes-handwritten" class="headerlink" title="quotes / handwritten"></a>quotes / handwritten</h3><p>do</p>
+<ul>
+<li>Write down what people say and do</li>
+<li>Take photos of the environment</li>
+<li>engage with people</li>
+<li>ask open-ended questions</li>
+<li>ask for examples</li>
+</ul>
+<p>don’t</p>
+<ul>
+<li>engage in conversation</li>
+<li>write down solutions or bug fixes</li>
+<li>turn the visit into a sales pitch</li>
+<li>ask participants to predict the future</li>
+</ul>
+<h1 id="Experience-Map"><a href="#Experience-Map" class="headerlink" title="Experience Map"></a>Experience Map</h1><p>Affinity diagram</p>
+<p><strong>Don’t try and build an experience map using a spreadsheet or digital product</strong></p>
+<p>pain point use sticker<br>Pain points make you get your business goal</p>
+<h1 id="Assumption-personas"><a href="#Assumption-personas" class="headerlink" title="Assumption personas"></a>Assumption personas</h1><ul>
+<li>Market Segmentation<ul>
+<li>Group customers by purchasing decisions</li>
+<li>Describes general traits in aggregate</li>
+</ul>
+</li>
+<li>Personas<ul>
+<li>Describe actual users and behaviors</li>
+<li>Group users by tasks</li>
+</ul>
+</li>
+</ul>
+<h3 id="Reference-Your-Personas"><a href="#Reference-Your-Personas" class="headerlink" title="Reference Your Personas"></a>Reference Your Personas</h3><ul>
+<li>Streamline conversations</li>
+<li>Discuss the priority of features</li>
+<li>Remove personal options</li>
+<li>Describe your target audience</li>
+<li>Recruit for usability studies</li>
+</ul>
+<h3 id="Storing-Persona-Information"><a href="#Storing-Persona-Information" class="headerlink" title="Storing Persona Information"></a>Storing Persona Information</h3><ul>
+<li>Attributes</li>
+<li>Goals</li>
+<li>Scenarios of use</li>
+<li>Background information</li>
+</ul>
+<p>Share insights instead of the full document</p>
+<h1 id="Prototyping"><a href="#Prototyping" class="headerlink" title="Prototyping"></a>Prototyping</h1><h3 id="Type"><a href="#Type" class="headerlink" title="Type"></a>Type</h3><ul>
+<li>Sketch</li>
+<li>Wireframe</li>
+<li>Mockup</li>
+</ul>
+<h2 id="Sketch"><a href="#Sketch" class="headerlink" title="Sketch"></a>Sketch</h2><ul>
+<li>Drawing of the user interface</li>
+</ul>
+<h2 id="Wireframe"><a href="#Wireframe" class="headerlink" title="Wireframe"></a>Wireframe</h2><ul>
+<li>Grayscale high-level rendering of a user interface</li>
+<li>focused on information and overall layout</li>
+</ul>
+<h2 id="Mockup"><a href="#Mockup" class="headerlink" title="Mockup"></a>Mockup</h2><ul>
+<li>Visual design including color, hierarchy and iconography</li>
+</ul>
+<h2 id="Interactivity"><a href="#Interactivity" class="headerlink" title="Interactivity"></a>Interactivity</h2><p>Any interactive behavior occurring on the user interface that changes the state of the design or the flow</p>
+<h2 id="Why"><a href="#Why" class="headerlink" title="Why?"></a>Why?</h2><ul>
+<li>Test out flows and interfactions</li>
+<li>Validate design concepts</li>
+<li>Rapidly iterate through ideas</li>
+</ul>
+<h1 id="Focus-on-the-design-not-the-tool"><a href="#Focus-on-the-design-not-the-tool" class="headerlink" title="Focus on the design, not the tool"></a>Focus on the design, not the tool</h1><h2 id="Why-Prototype"><a href="#Why-Prototype" class="headerlink" title="Why Prototype?"></a>Why Prototype?</h2><ul>
+<li>Limit the expense of development</li>
+<li>Test out design concepts</li>
+<li>Refine usability of product</li>
+<li>Communication tool for the project team</li>
+</ul>
+<h2 id="Considerations-when-selecting-users"><a href="#Considerations-when-selecting-users" class="headerlink" title="Considerations when selecting users"></a>Considerations when selecting users</h2><ul>
+<li>Testing in person (where / what kind of testing)</li>
+<li>Testing remotely (screen sharing)</li>
+</ul>
+<h1 id="Design-process"><a href="#Design-process" class="headerlink" title="Design process"></a>Design process</h1><ul>
+<li>Design Council Double Diamond</li>
+</ul>
+<p><img src="https://i.loli.net/2021/03/22/kDj23pihSYM17e8.png"></p>
+<ul>
+<li>IDEO human-centered design model</li>
+</ul>
+<p><img src="https://i.loli.net/2021/03/22/SjfWedgIcDiwEq6.png"></p>
+<ul>
+<li>Standford <a target="_blank" rel="noopener" href="http://d.school/">d.school</a> Design Thinking Process</li>
+</ul>
+<p><img src="https://i.loli.net/2021/03/22/Tz1buo4wkrBiPWF.png"></p>
+<h2 id="Key-Attributes-of-Design-process"><a href="#Key-Attributes-of-Design-process" class="headerlink" title="Key Attributes of Design process"></a>Key Attributes of Design process</h2><ul>
+<li>User centered, focused on empathy</li>
+<li>Problem statement defined by users</li>
+<li>Ideation</li>
+<li>Prototyping and iteration</li>
+<li>Delivery of the design</li>
+</ul>
+<p><img src="https://i.loli.net/2021/03/22/9gTGWuVnLi7c6Qy.png"></p>
+<h1 id="Fidelity"><a href="#Fidelity" class="headerlink" title="Fidelity"></a>Fidelity</h1><p>refer to <strong>visual appearance</strong> / <strong>degree of functionality</strong></p>
+<p><strong>low-fidelity</strong> ⇒ Sketch</p>
+<p><strong>low-fidelity</strong> ⇒ Wireframe (low polished, minimum fidelity)</p>
+<p><strong>medium-fidelity</strong> ⇒ color / some key feature, but lacking feedback from user</p>
+<p><strong>high-fidelity</strong> ⇒ can be real product, might receive feedback</p>
+<h2 id="Low-fidelity"><a href="#Low-fidelity" class="headerlink" title="Low fidelity"></a>Low fidelity</h2><p><strong>Advantage</strong></p>
+<ul>
+<li>user more like to be open with feedbacks</li>
+<li>easy to create with little time or effort</li>
+<li>easy to iterate quickly on the feedback</li>
+</ul>
+<p><strong>Disadv</strong></p>
+<ul>
+<li>limited flow and interaction behavior</li>
+<li>Facilitator driven</li>
+<li>doesn’t validate usability</li>
+</ul>
+<p><strong>Questions could be high level</strong>:</p>
+<ul>
+<li>What do you think of this idea?</li>
+</ul>
+<h2 id="Medium-High-fidelity"><a href="#Medium-High-fidelity" class="headerlink" title="Medium / High fidelity"></a>Medium / High fidelity</h2><p><strong>Adv</strong></p>
+<ul>
+<li>More representative of look and feel</li>
+<li>Deisgn doesn’t rely on a facilitator</li>
+<li>Usablility issues will be caught</li>
+</ul>
+<p><strong>DisAdv</strong></p>
+<ul>
+<li>take more time to create</li>
+<li>user might not be willing to give feedback</li>
+<li>difficult to update</li>
+</ul>
+<p><strong>Questions more on product</strong></p>
+<ul>
+<li>What you think this xxx does? (point out some non-functional key feature)</li>
+<li>Could you find item you want to purchased with and add into cart</li>
+</ul>
+<h1 id="Draw"><a href="#Draw" class="headerlink" title="Draw"></a>Draw</h1><p><img src="https://i.loli.net/2021/03/22/UzyJoetV4hC8IDb.png"></p>
+<p><a target="_blank" rel="noopener" href="https://www.linkedin.com/learning/ux-foundations-prototyping-2/a-paper-prototype-walkthrough?contextUrn=urn:li:lyndaLearningPath:56dfbc9b92015a33b4908fdd&u=56745521">A paper prototype walkthrough - UX Foundations: Prototyping Video Tutorial | LinkedIn Learning, formerly Lynda.com</a></p>
+<h1 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h1><p><a target="_blank" rel="noopener" href="https://apps.apple.com/us/app/pop-prototyping-on-paper/id555647796">‎POP - Prototyping on Paper</a></p>
+<p><a target="_blank" rel="noopener" href="https://app.moqups.com/">Online Mockup, Wireframe &amp; UI Prototyping Tool · Moqups</a></p>
+<p><a target="_blank" rel="noopener" href="https://balsamiq.com/">Balsamiq. Rapid, Effective and Fun Wireframing Software | Balsamiq</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.axure.com/">Axure RP 9 - Prototypes, Specifications, and Diagrams in One Tool</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.linkedin.com/learning/photoshop-for-ux-design/what-are-user-interface-kits-2?contextUrn=urn:li:lyndaLearningPath:56dfbc9b92015a33b4908fdd&u=56745521">What are user interface kits? - Photoshop Video Tutorial | LinkedIn Learning, formerly Lynda.com</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.invisionapp.com/craft">Craft | InVision</a></p>
+<p><img src="https://i.loli.net/2021/03/22/yHlq2rSZoRXG3Kw.png"></p>
+<h1 id="Multidevice"><a href="#Multidevice" class="headerlink" title="Multidevice"></a>Multidevice</h1><ul>
+<li>consistency</li>
+<li>continuous</li>
+<li>complementary</li>
+</ul>
+<h1 id="Scenario-Creation"><a href="#Scenario-Creation" class="headerlink" title="Scenario Creation"></a>Scenario Creation</h1><p>Who(users) / What(issues) / How(solution)</p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a target="_blank" rel="noopener" href="https://www.linkedin.com/learning/paths/become-a-user-experience-designer">Become a User Experience Designer</a></p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>Author: <a href="https://vince-amazing/blog">VINCEC</a>
+            <p>Permalink: <a href="https://vince-amazing/blog/2021/03/21/ux-design-learning-notes/">https://vince-amazing/blog/2021/03/21/ux-design-learning-notes/</a>
+            <p>Date: <a href="https://vince-amazing/blog/2021/03/21/ux-design-learning-notes/">March 21st 2021, 9:00:00</a>
+            <p>Copyright license: The article using<a rel="license noopener" target="_blank" href="//creativecommons.org/licenses/by-nc/4.0/">CC licensing 4.0</a></p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/blog/2021/06/19/go-lang-notes/" title= Go Language Notes >
+                    <div class="nextTitle">Go Language Notes</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/blog/2021/01/17/move-to-chrome-os-with-my-hp/" title= Chrome OS on my HP Elitebook 840 G5 & Installation >
+                    <div class="prevTitle">Chrome OS on my HP Elitebook 840 G5 & Installation</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:linengca@usc.edu" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/vincecao" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="//instagram.com/__viiiince" class="iconfont-archer instagram" target="_blank" title=instagram></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="//linkedin.com/in/lineng-vince-cao-36b693121" class="iconfont-archer linkedin" target="_blank" title=linkedin></a>
+            
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a><span class="iconfont-archer power">&#xe635;</span>Vince Modified</span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:70vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#UX-fields"><span class="toc-number">1.</span> <span class="toc-text">UX fields</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Strategies"><span class="toc-number">2.</span> <span class="toc-text">Strategies</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Interaction-Design"><span class="toc-number"></span> <span class="toc-text">Interaction Design</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Responsibilites"><span class="toc-number">0.1.</span> <span class="toc-text">Responsibilites</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Resource"><span class="toc-number">0.2.</span> <span class="toc-text">Resource</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Visual-Design"><span class="toc-number"></span> <span class="toc-text">Visual Design</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Responsibilites-1"><span class="toc-number">0.1.</span> <span class="toc-text">Responsibilites</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Resource-1"><span class="toc-number">0.2.</span> <span class="toc-text">Resource</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Service-Design"><span class="toc-number"></span> <span class="toc-text">Service Design</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Responsibilites-2"><span class="toc-number">0.1.</span> <span class="toc-text">Responsibilites</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Resource-2"><span class="toc-number">0.2.</span> <span class="toc-text">Resource</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Information-architecture"><span class="toc-number"></span> <span class="toc-text">Information architecture</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Responsibilites-3"><span class="toc-number">0.1.</span> <span class="toc-text">Responsibilites</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Information-Structure"><span class="toc-number">0.2.</span> <span class="toc-text">Information Structure</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Resources"><span class="toc-number">0.3.</span> <span class="toc-text">Resources</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Content-Writing-Information-Design"><span class="toc-number"></span> <span class="toc-text">Content Writing &#x2F; Information Design</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Responsibilities"><span class="toc-number">0.1.</span> <span class="toc-text">Responsibilities</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Techinial-Writer"><span class="toc-number">0.2.</span> <span class="toc-text">Techinial Writer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Resource-3"><span class="toc-number">0.3.</span> <span class="toc-text">Resource</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Gathering-User-Data"><span class="toc-number"></span> <span class="toc-text">Gathering User Data</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Where-to-observe"><span class="toc-number">0.1.</span> <span class="toc-text">Where to observe</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Who-should-observe"><span class="toc-number">0.2.</span> <span class="toc-text">Who should observe</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Watch-and-listen"><span class="toc-number">0.3.</span> <span class="toc-text">Watch and listen</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#quotes-handwritten"><span class="toc-number">0.4.</span> <span class="toc-text">quotes &#x2F; handwritten</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Experience-Map"><span class="toc-number"></span> <span class="toc-text">Experience Map</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Assumption-personas"><span class="toc-number"></span> <span class="toc-text">Assumption personas</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Reference-Your-Personas"><span class="toc-number">0.1.</span> <span class="toc-text">Reference Your Personas</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Storing-Persona-Information"><span class="toc-number">0.2.</span> <span class="toc-text">Storing Persona Information</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Prototyping"><span class="toc-number"></span> <span class="toc-text">Prototyping</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Type"><span class="toc-number">0.1.</span> <span class="toc-text">Type</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Sketch"><span class="toc-number">1.</span> <span class="toc-text">Sketch</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Wireframe"><span class="toc-number">2.</span> <span class="toc-text">Wireframe</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mockup"><span class="toc-number">3.</span> <span class="toc-text">Mockup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Interactivity"><span class="toc-number">4.</span> <span class="toc-text">Interactivity</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Why"><span class="toc-number">5.</span> <span class="toc-text">Why?</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Focus-on-the-design-not-the-tool"><span class="toc-number"></span> <span class="toc-text">Focus on the design, not the tool</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Why-Prototype"><span class="toc-number">1.</span> <span class="toc-text">Why Prototype?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Considerations-when-selecting-users"><span class="toc-number">2.</span> <span class="toc-text">Considerations when selecting users</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Design-process"><span class="toc-number"></span> <span class="toc-text">Design process</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Key-Attributes-of-Design-process"><span class="toc-number">1.</span> <span class="toc-text">Key Attributes of Design process</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Fidelity"><span class="toc-number"></span> <span class="toc-text">Fidelity</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Low-fidelity"><span class="toc-number">1.</span> <span class="toc-text">Low fidelity</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Medium-High-fidelity"><span class="toc-number">2.</span> <span class="toc-text">Medium &#x2F; High fidelity</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Draw"><span class="toc-number"></span> <span class="toc-text">Draw</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Tools"><span class="toc-number"></span> <span class="toc-text">Tools</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Multidevice"><span class="toc-number"></span> <span class="toc-text">Multidevice</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Scenario-Creation"><span class="toc-number"></span> <span class="toc-text">Scenario Creation</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Reference"><span class="toc-number"></span> <span class="toc-text">Reference</span></a>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 108 </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2021 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/19</span><a class="archive-post-title" href= "/blog/2021/06/19/go-lang-notes/" >Go Language Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/21</span><a class="archive-post-title" href= "/blog/2021/03/21/ux-design-learning-notes/" >UX Design Learning Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/17</span><a class="archive-post-title" href= "/blog/2021/01/17/move-to-chrome-os-with-my-hp/" >Chrome OS on my HP Elitebook 840 G5 & Installation</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/blog/2020/12/15/git/" >Git Note</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/11</span><a class="archive-post-title" href= "/blog/2020/03/11/set-up-nginx-streaming-media-server/" >Set up Nginx Streaming Media Server</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/29</span><a class="archive-post-title" href= "/blog/2019/09/29/docker-notes/" >Docker Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/27</span><a class="archive-post-title" href= "/blog/2019/09/27/mongodb-notes/" >Mongodb Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/02</span><a class="archive-post-title" href= "/blog/2019/08/02/anyconnection-setup-and-config/" >AnyConnect Server(Ocserv) & Client(Openwrt, Linux, Windows & Mac) Configuares</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/07</span><a class="archive-post-title" href= "/blog/2019/07/07/make-emby-plex-work-with-external-ntfs/" >Make Emby(Plex) support nfts external hdd driver</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/01</span><a class="archive-post-title" href= "/blog/2019/07/01/ibus-final-in-linux/" >ibus Chinese input config - finally</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/25</span><a class="archive-post-title" href= "/blog/2019/06/25/arduino-notes/" >Arduino Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/24</span><a class="archive-post-title" href= "/blog/2019/06/24/bit-operate-with-unsign/" >Bit Operate with Unsigned Integer</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/blog/2019/06/12/sort-review/" >Sort Review</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/10</span><a class="archive-post-title" href= "/blog/2019/06/10/desktop-app-converter-note/" >Desktop App Converter Note</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/08</span><a class="archive-post-title" href= "/blog/2019/06/08/tree-review/" >Tree Review</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/05</span><a class="archive-post-title" href= "/blog/2019/06/05/vSymLinks/" >vSymLinks - for Windows Symbolic Links</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/blog/2019/05/30/vconsole/" >vConsole</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/27</span><a class="archive-post-title" href= "/blog/2019/05/27/structure-review/" >Java Sytax & Structure Review</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/17</span><a class="archive-post-title" href= "/blog/2019/05/17/csharp-syntax-notes/" >C# Syntax Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/25</span><a class="archive-post-title" href= "/blog/2019/04/25/gifsicle-usage/" >Gifsicle - powerful tools for gif on web</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span><a class="archive-post-title" href= "/blog/2019/03/07/angular-notes/" >Angular7 Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span><a class="archive-post-title" href= "/blog/2019/03/07/bootstrap-notes/" >Bootstrap Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/18</span><a class="archive-post-title" href= "/blog/2019/02/18/javascript-notes/" >Javascript Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span><a class="archive-post-title" href= "/blog/2019/02/13/regex-notes/" >Regual Expressions Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span><a class="archive-post-title" href= "/blog/2019/02/03/android-notes/" >Android Development Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/29</span><a class="archive-post-title" href= "/blog/2019/01/29/nodejs-notes/" >NodeJS Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/25</span><a class="archive-post-title" href= "/blog/2019/01/25/sql-notes/" >SQL Notes</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href= "/blog/2018/11/26/lecture-alg-randomized-review-note/" >Algorithm Review Notes - Randomized Algorithms</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href= "/blog/2018/11/26/lecture-alg-approx-review-note/" >Algorithm Review Notes - Approximation Algorithms</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href= "/blog/2018/11/26/lecture-alg-lp-review-note/" >Algorithm Review Notes - Linear Programming</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href= "/blog/2018/11/26/lecture-alg-np-review-note/" >Algorithm Review Notes - NP Problem</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/25</span><a class="archive-post-title" href= "/blog/2018/11/25/lecture-alg-network-flow-review-note/" >Algorithm Review Notes - Network Flow</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/25</span><a class="archive-post-title" href= "/blog/2018/11/25/lecture-alg-dp-review-note/" >Algorithm Review Notes - Dynamic Programming</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/22</span><a class="archive-post-title" href= "/blog/2018/11/22/lecture-ai-learning-review-note/" >AI Review Note - Learning</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/21</span><a class="archive-post-title" href= "/blog/2018/11/21/lecture-ai-probability-review-note/" >AI Review Note - Probability</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/21</span><a class="archive-post-title" href= "/blog/2018/11/21/dell-latitude-7390-hackintosh/" >Dell Latitude 7390 Hackintosh Mojave</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/19</span><a class="archive-post-title" href= "/blog/2018/11/19/solus-efi-repair/" >Solus Efi Repair</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/27</span><a class="archive-post-title" href= "/blog/2018/10/27/install-davinci-on-elementry-os/" >Install DaVinCi 15 on Elementry OS</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/23</span><a class="archive-post-title" href= "/blog/2018/10/23/lecture-ai-logic-review-note/" >AI Review Note - Logic</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/13</span><a class="archive-post-title" href= "/blog/2018/10/13/zenbook-pro-ux550ge-linux-tweaks/" >Asus Zenbook Pro UX550GE Linux Configure</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/blog/2018/10/04/lecture-alg-search-review-note/" >Algorithm Review Notes - Search Methods</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/02</span><a class="archive-post-title" href= "/blog/2018/09/02/good-bye-thinkpad-hello-ipad/" >Welcome new arrived iPad Pro and its friends</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href= "/blog/2018/08/21/upgrade-the-wireless-card-intel-9260/" >Upgraded My Wireless Adapter for 720s 13ARR with Intel 9260</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/05</span><a class="archive-post-title" href= "/blog/2018/08/05/taobao-a-lot/" >淘宝了一些东西</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/01</span><a class="archive-post-title" href= "/blog/2018/08/01/change-chrome-in-fresh-look/" >Chrome 新 UI</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/03</span><a class="archive-post-title" href= "/blog/2018/07/03/php-visual-studio-code-setting/" >在 VS Code 中配置 php</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/03</span><a class="archive-post-title" href= "/blog/2018/07/03/mustache-templates/" >Some examples of using Mustache templates.</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/02</span><a class="archive-post-title" href= "/blog/2018/07/02/fix-flex-in-ie/" >Let IE9 Support Flex?</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/01</span><a class="archive-post-title" href= "/blog/2018/07/01/vnormalize-css/" >Vincec Normalize CSS - vnorm.css</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/30</span><a class="archive-post-title" href= "/blog/2018/06/30/php-learning-notes/" >PHP Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/28</span><a class="archive-post-title" href= "/blog/2018/06/28/make-bash-and-npm-work-in-windows/" >在 Windows 下优雅使用 npm 和 git bash</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/28</span><a class="archive-post-title" href= "/blog/2018/06/28/symbolic-link/" >Symbolic Links</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/27</span><a class="archive-post-title" href= "/blog/2018/06/27/linux-cpu-stress/" >Linux CPU 压力测试</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/21</span><a class="archive-post-title" href= "/blog/2018/06/21/setup-blog-on-gitlab-page/" >部署你的博客到 Gitlab page</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/20</span><a class="archive-post-title" href= "/blog/2018/06/20/react-web-note/" >React for web 学习笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/20</span><a class="archive-post-title" href= "/blog/2018/06/20/rc-local/" >在 Linux 启动的时候加载自定义脚本自己的 —— rc.local</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/19</span><a class="archive-post-title" href= "/blog/2018/06/19/opensuse-tumbleweed-notes/" >Opensuse Tumbleweed 大蜥蜴的配置清单</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/19</span><a class="archive-post-title" href= "/blog/2018/06/19/grub-note/" >Linux 下 Grub 的各种问题笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/15</span><a class="archive-post-title" href= "/blog/2018/06/15/macbook-jpn-keyboard-rice/" >Macbook 日版键盘终极解决方案（伪）—— Karabiner</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/15</span><a class="archive-post-title" href= "/blog/2018/06/15/nodejs-webpack3-learn-notes/" >Nodejs - Webpack3 学习笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/10</span><a class="archive-post-title" href= "/blog/2018/06/10/fake-elecom-dux-open-box/" >Elecom DUX70BK, a mouse for MMORPG players</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span><a class="archive-post-title" href= "/blog/2018/06/01/lenovo-does-not-love-amd/" >Lenovo 720s 13ARR Bios Manual Update to 6KCN38WW</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span><a class="archive-post-title" href= "/blog/2018/06/01/vincec-side-nav/" >VINCEC Side Navegation Bar</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/blog/2018/05/30/opera-is-suge/" >Opera 大佬真厉害</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/29</span><a class="archive-post-title" href= "/blog/2018/05/29/fire-hd-10-rice/" >(7/28/2018 updated) Fire HD 10 tablet 7 Tweaks and Root tutorial</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/15</span><a class="archive-post-title" href= "/blog/2018/05/15/ss-ssr/" >酸酸 和 酸酸乳</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/23</span><a class="archive-post-title" href= "/blog/2018/04/23/linux-software/" >Linux 的日常安利集合</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span><a class="archive-post-title" href= "/blog/2018/04/20/ubuntu-18-04-notes/" >Ubuntu 18.04 配置笔记 (720s)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span><a class="archive-post-title" href= "/blog/2018/04/20/lenovo-720s/" >新的神坑 720s 13ARR Ryzen</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/blog/2018/04/15/linux-i3-configuation/" >我的 i3 桌面配置笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/08</span><a class="archive-post-title" href= "/blog/2018/04/08/my-manjaro-setup-II/" >我的 Manjaro 配置 Mark II</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2017 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/09</span><a class="archive-post-title" href= "/blog/2017/10/09/unblock-flickr-downloader/" >VINCEC's Flickr Downloader / VINCEC Flickr 原图下载器</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/29</span><a class="archive-post-title" href= "/blog/2017/09/29/my-manjaro-setup/" >我的 Manjaro 配置</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/08</span><a class="archive-post-title" href= "/blog/2017/08/08/dns/" >DNS相关</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/08</span><a class="archive-post-title" href= "/blog/2017/08/08/ruby-learning-note/" >Ruby 学习笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/02</span><a class="archive-post-title" href= "/blog/2017/05/02/bilibili-get-xml/" >b站转跳到弹幕xml的网站</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/26</span><a class="archive-post-title" href= "/blog/2017/03/26/uwp-learning-note/" >UWP LEARNING</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/07</span><a class="archive-post-title" href= "/blog/2017/01/07/zerochan-anime-searcher-in-uwp/" >Zerochan Anime Searcher UWP</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span><a class="archive-post-title" href= "/blog/2017/01/05/swift/" >Swift3</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2016 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/05</span><a class="archive-post-title" href= "/blog/2016/12/05/online-vince-crypography-toolkit/" >Online Vince Crypography Toolkits</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/15</span><a class="archive-post-title" href= "/blog/2016/08/15/a-html-page-with-tab-features/" >A html page with tab features</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/24</span><a class="archive-post-title" href= "/blog/2016/06/24/nvidia-Shield-rice/" >Nvidia Shield 折腾记－吐血篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/18</span><a class="archive-post-title" href= "/blog/2016/06/18/collage-ranking/" >College Select</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/08</span><a class="archive-post-title" href= "/blog/2016/06/08/my-gaokao/" >我的高考</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/29</span><a class="archive-post-title" href= "/blog/2016/05/29/google-scared-me/" >妈妈呀谷歌好可怕</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/26</span><a class="archive-post-title" href= "/blog/2016/05/26/the-meaning-of-camera/" >相机的意义</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/20</span><a class="archive-post-title" href= "/blog/2016/05/20/dian-dian-is-dead/" >辛苦弄起来的点点图床都跟别人跑啦</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2015 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/27</span><a class="archive-post-title" href= "/blog/2015/10/27/build-a-bike/" >花闲钱自己组了辆车，妈妈再也不用担心我的动手能力</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/01</span><a class="archive-post-title" href= "/blog/2015/02/01/lucky-day/" >今天难道是我的幸运日吗</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/30</span><a class="archive-post-title" href= "/blog/2015/01/30/unkonwn-title/" >无题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/15</span><a class="archive-post-title" href= "/blog/2015/01/15/no-one-knows-my-closet-even-me/" >呀趴里，寝室衣柜的结构我一个学期都不曾弄明白</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/14</span><a class="archive-post-title" href= "/blog/2015/01/14/09-26-and-11/" >反正也没人看的看了也白看的 09，26和11</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/11</span><a class="archive-post-title" href= "/blog/2015/01/11/music-recomm/" >Music</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/10</span><a class="archive-post-title" href= "/blog/2015/01/10/time-to-sleep/" >该睡觉了</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2014 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/23</span><a class="archive-post-title" href= "/blog/2014/09/23/ios-app-recomm/" >推荐几款个人很喜欢的IOS应用好了</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/18</span><a class="archive-post-title" href= "/blog/2014/09/18/back-to-acg/" >杀回二次元</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/11</span><a class="archive-post-title" href= "/blog/2014/09/11/japanese-calligraphy/" >签名神软——日文書法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/03</span><a class="archive-post-title" href= "/blog/2014/09/03/keys/" >若干软件通用密钥</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/31</span><a class="archive-post-title" href= "/blog/2014/08/31/hand-to-hand-to-shanxun-wifi/" >“手把手”教你WKU闪讯连接WIFI</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/26</span><a class="archive-post-title" href= "/blog/2014/08/26/new-domain/" >换了新域名</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/22</span><a class="archive-post-title" href= "/blog/2014/08/22/mac-postvideo-app/" >MAC上的后期相关APP来一发</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/13</span><a class="archive-post-title" href= "/blog/2014/08/13/kulucolo-benefit-diary/" >KuluColo的完善日记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/05</span><a class="archive-post-title" href= "/blog/2014/08/05/windows-font-rander/" >能使你的Windows字体显示效果接近Mac？</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/04</span><a class="archive-post-title" href= "/blog/2014/08/04/free-vpn-vppn/" >分享免费试用的日本vpn——vppn</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/24</span><a class="archive-post-title" href= "/blog/2014/07/24/music-manage/" >音乐管理，Media Go 还是 iTunes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/19</span><a class="archive-post-title" href= "/blog/2014/07/19/broswer-a-to-z/" >浏览器A到Z</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/19</span><a class="archive-post-title" href= "/blog/2014/07/19/link-your-router/" >将你家的路由器“串联”起来吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/17</span><a class="archive-post-title" href= "/blog/2014/07/17/hello-sekai/" >Hello Sekai</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="随笔"><span class="iconfont-archer">&#xe606;</span>随笔</span>
+    
+        <span class="sidebar-tag-name" data-tags="Javascript"><span class="iconfont-archer">&#xe606;</span>Javascript</span>
+    
+        <span class="sidebar-tag-name" data-tags="Angular"><span class="iconfont-archer">&#xe606;</span>Angular</span>
+    
+        <span class="sidebar-tag-name" data-tags="科学"><span class="iconfont-archer">&#xe606;</span>科学</span>
+    
+        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="Windows"><span class="iconfont-archer">&#xe606;</span>Windows</span>
+    
+        <span class="sidebar-tag-name" data-tags="MacOS"><span class="iconfont-archer">&#xe606;</span>MacOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="IOS"><span class="iconfont-archer">&#xe606;</span>IOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
+    
+        <span class="sidebar-tag-name" data-tags="C++"><span class="iconfont-archer">&#xe606;</span>C++</span>
+    
+        <span class="sidebar-tag-name" data-tags="Anime"><span class="iconfont-archer">&#xe606;</span>Anime</span>
+    
+        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
+    
+        <span class="sidebar-tag-name" data-tags="Leetcode"><span class="iconfont-archer">&#xe606;</span>Leetcode</span>
+    
+        <span class="sidebar-tag-name" data-tags="生活"><span class="iconfont-archer">&#xe606;</span>生活</span>
+    
+        <span class="sidebar-tag-name" data-tags="教程"><span class="iconfont-archer">&#xe606;</span>教程</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tutorial"><span class="iconfont-archer">&#xe606;</span>Tutorial</span>
+    
+        <span class="sidebar-tag-name" data-tags="Csharp"><span class="iconfont-archer">&#xe606;</span>Csharp</span>
+    
+        <span class="sidebar-tag-name" data-tags="UWP"><span class="iconfont-archer">&#xe606;</span>UWP</span>
+    
+        <span class="sidebar-tag-name" data-tags="KuluColo"><span class="iconfont-archer">&#xe606;</span>KuluColo</span>
+    
+        <span class="sidebar-tag-name" data-tags="Blog"><span class="iconfont-archer">&#xe606;</span>Blog</span>
+    
+        <span class="sidebar-tag-name" data-tags="剁手 / Chopping Hands"><span class="iconfont-archer">&#xe606;</span>剁手 / Chopping Hands</span>
+    
+        <span class="sidebar-tag-name" data-tags="CSS"><span class="iconfont-archer">&#xe606;</span>CSS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Gif"><span class="iconfont-archer">&#xe606;</span>Gif</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tools"><span class="iconfont-archer">&#xe606;</span>Tools</span>
+    
+        <span class="sidebar-tag-name" data-tags="Go"><span class="iconfont-archer">&#xe606;</span>Go</span>
+    
+        <span class="sidebar-tag-name" data-tags="技巧"><span class="iconfont-archer">&#xe606;</span>技巧</span>
+    
+        <span class="sidebar-tag-name" data-tags="Course"><span class="iconfont-archer">&#xe606;</span>Course</span>
+    
+        <span class="sidebar-tag-name" data-tags="Algorithm"><span class="iconfont-archer">&#xe606;</span>Algorithm</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tips"><span class="iconfont-archer">&#xe606;</span>Tips</span>
+    
+        <span class="sidebar-tag-name" data-tags="Nodejs"><span class="iconfont-archer">&#xe606;</span>Nodejs</span>
+    
+        <span class="sidebar-tag-name" data-tags="ChromeOS"><span class="iconfont-archer">&#xe606;</span>ChromeOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Laptop"><span class="iconfont-archer">&#xe606;</span>Laptop</span>
+    
+        <span class="sidebar-tag-name" data-tags="Music"><span class="iconfont-archer">&#xe606;</span>Music</span>
+    
+        <span class="sidebar-tag-name" data-tags="html"><span class="iconfont-archer">&#xe606;</span>html</span>
+    
+        <span class="sidebar-tag-name" data-tags="Crypography"><span class="iconfont-archer">&#xe606;</span>Crypography</span>
+    
+        <span class="sidebar-tag-name" data-tags="Made-bt-V"><span class="iconfont-archer">&#xe606;</span>Made-bt-V</span>
+    
+        <span class="sidebar-tag-name" data-tags="PHP"><span class="iconfont-archer">&#xe606;</span>PHP</span>
+    
+        <span class="sidebar-tag-name" data-tags="Html"><span class="iconfont-archer">&#xe606;</span>Html</span>
+    
+        <span class="sidebar-tag-name" data-tags="Ruby"><span class="iconfont-archer">&#xe606;</span>Ruby</span>
+    
+        <span class="sidebar-tag-name" data-tags="SQL"><span class="iconfont-archer">&#xe606;</span>SQL</span>
+    
+        <span class="sidebar-tag-name" data-tags="Database"><span class="iconfont-archer">&#xe606;</span>Database</span>
+    
+        <span class="sidebar-tag-name" data-tags="Swift"><span class="iconfont-archer">&#xe606;</span>Swift</span>
+    
+        <span class="sidebar-tag-name" data-tags="ux-design"><span class="iconfont-archer">&#xe606;</span>ux-design</span>
+    
+        <span class="sidebar-tag-name" data-tags="CSS3"><span class="iconfont-archer">&#xe606;</span>CSS3</span>
+    
+        <span class="sidebar-tag-name" data-tags="Bootstrap"><span class="iconfont-archer">&#xe606;</span>Bootstrap</span>
+    
+        <span class="sidebar-tag-name" data-tags="React"><span class="iconfont-archer">&#xe606;</span>React</span>
+    
+        <span class="sidebar-tag-name" data-tags="CSharp"><span class="iconfont-archer">&#xe606;</span>CSharp</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="Life"><span class="iconfont-archer">&#xe60a;</span>Life</span>
+    
+        <span class="sidebar-category-name" data-categories="Rice"><span class="iconfont-archer">&#xe60a;</span>Rice</span>
+    
+        <span class="sidebar-category-name" data-categories="Notes"><span class="iconfont-archer">&#xe60a;</span>Notes</span>
+    
+        <span class="sidebar-category-name" data-categories="Config"><span class="iconfont-archer">&#xe60a;</span>Config</span>
+    
+        <span class="sidebar-category-name" data-categories="Path"><span class="iconfont-archer">&#xe60a;</span>Path</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: '/blog/',
+        author: 'VINCEC'
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/blog/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/blog/scripts/main.js"></script>
+    <!-- busuanzi  -->
+    
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/blog/scripts/share.js" async></script>    
+    
+    </body>
+</html>
+
+

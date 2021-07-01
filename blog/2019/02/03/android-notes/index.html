@@ -1,0 +1,3274 @@
+<!DOCTYPE html>
+<html>
+    <!-- title -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="VINCEC">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="VINCEC">
+    <meta name="keywords" content="THE GREAT VINCE | VINCEC">
+    <meta name="description" content="">
+    <meta name="Cache-Control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>Android Development Notes · Vincec&#39;s Dimension</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/blog/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s 1;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= /blog/css/style.css?v=20180524 as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= /blog/css/mobile.css?v=20180524 media="(max-width: 980px)">
+    
+    <!-- <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" /> -->
+    <link rel="preload" href="/blog/css/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+        
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/blog/assets/favicon.ico" />
+    <!-- <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />     -->
+    <link rel="preload" href="/blog/scripts/webfontloader.min.js" as="script" />    
+    <!-- <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" /> -->
+    <link rel="preload" href="/blog/scripts/zepto.min.js" as="script" />
+    <link rel="preload" href="/blog/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/blog/font/Oswald-Regular.ttf" crossorigin>
+    <!-- <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin> -->
+    <link rel="preload" as="font" href="/blog/font/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-89931236-2"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-89931236-2');
+    </script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/blog/" >Vincec&#39;s Dimension</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">Android Development Notes</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/blog/>Vincec's Dimension</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style=
+
+
+
+
+
+
+
+
+height:70vh;
+
+>
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(29, 29, 29, 1.5)), url(/blog/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            Android Development Notes
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Android">Android</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count">2.7k</span> / Reading time: <span class="post-count">17 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/02/03</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+  
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/blog/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/blog/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="Register-in-Android-Manifest"><a href="#Register-in-Android-Manifest" class="headerlink" title="Register in Android Manifest"></a>Register in Android Manifest</h1><ul>
+<li>Activity: resposible for user interaction screens, creating windows, Views manage display and user interactivity</li>
+<li>Serivce: background tests</li>
+<li>Content Provider: provide managed access to data</li>
+<li>Broadcast Receiver: react to messages</li>
+</ul>
+<h1 id="Setting-adb-to-global"><a href="#Setting-adb-to-global" class="headerlink" title="Setting adb to global"></a>Setting adb to global</h1><h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows:"></a>Windows:</h3><ul>
+<li>contorl panel -&gt; environment (edit system environment variables)</li>
+<li>Environment variables</li>
+<li>Edit <strong>User/System</strong></li>
+<li><code>PATH, (tools;platform-tools path)</code><h3 id="Mac"><a href="#Mac" class="headerlink" title="Mac"></a>Mac</h3></li>
+<li>~ sudo nano .bash_profile</li>
+<li><code>export PATH=$PATH:~/Library/Android/sdk/tools:~/Library/Android/sdk/platform-tools</code></li>
+</ul>
+<h1 id="Permission-Example"><a href="#Permission-Example" class="headerlink" title="Permission Example"></a>Permission Example</h1><p><em>AndroidManifest.xml</em><br><code>&lt;uses-permission android:name=&quot;android.permission.INTERNET&quot; /&gt;</code></p>
+<p><em>MainActivity.java</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//onCreate&#123;</span></span><br><span class="line">    <span class="keyword">if</span>(!permissionGranted)&#123;</span><br><span class="line">        checkPermissions();</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Checks if external storage is available for read and write</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isExternalStorageWritable</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String state = Environment.getExternalStorageState();</span><br><span class="line">        <span class="keyword">return</span> Environment.MEDIA_MOUNTED.equals(state);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Initiate request for permissions.</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">checkPermissions</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">if</span> (!isExternalStorageWritable()) &#123;</span><br><span class="line">            Toast.makeText(<span class="keyword">this</span>, <span class="string">&quot;This app only works on devices with usable external storage&quot;</span>,</span><br><span class="line">                    Toast.LENGTH_SHORT).show();</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> permissionCheck = ContextCompat.checkSelfPermission(<span class="keyword">this</span>,</span><br><span class="line">                Manifest.permission.WRITE_EXTERNAL_STORAGE);</span><br><span class="line">        <span class="keyword">if</span> (permissionCheck != PackageManager.PERMISSION_GRANTED) &#123;</span><br><span class="line">            ActivityCompat.requestPermissions(<span class="keyword">this</span>,</span><br><span class="line">                    <span class="keyword">new</span> String[]&#123;Manifest.permission.WRITE_EXTERNAL_STORAGE&#125;,</span><br><span class="line">                    REQUEST_PERMISSION_WRITE);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Handle permissions result</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onRequestPermissionsResult</span><span class="params">(<span class="keyword">int</span> requestCode,</span></span></span><br><span class="line"><span class="function"><span class="params">                                           <span class="meta">@NonNull</span> String permissions[],</span></span></span><br><span class="line"><span class="function"><span class="params">                                           <span class="meta">@NonNull</span> <span class="keyword">int</span>[] grantResults)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">switch</span> (requestCode) &#123;</span><br><span class="line">            <span class="keyword">case</span> REQUEST_PERMISSION_WRITE:</span><br><span class="line">                <span class="keyword">if</span> (grantResults.length &gt; <span class="number">0</span></span><br><span class="line">                        &amp;&amp; grantResults[<span class="number">0</span>] == PackageManager.PERMISSION_GRANTED) &#123;</span><br><span class="line">                    permissionGranted = <span class="keyword">true</span>;</span><br><span class="line">                    Toast.makeText(<span class="keyword">this</span>, <span class="string">&quot;External storage permission granted&quot;</span>,</span><br><span class="line">                            Toast.LENGTH_SHORT).show();</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    Toast.makeText(<span class="keyword">this</span>, <span class="string">&quot;You must grant permission!&quot;</span>, Toast.LENGTH_SHORT).show();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Launcher-Icon-Assets"><a href="#Launcher-Icon-Assets" class="headerlink" title="Launcher Icon Assets"></a>Launcher Icon Assets</h1><p>app -&gt; new -&gt; image assets</p>
+<h1 id="Setting-Activity"><a href="#Setting-Activity" class="headerlink" title="Setting Activity"></a>Setting Activity</h1><p>app -&gt; new -&gt; activity -&gt; setting activity</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//import Intent</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onOptionsItemSelected</span><span class="params">(MenuItem item)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> id = item.getItemId();</span><br><span class="line">    <span class="comment">//noinspection SimplifiableIfStatement</span></span><br><span class="line">    <span class="keyword">if</span> (id == R.id.action_settings) &#123;</span><br><span class="line">        Intent intent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, SettingsActivity.class);</span><br><span class="line">        startActivity(intent);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.onOptionsItemSelected(item);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Enable-Jack-compiler-for-Java-8-features"><a href="#Enable-Jack-compiler-for-Java-8-features" class="headerlink" title="Enable Jack compiler for Java 8 features"></a>Enable Jack compiler for Java 8 features</h1><p>Modify in <em>build.gradle</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    defaultConfig&#123;</span><br><span class="line">        jackOptions&#123;</span><br><span class="line">            enabled true</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#after buildTypes:</span><br><span class="line">compileOptions &#123;</span><br><span class="line">    sourceCompatibility JavaVersion.VERSION_1_8</span><br><span class="line">    targetCompatibility JavaVersion.VERSION_1_8</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Communication-usage-scenarios"><a href="#Communication-usage-scenarios" class="headerlink" title="Communication usage scenarios"></a><a target="_blank" rel="noopener" href="https://www.lynda.com/Android-tutorials/Android-Communicating-User/513591-2.html">Communication usage scenarios</a></h1><ul>
+<li>Acknowledgement</li>
+<li>Confirmation</li>
+<li>Notification</li>
+</ul>
+<h2 id="Toast-Message"><a href="#Toast-Message" class="headerlink" title="Toast Message"></a>Toast Message</h2><ul>
+<li>Short, momentary test message</li>
+<li>not receive focus</li>
+<li>quick, informative to acknowledge</li>
+<li>display for amount of time</li>
+</ul>
+<h3 id="Create-a-Toast-message"><a href="#Create-a-Toast-message" class="headerlink" title="Create a Toast message"></a>Create a Toast message</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Toast t = Toast.makeText(<span class="keyword">this</span>, <span class="string">&quot;This is a toast&quot;</span>, toastDuration);</span><br><span class="line"><span class="comment">//t.setDuration(toastDuration)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Position-Toast-on-screen"><a href="#Position-Toast-on-screen" class="headerlink" title="Position Toast on screen"></a>Position Toast on screen</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">t.setGravity(Gravity.CENTER, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"><span class="comment">//t.setGravity(Gravity.BOTTOM, 0, 0);</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Show-the-Toast-message"><a href="#Show-the-Toast-message" class="headerlink" title="Show the Toast message"></a>Show the Toast message</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">t.show();</span><br></pre></td></tr></table></figure>
+
+<h3 id="CustomToast"><a href="#CustomToast" class="headerlink" title="CustomToast"></a>CustomToast</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">LayoutInflater inflater = getLayoutInflater();</span><br><span class="line">View layout = inflater.inflate(R.layout.custom_toast_layout, (ViewGroup)findViewById(R.id.customToastLayout));</span><br><span class="line"></span><br><span class="line">TextView tv = (TestView)layout.findViewById( R.id.customToastLayout );</span><br><span class="line">tv.setText(<span class="string">&quot;This is a toast&quot;</span>);</span><br><span class="line"></span><br><span class="line">Toast t = <span class="keyword">new</span> Toast(getApplicationContext());</span><br><span class="line">t.setDuration(toastDuration);</span><br><span class="line">t.setView(layout);</span><br><span class="line">t.show();</span><br></pre></td></tr></table></figure>
+
+<h2 id="Snackbar-Messages"><a href="#Snackbar-Messages" class="headerlink" title="Snackbar Messages"></a>Snackbar Messages</h2><ul>
+<li>Simliar to Toasts</li>
+<li>Quick messages to acknowledge some action</li>
+<li>can show different amout of time</li>
+<li>Appear at bottom of the screen</li>
+<li>Can specify a clickable action</li>
+</ul>
+<h3 id="Create-a-Snackbar"><a href="#Create-a-Snackbar" class="headerlink" title="Create a Snackbar"></a>Create a Snackbar</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Snackbar sb = Snackbar.make(findViewById(R.id.myCoordinatorLayout), <span class="string">&quot;This is a snackbar&quot;</span>, Snackbar.LENGTH_LONG);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Set-Snackbar-action"><a href="#Set-Snackbar-action" class="headerlink" title="Set Snackbar action"></a>Set Snackbar action</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sb.setAction(<span class="string">&quot;My Action&quot;</span>, <span class="keyword">new</span> View.OnClickListener()&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View view)</span></span>&#123;</span><br><span class="line">        Toast.makeText(getApplicationContext(), <span class="string">&quot;Snackbar Action Tap!&quot;</span>, Toast.LENGTH_SHORT).show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Show-the-Snackbar"><a href="#Show-the-Snackbar" class="headerlink" title="Show the Snackbar"></a>Show the Snackbar</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sb.show();</span><br></pre></td></tr></table></figure>
+
+<h3 id="Notice"><a href="#Notice" class="headerlink" title="Notice"></a>Notice</h3><ul>
+<li>Need to add design appcompat in dependencies (<strong>build.gradle</strong> file)</li>
+<li>Layout use coordinatorLayout when need to swipe the snackbar feature</li>
+</ul>
+<h2 id="Dialogs"><a href="#Dialogs" class="headerlink" title="Dialogs"></a>Dialogs</h2><ul>
+<li>Stop current program flow</li>
+<li>Require the user to take action</li>
+<li>Maintain the user’s current context</li>
+</ul>
+<h3 id="simple-dialog-example"><a href="#simple-dialog-example" class="headerlink" title="simple dialog example"></a>simple dialog example</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Dialog <span class="title">onCreateDialog</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//Create an alertDialog.Builder instance</span></span><br><span class="line">    AlertDialog.Builder builder = <span class="keyword">new</span> AlertDialog.Builder(getActivity());</span><br><span class="line">    <span class="comment">//set builder properties</span></span><br><span class="line">    builder.setTitle(<span class="string">&quot;Peas Preference&quot;</span>);</span><br><span class="line">    builder.setMessage(<span class="string">&quot;Do you like sugar snap peas?&quot;</span>);</span><br><span class="line">    </span><br><span class="line">    builder.setPositiveButton(<span class="string">&quot;Sure!&quot;</span>, <span class="keyword">new</span> DialogInterface.OnClickListener() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(DialogInterface dialog, <span class="keyword">int</span> which)</span> </span>&#123;</span><br><span class="line">            Log.i(TAG, <span class="string">&quot;Positive button clicked&quot;</span>);</span><br><span class="line">            mHost.onPositiveResult(SimpleDialogFragment.<span class="keyword">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    builder.setNegativeButton(<span class="string">&quot;No way!&quot;</span>, <span class="keyword">new</span> DialogInterface.OnClickListener() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(DialogInterface dialog, <span class="keyword">int</span> which)</span> </span>&#123;</span><br><span class="line">            Log.i(TAG, <span class="string">&quot;Negative button clicked&quot;</span>);</span><br><span class="line">            mHost.onNegativeResult(SimpleDialogFragment.<span class="keyword">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    builder.setNeutralButton(<span class="string">&quot;Not Sure&quot;</span>, <span class="keyword">new</span> DialogInterface.OnClickListener() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(DialogInterface dialog, <span class="keyword">int</span> which)</span> </span>&#123;</span><br><span class="line">            Log.i(TAG, <span class="string">&quot;Neutral button clicked&quot;</span>);</span><br><span class="line">            mHost.onNeutralResult(SimpleDialogFragment.<span class="keyword">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">//return the created dialog</span></span><br><span class="line">    <span class="keyword">return</span> builder.create();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Allow-user-to-tap-and-cancel-the-dialog"><a href="#Allow-user-to-tap-and-cancel-the-dialog" class="headerlink" title="Allow user to tap and cancel the dialog"></a>Allow user to tap and cancel the dialog</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//user cancel the dialog</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCancel</span><span class="params">(DialogInterface dlg)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCancel(dlg);</span><br><span class="line">        Log.i(TAG, <span class="string">&quot;Dialog cancelled&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="Not-allow-user-to-cancel"><a href="#Not-allow-user-to-cancel" class="headerlink" title="Not allow user to cancel"></a>Not allow user to cancel</h4><p><code>setCancelable()</code> to make the dialog non-cancelable</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">simpleDialog.setCancelable(<span class="keyword">false</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="ShowDatePicker-Dialog-Example"><a href="#ShowDatePicker-Dialog-Example" class="headerlink" title="ShowDatePicker Dialog Example"></a>ShowDatePicker Dialog Example</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Get a calendar instance</span></span><br><span class="line">Calendar cal = Calendar.getInstance();</span><br><span class="line"><span class="comment">// Create a DatePickerDialog</span></span><br><span class="line">DatePickerDialog datePicker = <span class="keyword">new</span> DatePickerDialog(<span class="keyword">this</span>, <span class="keyword">new</span> DatePickerDialog.OnDateSetListener() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDateSet</span><span class="params">(DatePicker view, <span class="keyword">int</span> year, <span class="keyword">int</span> monthOfYear, <span class="keyword">int</span> dayOfMonth)</span> </span>&#123;</span><br><span class="line">        Log.i(TAG, String.format(<span class="string">&quot;Date Chosen -- day: %d, month: %d, year: %d&quot;</span>, dayOfMonth, monthOfYear, year));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));</span><br><span class="line"><span class="comment">// Set the title and show the dialog</span></span><br><span class="line">datePicker.setTitle(<span class="string">&quot;Choose a Date&quot;</span>);</span><br><span class="line">datePicker.show();</span><br></pre></td></tr></table></figure>
+
+<h3 id="SetItem-to-Dialog-Example"><a href="#SetItem-to-Dialog-Example" class="headerlink" title="SetItem to Dialog Example"></a>SetItem to Dialog Example</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> String TAG = <span class="string">&quot;AUC_COMPLEX&quot;</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> String[] colors = &#123;<span class="string">&quot;Red&quot;</span>, <span class="string">&quot;Blue&quot;</span>, <span class="string">&quot;Green&quot;</span>, <span class="string">&quot;Yellow&quot;</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Dialog <span class="title">onCreateDialog</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">    AlertDialog.Builder builder = <span class="keyword">new</span> AlertDialog.Builder(getActivity());</span><br><span class="line">    <span class="comment">// <span class="doctag">NOTE:</span> setMessage doesn&#x27;t work here because the list takes up the content</span></span><br><span class="line">    <span class="comment">// area. Use the setTitle method to set a descriptive prompt</span></span><br><span class="line">    builder.setTitle(<span class="string">&quot;What Is Your Favorite Color?&quot;</span>);</span><br><span class="line">    <span class="comment">// The setItems function is used to create a list of content</span></span><br><span class="line">    builder.setItems(colors, <span class="keyword">new</span> DialogInterface.OnClickListener() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(DialogInterface dialog, <span class="keyword">int</span> which)</span> </span>&#123;</span><br><span class="line">            Log.i(TAG, String.format(<span class="string">&quot;Color chosen: %s&quot;</span>, colors[which]));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// Single-choice dialogs don&#x27;t need buttons because they</span></span><br><span class="line">    <span class="comment">// auto-dismiss when the user makes a choice</span></span><br><span class="line">    <span class="keyword">return</span> builder.create();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="CustomDialog-Example"><a href="#CustomDialog-Example" class="headerlink" title="CustomDialog Example"></a>CustomDialog Example</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Dialog <span class="title">onCreateDialog</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        AlertDialog.Builder builder = <span class="keyword">new</span> AlertDialog.Builder(getActivity());</span><br><span class="line">        <span class="comment">// Create the custom layout using the LayoutInflater class</span></span><br><span class="line">        LayoutInflater inflater = getActivity().getLayoutInflater();</span><br><span class="line">        View v = inflater.inflate(R.layout.custom_dialog_layout, <span class="keyword">null</span>);</span><br><span class="line">        <span class="comment">// Build the dialog</span></span><br><span class="line">        builder.setTitle(<span class="string">&quot;Please enter your name&quot;</span>)</span><br><span class="line">            .setPositiveButton(<span class="string">&quot;OK&quot;</span>, <span class="keyword">new</span> DialogInterface.OnClickListener() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(DialogInterface dialog, <span class="keyword">int</span> which)</span> </span>&#123;</span><br><span class="line">                    Log.i(TAG, <span class="string">&quot;OK Clicked&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">            .setNegativeButton(<span class="string">&quot;Cancel&quot;</span>, <span class="keyword">new</span> DialogInterface.OnClickListener <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(DialogInterface dialog, <span class="keyword">int</span> which)</span> </span>&#123;</span><br><span class="line">                    Log.i(TAG, <span class="string">&quot;Cancel clicked&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">    .setView(v);</span><br><span class="line"><span class="keyword">return</span> builder.create();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Notification"><a href="#Notification" class="headerlink" title="Notification"></a>Notification</h2><p><a target="_blank" rel="noopener" href="https://developer.android.com/guide/topics/ui/notifiers/notifications">ref</a></p>
+<ul>
+<li>Display outside of the normal app</li>
+<li>Trigger parts when clicked</li>
+<li>Various forms</li>
+<li>Aciton individually</li>
+<li>appear on Lock screen</li>
+</ul>
+<h2 id="New-Activity"><a href="#New-Activity" class="headerlink" title="New Activity"></a>New Activity</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AboutMe</span> : <span class="type">AppCompatActivity</span></span>() &#123; </span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_about_me) <span class="comment">//create a xml and add acitivity to mainifest</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//other Activity class</span></span><br><span class="line">bigButton.setOnClickListener &#123;</span><br><span class="line">    d(<span class="string">&quot;daniel&quot;</span>,<span class="string">&quot;button was pressed&quot;</span>)</span><br><span class="line">    startActivity(Intent(<span class="keyword">this</span>, AboutMe::<span class="keyword">class</span>.java))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="getSharedPreferences"><a href="#getSharedPreferences" class="headerlink" title="getSharedPreferences"></a>getSharedPreferences</h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> sharedPrefs = getSharedPreferences(<span class="string">&quot;production&quot;</span>, Context.MODE_PRIVATE) <span class="comment">//name</span></span><br><span class="line"><span class="keyword">val</span> isSignedIn = sharedPrefs.getBoolean(<span class="string">&quot;is_signed_in&quot;</span>, <span class="literal">false</span>) <span class="comment">// key, defValue</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(!isSignedIn)&#123;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//to edit</span></span><br><span class="line">with(sharedPrefs.edit())&#123;</span><br><span class="line">    putBoolean(<span class="string">&quot;is_signed_in&quot;</span>, <span class="literal">true</span>)</span><br><span class="line">    commit()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="RecyclerView"><a href="#RecyclerView" class="headerlink" title="RecyclerView"></a>RecyclerView</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=CepB1OlOZ_4">Build an Android News Media App in Kotlin - Part 6</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=iepWnIHP7t8&t=211s">Android Integrate RecyclerView and CardView Dependency in Gradle. Android Kotlin Tutorial</a></li>
+</ul>
+<h3 id="Type"><a href="#Type" class="headerlink" title="Type"></a>Type</h3><ul>
+<li>Linear Layout</li>
+<li>Grid Layout</li>
+<li>Staggered Grid Layout</li>
+</ul>
+<h3 id="Data-Class"><a href="#Data-Class" class="headerlink" title="Data Class"></a>Data Class</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">Story</span></span>(</span><br><span class="line">    <span class="keyword">val</span> title: String,</span><br><span class="line">    <span class="keyword">val</span> text: String,</span><br><span class="line">    <span class="keyword">val</span> author: String</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h3 id="Adapter"><a href="#Adapter" class="headerlink" title="Adapter"></a>Adapter</h3><p>Hold data in to the list</p>
+<h3 id="Link-adapter-to-the-recyclerView"><a href="#Link-adapter-to-the-recyclerView" class="headerlink" title="Link adapter to the recyclerView"></a>Link adapter to the recyclerView</h3><h2 id="Data-Model"><a href="#Data-Model" class="headerlink" title="Data Model"></a>Data Model</h2><p>Generate -&gt; Constructor / Getter and Setter / toString()</p>
+<h2 id="Parse-a-Json-Using-Volley"><a href="#Parse-a-Json-Using-Volley" class="headerlink" title="Parse a Json Using Volley"></a>Parse a Json Using Volley</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=y2xtLqP8dSQ">ref</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=bPDW9SdsGMo&list=PLrnPJCHvNZuBCiCxN8JPFI57Zhr5SusRL">ref2</a></li>
+</ul>
+<h2 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h2><p><a target="_blank" rel="noopener" href="https://www.lynda.com/Android-tutorials/Load-XML-layout-file-runtime/518054/596676-4.html?srchtrk=index:12%0Alinktypeid:2%0Aq:Android+form+%0Apage:1%0As:relevance%0Asa:true%0Aproducttypeid:2">ref</a></p>
+<h3 id="Rename-in-XML"><a href="#Rename-in-XML" class="headerlink" title="Rename in XML"></a>Rename in XML</h3><p><code>shift + f6</code></p>
+<h3 id="ViewGroup"><a href="#ViewGroup" class="headerlink" title="ViewGroup"></a>ViewGroup</h3><ul>
+<li><code>FameLayout</code></li>
+<li><code>LinearLayout</code></li>
+<li><code>RelativeLayout</code></li>
+<li><code>GridView</code></li>
+<li><code>ListView</code></li>
+<li><code>CoordinatorLayout</code></li>
+<li><code>AppBarLayout</code></li>
+<li><code>DrawerLayout</code></li>
+<li><code>RecyclerView</code>, replace <code>GridView</code> / <code>ListView</code></li>
+</ul>
+<h3 id="DP-and-SP"><a href="#DP-and-SP" class="headerlink" title="DP and SP"></a>DP and SP</h3><p><a target="_blank" rel="noopener" href="https://www.lynda.com/Android-tutorials/Use-design-repository/518054/596680-4.html">ref</a></p>
+<h3 id="String-Display"><a href="#String-Display" class="headerlink" title="String Display"></a>String Display</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;TextView</span><br><span class="line">    android:text=&quot;aaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;</span><br><span class="line">    android:maxLines=&quot;1&quot;</span><br><span class="line">    android:ellipsize=&quot;end&quot;</span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="String-Movement"><a href="#String-Movement" class="headerlink" title="String Movement"></a>String Movement</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;TextView</span><br><span class="line">    android:id=&quot;@+id/textView&quot;</span><br><span class="line">    android:text=&quot;aaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;</span><br><span class="line">    android:scrollbars=&quot;vertical&quot;</span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">textView tv = (TextView) findViewById(R.id.textView);</span><br><span class="line">tv.setMovementMethod(<span class="keyword">new</span> ScrollingMovementMethod());</span><br></pre></td></tr></table></figure>
+
+<h3 id="TextInputLayout"><a href="#TextInputLayout" class="headerlink" title="TextInputLayout"></a>TextInputLayout</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;android.support.design.widget.TextInputLayout</span><br><span class="line">    android:id=&quot;@+id/textInputLayout&quot;</span><br><span class="line">    android:layout_width=&quot;0dp&quot;</span><br><span class="line">    android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">    app:layout_constraintEnd_toEndOf=&quot;parent&quot;</span><br><span class="line">    app:layout_constraintStart_toStartOf=&quot;parent&quot;</span><br><span class="line">    app:layout_constraintTop_toTopOf=&quot;parent&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;EditText</span><br><span class="line">        android:id=&quot;@+id/editName&quot;</span><br><span class="line">        android:layout_width=&quot;match_parent&quot;</span><br><span class="line">        android:layout_height=&quot;match_parent&quot;</span><br><span class="line">        android:ems=&quot;10&quot;</span><br><span class="line">        android:hint=&quot;Name&quot;</span><br><span class="line">        android:inputType=&quot;textPersonName&quot; /&gt;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">android.support.design.widget.TextInputLayout</span>&gt;</span></span><br><span class="line"></span><br><span class="line">&lt;android.support.design.widget.TextInputLayout</span><br><span class="line">    android:layout_width=&quot;0dp&quot;</span><br><span class="line">    android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">    app:layout_constraintEnd_toEndOf=&quot;parent&quot;</span><br><span class="line">    app:layout_constraintStart_toStartOf=&quot;parent&quot;</span><br><span class="line">    app:layout_constraintTop_toBottomOf=&quot;@+id/textInputLayout&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;EditText</span><br><span class="line">        android:id=&quot;@+id/editPassword&quot;</span><br><span class="line">        android:layout_width=&quot;match_parent&quot;</span><br><span class="line">        android:layout_height=&quot;match_parent&quot;</span><br><span class="line">        android:ems=&quot;10&quot;</span><br><span class="line">        android:hint=&quot;Password&quot;</span><br><span class="line">        android:inputType=&quot;textPassword&quot; /&gt;</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">android.support.design.widget.TextInputLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Toast"><a href="#Toast" class="headerlink" title="Toast"></a>Toast</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//Toast toast = new Toast(context);</span></span><br><span class="line"><span class="comment">// toast.setDuration(Toast.LENGTH_LONG);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE); </span></span><br><span class="line"><span class="comment">// View view = inflater.inflate(R.layout.your_custom_layout, null);</span></span><br><span class="line"><span class="comment">// toast.setView(view);</span></span><br><span class="line"><span class="comment">// toast.show();</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//--------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// String text = &quot;Hello toast!&quot;;</span></span><br><span class="line"><span class="comment">// int duration = Toast.LENGTH_SHORT;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Toast toast = Toast.makeText(this, text, duration);</span></span><br><span class="line"><span class="comment">// toast.show();</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View view)</span> </span>&#123;</span><br><span class="line">    String name = <span class="string">&quot;Vince&quot;</span>;</span><br><span class="line">    String password = <span class="string">&quot;Password&quot;</span>;</span><br><span class="line">    String message = String.format(<span class="string">&quot;name=%s, password=%s&quot;</span>, name, password);</span><br><span class="line">    Toast.makeText(<span class="keyword">this</span>,message, Toast.LENGTH_SHORT).show();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="input-Layout-setError"><a href="#input-Layout-setError" class="headerlink" title="input Layout setError"></a>input Layout setError</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">TextInputLayout textInputLayoutName = findViewById(R.id.textInputLayoutName);</span><br><span class="line">EditText editName2 = findViewById(R.id.editTextName);</span><br><span class="line">String inputName = textInputLayoutName.getEditText().getText().toString().trim();</span><br><span class="line"><span class="comment">//        String inputName2 = editName2.getText().toString().trim();</span></span><br><span class="line"><span class="keyword">if</span>(inputName.isEmpty())&#123;</span><br><span class="line">    textInputLayoutName.setError(<span class="string">&quot;Name is empty&quot;</span>);</span><br><span class="line">    editName2.setError(<span class="string">&quot;Name is empty&quot;</span>);</span><br><span class="line">    Toast.makeText(<span class="keyword">this</span>,<span class="string">&quot;Name is empty&quot;</span>, Toast.LENGTH_SHORT).show();</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    Toast.makeText(<span class="keyword">this</span>,inputName, Toast.LENGTH_SHORT).show();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Spinner"><a href="#Spinner" class="headerlink" title="Spinner"></a>Spinner</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;Spinner</span><br><span class="line">    android:id=&quot;@+id/spinner&quot;/&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string-array</span> <span class="attr">name</span>=<span class="string">&quot;spinner&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">item</span>&gt;</span>1<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">item</span>&gt;</span>2<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">item</span>&gt;</span>3<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">string-array</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Spinner spin = findViewById(R.id.spinner);</span><br><span class="line">ArrayAdapter&lt;CharSequence&gt; adapter = ArrayAdapter.createFromResource(<span class="keyword">this</span>, R.array.spinner, android.R.layout.simple_spinner_item);</span><br><span class="line">adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);</span><br><span class="line">spin.setAdapter(adapter);</span><br><span class="line">spin.setOnItemSelectedListener(<span class="keyword">this</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Add-Tabs-to-the-Action-Bar"><a href="#Add-Tabs-to-the-Action-Bar" class="headerlink" title="Add Tabs to the Action Bar"></a><a target="_blank" rel="noopener" href="https://developer.android.com/training/implementing-navigation/lateral#java">Add Tabs to the Action Bar</a></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> ActionBar actionBar = getActionBar();</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Specify that tabs should be displayed in the action bar.</span></span><br><span class="line">    actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Create a tab listener that is called when the user changes tabs.</span></span><br><span class="line">    ActionBar.TabListener tabListener = <span class="keyword">new</span> ActionBar.TabListener() &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onTabSelected</span><span class="params">(ActionBar.Tab tab, FragmentTransaction ft)</span> </span>&#123;</span><br><span class="line">            <span class="comment">// show the given tab</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onTabUnselected</span><span class="params">(ActionBar.Tab tab, FragmentTransaction ft)</span> </span>&#123;</span><br><span class="line">            <span class="comment">// hide the given tab</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onTabReselected</span><span class="params">(ActionBar.Tab tab, FragmentTransaction ft)</span> </span>&#123;</span><br><span class="line">            <span class="comment">// probably ignore this event</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Add 3 tabs, specifying the tab&#x27;s text and TabListener</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">        actionBar.addTab(</span><br><span class="line">                actionBar.newTab()</span><br><span class="line">                        .setText(<span class="string">&quot;Tab &quot;</span> + (i + <span class="number">1</span>))</span><br><span class="line">                        .setTabListener(tabListener));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">viewPager = findViewById(R.id.main_viewPager);</span><br><span class="line">tabLayout = findViewById(R.id.tabLayout);</span><br><span class="line">tabLayout.setupWithViewPager(viewPager); <span class="comment">//link together</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//adapter</span></span><br><span class="line">fragAdapter = <span class="keyword">new</span> fragAdapter(getSupportFragmentManager());</span><br><span class="line">viewPager.setAdapter(fragAdapter);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://codinginflow.com/tutorials/android/tab-layout-with-fragments">ref</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=7aLCWbe6Awk">ref2</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=Vxiy_h5hNII">ref3</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/38049076/tablayout-tabs-text-not-displaying">TabLayout tabs text not displaying</a></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> String[] tabTitles = <span class="keyword">new</span> String[]&#123;<span class="string">&quot;Tab1&quot;</span>, <span class="string">&quot;Tab2&quot;</span>, <span class="string">&quot;Tab3&quot;</span>&#125;;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> CharSequence <span class="title">getPageTitle</span><span class="params">(<span class="keyword">int</span> position)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> tabTitles[position];</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="Tab-select-listener"><a href="#Tab-select-listener" class="headerlink" title="Tab select listener"></a>Tab select listener</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">tabLayout.addOnTabSelectedListener(<span class="keyword">new</span> TabLayout.OnTabSelectedListener() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onTabSelected</span><span class="params">(TabLayout.Tab tab)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onTabUnselected</span><span class="params">(TabLayout.Tab tab)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onTabReselected</span><span class="params">(TabLayout.Tab tab)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="Tab-Add-Icon"><a href="#Tab-Add-Icon" class="headerlink" title="Tab Add Icon"></a>Tab Add Icon</h4><ul>
+<li>[how to add the icon for swipeable tabs] (<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/21528687/how-to-add-the-icon-for-swipeable-tabs">https://stackoverflow.com/questions/21528687/how-to-add-the-icon-for-swipeable-tabs</a>)<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//An array containing your icons from the drawable directory</span></span><br><span class="line"> <span class="keyword">final</span> <span class="keyword">int</span>[] ICONS = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;</span><br><span class="line">            R.drawable.icon_1,</span><br><span class="line">            R.drawable.icon_2,</span><br><span class="line">            R.drawable.icon_3</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//Get reference to your Tablayout</span></span><br><span class="line">    TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);</span><br><span class="line">    tabLayout.setupWithViewPager(mViewPager);</span><br><span class="line"></span><br><span class="line">    tabLayout.getTabAt(<span class="number">0</span>).setIcon(ICONS[<span class="number">0</span>]);</span><br><span class="line">    tabLayout.getTabAt(<span class="number">1</span>).setIcon(ICONS[<span class="number">1</span>]);</span><br><span class="line">    tabLayout.getTabAt(<span class="number">2</span>).setIcon(ICONS[<span class="number">2</span>]);</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<h3 id="SoftKeywordCover-EditText"><a href="#SoftKeywordCover-EditText" class="headerlink" title="SoftKeywordCover EditText"></a>SoftKeywordCover EditText</h3><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3295672/android-soft-keyboard-covers-edittext-field">Android soft keyboard covers edittext field</a></p>
+<p><em>manifest.xml</em></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;activity</span><br><span class="line">    android:name=&quot;.Activities.InputsActivity&quot;</span><br><span class="line">    ...</span><br><span class="line">    android:windowSoftInputMode=&quot;adjustPan&quot;</span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="Splash-Screen"><a href="#Splash-Screen" class="headerlink" title="Splash Screen"></a>Splash Screen</h3><p><a target="_blank" rel="noopener" href="https://android.jlelse.eu/the-complete-android-splash-screen-guide-c7db82bce565">The (Complete) Android Splash Screen Guide</a></p>
+<h3 id="AutoCompleteTextView"><a href="#AutoCompleteTextView" class="headerlink" title="AutoCompleteTextView"></a>AutoCompleteTextView</h3><p><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=JB3ETK5mh3c">AutoCompleteTextView - Android Studio Tutorial</a></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;AutoCompleteTextView</span><br><span class="line">    ...</span><br><span class="line">    android:completionThreshold=&quot;1&quot;</span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String[] ZIPCODES = <span class="keyword">new</span> String[]&#123;</span><br><span class="line">        <span class="string">&quot;90001&quot;</span>, <span class="string">&quot;90002&quot;</span>, <span class="string">&quot;91001&quot;</span>, <span class="string">&quot;91003&quot;</span>, <span class="string">&quot;92000&quot;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span></span>&#123;</span><br><span class="line">    AutoCompleteTextView textView = (AutoCompleteTextView) getView().findViewById(R.id.textView);</span><br><span class="line">    ArrayAdapter&lt;String&gt; adapter = <span class="keyword">new</span> ArrayAdapter&lt;String&gt;(<span class="keyword">this</span>, android.R.layout.simple_list_item_1, ZIPCODES);</span><br><span class="line">    textView.setAdapter(adapter);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="AddListener"><a href="#AddListener" class="headerlink" title="AddListener"></a>AddListener</h3><h4 id="setOnCheckedChangeListener"><a href="#setOnCheckedChangeListener" class="headerlink" title="setOnCheckedChangeListener"></a><code>setOnCheckedChangeListener</code></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">CheckBox cb = (CheckBox) view.findViewById(R.id.cb);</span><br><span class="line">cb.setOnCheckedChangeListener(<span class="keyword">new</span> CompoundButton.OnCheckedChangeListener() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCheckedChanged</span><span class="params">(CompoundButton buttonView, <span class="keyword">boolean</span> isChecked)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (isChecked) &#123;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="addTextChangedListener"><a href="#addTextChangedListener" class="headerlink" title="addTextChangedListener"></a><code>addTextChangedListener</code></h4><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/20824634/android-on-text-change-listener">android on Text Change Listener</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">EditText editText = (AutoCompleteTextView) view.findViewById(R.id.editText);</span><br><span class="line">editText.addTextChangedListener(<span class="keyword">new</span> TextWatcher() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterTextChanged</span><span class="params">(Editable s)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">beforeTextChanged</span><span class="params">(CharSequence s, <span class="keyword">int</span> start, <span class="keyword">int</span> count, <span class="keyword">int</span> after)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onTextChanged</span><span class="params">(CharSequence s, <span class="keyword">int</span> start, <span class="keyword">int</span> before, <span class="keyword">int</span> count)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (s.length() != <span class="number">0</span>)&#123;           </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="setOnClickListener"><a href="#setOnClickListener" class="headerlink" title="setOnClickListener"></a><code>setOnClickListener</code></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ToggleButton toggleButton = (ToggleButton) findViewById(R.id.toggle1);</span><br><span class="line">toggleButton.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (((ToggleButton) v).isChecked())</span><br><span class="line">        DisplayToast(<span class="string">&quot;Toggle button is On&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        DisplayToast(<span class="string">&quot;Toggle button is Off&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Start-A-new-Activity"><a href="#Start-A-new-Activity" class="headerlink" title="Start A new Activity"></a>Start A new Activity</h3><p>Send</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Intent myIntent = <span class="keyword">new</span> Intent(getBaseContext(), Result.class);</span><br><span class="line">myIntent.putExtra(<span class="string">&quot;key&quot;</span>, <span class="string">&quot;Value&quot;</span>); <span class="comment">//Optional parameters</span></span><br><span class="line"><span class="keyword">this</span>.startActivity(myIntent);</span><br></pre></td></tr></table></figure>
+
+<p>Receive</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">    setContentView(R.layout.newActivity);</span><br><span class="line">    Toolbar toolbar = findViewById(R.id.toolbar);</span><br><span class="line">    setSupportActionBar(toolbar);</span><br><span class="line"></span><br><span class="line">    Intent intent = getIntent();</span><br><span class="line">    String value = intent.getStringExtra(<span class="string">&quot;key&quot;</span>); <span class="comment">//if it&#x27;s a string you stored.</span></span><br><span class="line">    d(<span class="string">&quot;value&quot;</span>,value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Up-back-button"><a href="#Up-back-button" class="headerlink" title="Up back button"></a>Up back button</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=JkVdP-e9BCo">How to Add an Up Button to the AppBar - Android Studio Tutorial</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.android.com/training/appbar/up-action.html">Add an up action</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/15686555/display-back-button-on-action-bar">Display back button on action bar</a><br><em>Will get a new Activity</em><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:parentActivityName=&quot;.MainActivity&quot;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">getSupportActionBar().setDisplayHomeAsUpEnabled(<span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
+
+<p><em>Will perform as back</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">    setContentView(R.layout.newActivity);</span><br><span class="line">    getSupportActionBar().setDisplayHomeAsUpEnabled(<span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onSupportNavigateUp</span><span class="params">()</span></span>&#123;  </span><br><span class="line">    finish();  </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Volley-Picasso"><a href="#Volley-Picasso" class="headerlink" title="Volley / Picasso"></a>Volley / Picasso</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PLrnPJCHvNZuBCiCxN8JPFI57Zhr5SusRL">RecyclerView + Volley + Picasso Tutorial - Android Programming</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/45940861/android-8-cleartext-http-traffic-not-permitted">Android 8: Cleartext HTTP traffic not permitted</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/codepath/android_guides/wiki/Networking-with-the-Volley-Library">Networking with the Volley Library</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/31302011/nullpointerexception-addtorequestqueuecom-android-volley-request-java-lang-str">NullPointerException addToRequestQueue(com.android.volley.Request, java.lang.String)’ on a null object reference</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=HMjI7cLsyfw">RecyclerView + CardView - Part 5 - CLICKING SPECIFIC ITEMS - Android Studio Tutorial</a></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">VolleyLog.DEBUG = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">JsonObjectRequest req = <span class="keyword">new</span> JsonObjectRequest(Request.Method.GET, <span class="string">&quot;http://ip.jsontest.com/&quot;</span>, <span class="keyword">null</span>,</span><br><span class="line">        <span class="keyword">new</span> Response.Listener&lt;JSONObject&gt;()</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResponse</span><span class="params">(JSONObject response)</span> </span>&#123;</span><br><span class="line">                <span class="comment">// display response</span></span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    d(<span class="string">&quot;Response&quot;</span>, response.getString(<span class="string">&quot;ip&quot;</span>));</span><br><span class="line">                &#125; <span class="keyword">catch</span> (JSONException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="keyword">new</span> Response.ErrorListener()</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onErrorResponse</span><span class="params">(VolleyError error)</span> </span>&#123;</span><br><span class="line">                d(<span class="string">&quot;Error.Response&quot;</span>, error.toString());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Visiblity"><a href="#Visiblity" class="headerlink" title="Visiblity"></a>Visiblity</h3><ul>
+<li><code>xxx.setVisibility(View.GONE);</code> none</li>
+<li><code>xxx.setVisibility(View.VISIBLE);</code> show</li>
+<li><code>xxx.setVisibility(View.INVISIBLE);</code> Hide</li>
+</ul>
+<h3 id="Prograss-Bar"><a href="#Prograss-Bar" class="headerlink" title="Prograss Bar"></a>Prograss Bar</h3><p><a target="_blank" rel="noopener" href="https://www.journaldev.com/9629/android-progressbar-example">Android ProgressBar Example</a></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;ProgressBar</span><br><span class="line">    android:id=&quot;@+id/progressBar&quot;</span><br><span class="line">    style=&quot;?android:attr/progressBarStyleHorizontal&quot;</span><br><span class="line">    android:layout_width=&quot;wrap_content&quot;</span><br><span class="line">    android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">    android:layout_alignParentLeft=&quot;true&quot;</span><br><span class="line">    android:layout_alignParentTop=&quot;true&quot;</span><br><span class="line">    android:layout_marginLeft=&quot;23dp&quot;</span><br><span class="line">    android:layout_marginTop=&quot;20dp&quot;</span><br><span class="line">    android:indeterminate=&quot;false&quot;</span><br><span class="line">    android:max=&quot;100&quot;</span><br><span class="line">    android:minHeight=&quot;50dp&quot;</span><br><span class="line">    android:minWidth=&quot;200dp&quot;</span><br><span class="line">    android:progress=&quot;1&quot; /&gt;</span><br><span class="line">    </span><br><span class="line">&lt;ProgressBar</span><br><span class="line">    android:id=&quot;@+id/progressBar_cyclic&quot;</span><br><span class="line">    android:layout_width=&quot;wrap_content&quot;</span><br><span class="line">    android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">    android:minHeight=&quot;50dp&quot;</span><br><span class="line">    android:minWidth=&quot;50dp&quot;</span><br><span class="line">    android:layout_centerVertical=&quot;true&quot;</span><br><span class="line">    android:layout_centerHorizontal=&quot;true&quot; /&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Toggle-Button-Customized-with-Image"><a href="#Toggle-Button-Customized-with-Image" class="headerlink" title="Toggle Button Customized with Image"></a>Toggle Button Customized with Image</h3><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/18598255/android-create-a-toggle-button-with-image-and-no-text">Android: Create a toggle button with image and no text</a></p>
+<h3 id="Preference"><a href="#Preference" class="headerlink" title="Preference"></a>Preference</h3><p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/5950043/how-to-use-getsharedpreferences-in-android">how to use getSharedPreferences in android</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">SharedPreferences userDetails = context.getSharedPreferences(<span class="string">&quot;userdetails&quot;</span>, MODE_PRIVATE);</span><br><span class="line"></span><br><span class="line">Editor edit = userDetails.edit();</span><br><span class="line">edit.putString(<span class="string">&quot;username&quot;</span>, username.getText().toString().trim());</span><br><span class="line">edit.putString(<span class="string">&quot;password&quot;</span>, password.getText().toString().trim());</span><br><span class="line">edit.apply();</span><br><span class="line"></span><br><span class="line">String userName = userDetails.getString(<span class="string">&quot;username&quot;</span>, <span class="string">&quot;&quot;</span>);</span><br><span class="line">String password = userDetails.getString(<span class="string">&quot;password&quot;</span>, <span class="string">&quot;&quot;</span>);</span><br><span class="line"><span class="comment">//getBoolean, long, float</span></span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/7145606/how-android-sharedpreferences-save-store-object">GSON - How Android SharedPreferences save/store object</a></p>
+<h3 id="Set-image-background-and-tint-its-color"><a href="#Set-image-background-and-tint-its-color" class="headerlink" title="Set image background and tint its color"></a>Set image background and tint its color</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">android:src=&quot;@drawable/image&quot;</span><br><span class="line">android:backgroundTint=&quot;#B7B2B0&quot;</span><br></pre></td></tr></table></figure>
+<p>OR</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ImageView iv = findViewById(R.id.iv);</span><br><span class="line">iv.setBackgroundResource(R.drawable.image);</span><br><span class="line">iv.getBackground().setColorFilter(Color.parseColor(<span class="string">&quot;#B7B2B0&quot;</span>), PorterDuff.Mode.MULTIPLY);</span><br></pre></td></tr></table></figure>
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>Author: <a href="https://vince-amazing/blog">VINCEC</a>
+            <p>Permalink: <a href="https://vince-amazing/blog/2019/02/03/android-notes/">https://vince-amazing/blog/2019/02/03/android-notes/</a>
+            <p>Date: <a href="https://vince-amazing/blog/2019/02/03/android-notes/">February 3rd 2019, 10:42:17</a>
+            <p>Copyright license: The article using<a rel="license noopener" target="_blank" href="//creativecommons.org/licenses/by-nc/4.0/">CC licensing 4.0</a></p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/blog/2019/02/13/regex-notes/" title= Regual Expressions Notes >
+                    <div class="nextTitle">Regual Expressions Notes</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/blog/2019/01/29/nodejs-notes/" title= NodeJS Notes >
+                    <div class="prevTitle">NodeJS Notes</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:linengca@usc.edu" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/vincecao" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="//instagram.com/__viiiince" class="iconfont-archer instagram" target="_blank" title=instagram></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="//linkedin.com/in/lineng-vince-cao-36b693121" class="iconfont-archer linkedin" target="_blank" title=linkedin></a>
+            
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a><span class="iconfont-archer power">&#xe635;</span>Vince Modified</span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:70vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Register-in-Android-Manifest"><span class="toc-number">1.</span> <span class="toc-text">Register in Android Manifest</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Setting-adb-to-global"><span class="toc-number">2.</span> <span class="toc-text">Setting adb to global</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Windows"><span class="toc-number">2.0.1.</span> <span class="toc-text">Windows:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mac"><span class="toc-number">2.0.2.</span> <span class="toc-text">Mac</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Permission-Example"><span class="toc-number">3.</span> <span class="toc-text">Permission Example</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Launcher-Icon-Assets"><span class="toc-number">4.</span> <span class="toc-text">Launcher Icon Assets</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Setting-Activity"><span class="toc-number">5.</span> <span class="toc-text">Setting Activity</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Enable-Jack-compiler-for-Java-8-features"><span class="toc-number">6.</span> <span class="toc-text">Enable Jack compiler for Java 8 features</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Communication-usage-scenarios"><span class="toc-number">7.</span> <span class="toc-text">Communication usage scenarios</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Toast-Message"><span class="toc-number">7.1.</span> <span class="toc-text">Toast Message</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-Toast-message"><span class="toc-number">7.1.1.</span> <span class="toc-text">Create a Toast message</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Position-Toast-on-screen"><span class="toc-number">7.1.2.</span> <span class="toc-text">Position Toast on screen</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Show-the-Toast-message"><span class="toc-number">7.1.3.</span> <span class="toc-text">Show the Toast message</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CustomToast"><span class="toc-number">7.1.4.</span> <span class="toc-text">CustomToast</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Snackbar-Messages"><span class="toc-number">7.2.</span> <span class="toc-text">Snackbar Messages</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-Snackbar"><span class="toc-number">7.2.1.</span> <span class="toc-text">Create a Snackbar</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Set-Snackbar-action"><span class="toc-number">7.2.2.</span> <span class="toc-text">Set Snackbar action</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Show-the-Snackbar"><span class="toc-number">7.2.3.</span> <span class="toc-text">Show the Snackbar</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Notice"><span class="toc-number">7.2.4.</span> <span class="toc-text">Notice</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dialogs"><span class="toc-number">7.3.</span> <span class="toc-text">Dialogs</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#simple-dialog-example"><span class="toc-number">7.3.1.</span> <span class="toc-text">simple dialog example</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Allow-user-to-tap-and-cancel-the-dialog"><span class="toc-number">7.3.1.1.</span> <span class="toc-text">Allow user to tap and cancel the dialog</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Not-allow-user-to-cancel"><span class="toc-number">7.3.1.2.</span> <span class="toc-text">Not allow user to cancel</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ShowDatePicker-Dialog-Example"><span class="toc-number">7.3.2.</span> <span class="toc-text">ShowDatePicker Dialog Example</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SetItem-to-Dialog-Example"><span class="toc-number">7.3.3.</span> <span class="toc-text">SetItem to Dialog Example</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CustomDialog-Example"><span class="toc-number">7.3.4.</span> <span class="toc-text">CustomDialog Example</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notification"><span class="toc-number">7.4.</span> <span class="toc-text">Notification</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#New-Activity"><span class="toc-number">7.5.</span> <span class="toc-text">New Activity</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#getSharedPreferences"><span class="toc-number">7.6.</span> <span class="toc-text">getSharedPreferences</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RecyclerView"><span class="toc-number">7.7.</span> <span class="toc-text">RecyclerView</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Type"><span class="toc-number">7.7.1.</span> <span class="toc-text">Type</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Data-Class"><span class="toc-number">7.7.2.</span> <span class="toc-text">Data Class</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Adapter"><span class="toc-number">7.7.3.</span> <span class="toc-text">Adapter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Link-adapter-to-the-recyclerView"><span class="toc-number">7.7.4.</span> <span class="toc-text">Link adapter to the recyclerView</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Data-Model"><span class="toc-number">7.8.</span> <span class="toc-text">Data Model</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Parse-a-Json-Using-Volley"><span class="toc-number">7.9.</span> <span class="toc-text">Parse a Json Using Volley</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UI"><span class="toc-number">7.10.</span> <span class="toc-text">UI</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Rename-in-XML"><span class="toc-number">7.10.1.</span> <span class="toc-text">Rename in XML</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ViewGroup"><span class="toc-number">7.10.2.</span> <span class="toc-text">ViewGroup</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DP-and-SP"><span class="toc-number">7.10.3.</span> <span class="toc-text">DP and SP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#String-Display"><span class="toc-number">7.10.4.</span> <span class="toc-text">String Display</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#String-Movement"><span class="toc-number">7.10.4.1.</span> <span class="toc-text">String Movement</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TextInputLayout"><span class="toc-number">7.10.5.</span> <span class="toc-text">TextInputLayout</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Toast"><span class="toc-number">7.10.6.</span> <span class="toc-text">Toast</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#input-Layout-setError"><span class="toc-number">7.10.7.</span> <span class="toc-text">input Layout setError</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Spinner"><span class="toc-number">7.10.8.</span> <span class="toc-text">Spinner</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Add-Tabs-to-the-Action-Bar"><span class="toc-number">7.10.9.</span> <span class="toc-text">Add Tabs to the Action Bar</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Tab-select-listener"><span class="toc-number">7.10.9.1.</span> <span class="toc-text">Tab select listener</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Tab-Add-Icon"><span class="toc-number">7.10.9.2.</span> <span class="toc-text">Tab Add Icon</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SoftKeywordCover-EditText"><span class="toc-number">7.10.10.</span> <span class="toc-text">SoftKeywordCover EditText</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Splash-Screen"><span class="toc-number">7.10.11.</span> <span class="toc-text">Splash Screen</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AutoCompleteTextView"><span class="toc-number">7.10.12.</span> <span class="toc-text">AutoCompleteTextView</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AddListener"><span class="toc-number">7.10.13.</span> <span class="toc-text">AddListener</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#setOnCheckedChangeListener"><span class="toc-number">7.10.13.1.</span> <span class="toc-text">setOnCheckedChangeListener</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#addTextChangedListener"><span class="toc-number">7.10.13.2.</span> <span class="toc-text">addTextChangedListener</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#setOnClickListener"><span class="toc-number">7.10.13.3.</span> <span class="toc-text">setOnClickListener</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Start-A-new-Activity"><span class="toc-number">7.10.14.</span> <span class="toc-text">Start A new Activity</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Up-back-button"><span class="toc-number">7.10.15.</span> <span class="toc-text">Up back button</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Volley-Picasso"><span class="toc-number">7.10.16.</span> <span class="toc-text">Volley &#x2F; Picasso</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Visiblity"><span class="toc-number">7.10.17.</span> <span class="toc-text">Visiblity</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Prograss-Bar"><span class="toc-number">7.10.18.</span> <span class="toc-text">Prograss Bar</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Toggle-Button-Customized-with-Image"><span class="toc-number">7.10.19.</span> <span class="toc-text">Toggle Button Customized with Image</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Preference"><span class="toc-number">7.10.20.</span> <span class="toc-text">Preference</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Set-image-background-and-tint-its-color"><span class="toc-number">7.10.21.</span> <span class="toc-text">Set image background and tint its color</span></a></li></ol></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 108 </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2021 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/19</span><a class="archive-post-title" href= "/blog/2021/06/19/go-lang-notes/" >Go Language Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/21</span><a class="archive-post-title" href= "/blog/2021/03/21/ux-design-learning-notes/" >UX Design Learning Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/17</span><a class="archive-post-title" href= "/blog/2021/01/17/move-to-chrome-os-with-my-hp/" >Chrome OS on my HP Elitebook 840 G5 & Installation</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/blog/2020/12/15/git/" >Git Note</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/11</span><a class="archive-post-title" href= "/blog/2020/03/11/set-up-nginx-streaming-media-server/" >Set up Nginx Streaming Media Server</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/29</span><a class="archive-post-title" href= "/blog/2019/09/29/docker-notes/" >Docker Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/27</span><a class="archive-post-title" href= "/blog/2019/09/27/mongodb-notes/" >Mongodb Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/02</span><a class="archive-post-title" href= "/blog/2019/08/02/anyconnection-setup-and-config/" >AnyConnect Server(Ocserv) & Client(Openwrt, Linux, Windows & Mac) Configuares</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/07</span><a class="archive-post-title" href= "/blog/2019/07/07/make-emby-plex-work-with-external-ntfs/" >Make Emby(Plex) support nfts external hdd driver</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/01</span><a class="archive-post-title" href= "/blog/2019/07/01/ibus-final-in-linux/" >ibus Chinese input config - finally</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/25</span><a class="archive-post-title" href= "/blog/2019/06/25/arduino-notes/" >Arduino Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/24</span><a class="archive-post-title" href= "/blog/2019/06/24/bit-operate-with-unsign/" >Bit Operate with Unsigned Integer</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/blog/2019/06/12/sort-review/" >Sort Review</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/10</span><a class="archive-post-title" href= "/blog/2019/06/10/desktop-app-converter-note/" >Desktop App Converter Note</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/08</span><a class="archive-post-title" href= "/blog/2019/06/08/tree-review/" >Tree Review</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/05</span><a class="archive-post-title" href= "/blog/2019/06/05/vSymLinks/" >vSymLinks - for Windows Symbolic Links</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/blog/2019/05/30/vconsole/" >vConsole</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/27</span><a class="archive-post-title" href= "/blog/2019/05/27/structure-review/" >Java Sytax & Structure Review</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/17</span><a class="archive-post-title" href= "/blog/2019/05/17/csharp-syntax-notes/" >C# Syntax Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/25</span><a class="archive-post-title" href= "/blog/2019/04/25/gifsicle-usage/" >Gifsicle - powerful tools for gif on web</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span><a class="archive-post-title" href= "/blog/2019/03/07/angular-notes/" >Angular7 Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span><a class="archive-post-title" href= "/blog/2019/03/07/bootstrap-notes/" >Bootstrap Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/18</span><a class="archive-post-title" href= "/blog/2019/02/18/javascript-notes/" >Javascript Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/13</span><a class="archive-post-title" href= "/blog/2019/02/13/regex-notes/" >Regual Expressions Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/03</span><a class="archive-post-title" href= "/blog/2019/02/03/android-notes/" >Android Development Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/29</span><a class="archive-post-title" href= "/blog/2019/01/29/nodejs-notes/" >NodeJS Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/25</span><a class="archive-post-title" href= "/blog/2019/01/25/sql-notes/" >SQL Notes</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href= "/blog/2018/11/26/lecture-alg-randomized-review-note/" >Algorithm Review Notes - Randomized Algorithms</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href= "/blog/2018/11/26/lecture-alg-approx-review-note/" >Algorithm Review Notes - Approximation Algorithms</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href= "/blog/2018/11/26/lecture-alg-lp-review-note/" >Algorithm Review Notes - Linear Programming</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href= "/blog/2018/11/26/lecture-alg-np-review-note/" >Algorithm Review Notes - NP Problem</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/25</span><a class="archive-post-title" href= "/blog/2018/11/25/lecture-alg-network-flow-review-note/" >Algorithm Review Notes - Network Flow</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/25</span><a class="archive-post-title" href= "/blog/2018/11/25/lecture-alg-dp-review-note/" >Algorithm Review Notes - Dynamic Programming</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/22</span><a class="archive-post-title" href= "/blog/2018/11/22/lecture-ai-learning-review-note/" >AI Review Note - Learning</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/21</span><a class="archive-post-title" href= "/blog/2018/11/21/lecture-ai-probability-review-note/" >AI Review Note - Probability</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/21</span><a class="archive-post-title" href= "/blog/2018/11/21/dell-latitude-7390-hackintosh/" >Dell Latitude 7390 Hackintosh Mojave</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/19</span><a class="archive-post-title" href= "/blog/2018/11/19/solus-efi-repair/" >Solus Efi Repair</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/27</span><a class="archive-post-title" href= "/blog/2018/10/27/install-davinci-on-elementry-os/" >Install DaVinCi 15 on Elementry OS</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/23</span><a class="archive-post-title" href= "/blog/2018/10/23/lecture-ai-logic-review-note/" >AI Review Note - Logic</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/13</span><a class="archive-post-title" href= "/blog/2018/10/13/zenbook-pro-ux550ge-linux-tweaks/" >Asus Zenbook Pro UX550GE Linux Configure</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/04</span><a class="archive-post-title" href= "/blog/2018/10/04/lecture-alg-search-review-note/" >Algorithm Review Notes - Search Methods</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/02</span><a class="archive-post-title" href= "/blog/2018/09/02/good-bye-thinkpad-hello-ipad/" >Welcome new arrived iPad Pro and its friends</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/21</span><a class="archive-post-title" href= "/blog/2018/08/21/upgrade-the-wireless-card-intel-9260/" >Upgraded My Wireless Adapter for 720s 13ARR with Intel 9260</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/05</span><a class="archive-post-title" href= "/blog/2018/08/05/taobao-a-lot/" >淘宝了一些东西</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/01</span><a class="archive-post-title" href= "/blog/2018/08/01/change-chrome-in-fresh-look/" >Chrome 新 UI</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/03</span><a class="archive-post-title" href= "/blog/2018/07/03/php-visual-studio-code-setting/" >在 VS Code 中配置 php</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/03</span><a class="archive-post-title" href= "/blog/2018/07/03/mustache-templates/" >Some examples of using Mustache templates.</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/02</span><a class="archive-post-title" href= "/blog/2018/07/02/fix-flex-in-ie/" >Let IE9 Support Flex?</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/01</span><a class="archive-post-title" href= "/blog/2018/07/01/vnormalize-css/" >Vincec Normalize CSS - vnorm.css</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/30</span><a class="archive-post-title" href= "/blog/2018/06/30/php-learning-notes/" >PHP Notes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/28</span><a class="archive-post-title" href= "/blog/2018/06/28/make-bash-and-npm-work-in-windows/" >在 Windows 下优雅使用 npm 和 git bash</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/28</span><a class="archive-post-title" href= "/blog/2018/06/28/symbolic-link/" >Symbolic Links</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/27</span><a class="archive-post-title" href= "/blog/2018/06/27/linux-cpu-stress/" >Linux CPU 压力测试</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/21</span><a class="archive-post-title" href= "/blog/2018/06/21/setup-blog-on-gitlab-page/" >部署你的博客到 Gitlab page</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/20</span><a class="archive-post-title" href= "/blog/2018/06/20/react-web-note/" >React for web 学习笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/20</span><a class="archive-post-title" href= "/blog/2018/06/20/rc-local/" >在 Linux 启动的时候加载自定义脚本自己的 —— rc.local</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/19</span><a class="archive-post-title" href= "/blog/2018/06/19/opensuse-tumbleweed-notes/" >Opensuse Tumbleweed 大蜥蜴的配置清单</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/19</span><a class="archive-post-title" href= "/blog/2018/06/19/grub-note/" >Linux 下 Grub 的各种问题笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/15</span><a class="archive-post-title" href= "/blog/2018/06/15/macbook-jpn-keyboard-rice/" >Macbook 日版键盘终极解决方案（伪）—— Karabiner</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/15</span><a class="archive-post-title" href= "/blog/2018/06/15/nodejs-webpack3-learn-notes/" >Nodejs - Webpack3 学习笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/10</span><a class="archive-post-title" href= "/blog/2018/06/10/fake-elecom-dux-open-box/" >Elecom DUX70BK, a mouse for MMORPG players</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span><a class="archive-post-title" href= "/blog/2018/06/01/lenovo-does-not-love-amd/" >Lenovo 720s 13ARR Bios Manual Update to 6KCN38WW</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/01</span><a class="archive-post-title" href= "/blog/2018/06/01/vincec-side-nav/" >VINCEC Side Navegation Bar</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/blog/2018/05/30/opera-is-suge/" >Opera 大佬真厉害</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/29</span><a class="archive-post-title" href= "/blog/2018/05/29/fire-hd-10-rice/" >(7/28/2018 updated) Fire HD 10 tablet 7 Tweaks and Root tutorial</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/15</span><a class="archive-post-title" href= "/blog/2018/05/15/ss-ssr/" >酸酸 和 酸酸乳</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/23</span><a class="archive-post-title" href= "/blog/2018/04/23/linux-software/" >Linux 的日常安利集合</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span><a class="archive-post-title" href= "/blog/2018/04/20/ubuntu-18-04-notes/" >Ubuntu 18.04 配置笔记 (720s)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/20</span><a class="archive-post-title" href= "/blog/2018/04/20/lenovo-720s/" >新的神坑 720s 13ARR Ryzen</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/blog/2018/04/15/linux-i3-configuation/" >我的 i3 桌面配置笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/08</span><a class="archive-post-title" href= "/blog/2018/04/08/my-manjaro-setup-II/" >我的 Manjaro 配置 Mark II</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2017 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/09</span><a class="archive-post-title" href= "/blog/2017/10/09/unblock-flickr-downloader/" >VINCEC's Flickr Downloader / VINCEC Flickr 原图下载器</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/29</span><a class="archive-post-title" href= "/blog/2017/09/29/my-manjaro-setup/" >我的 Manjaro 配置</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/08</span><a class="archive-post-title" href= "/blog/2017/08/08/dns/" >DNS相关</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/08</span><a class="archive-post-title" href= "/blog/2017/08/08/ruby-learning-note/" >Ruby 学习笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/02</span><a class="archive-post-title" href= "/blog/2017/05/02/bilibili-get-xml/" >b站转跳到弹幕xml的网站</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/26</span><a class="archive-post-title" href= "/blog/2017/03/26/uwp-learning-note/" >UWP LEARNING</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/07</span><a class="archive-post-title" href= "/blog/2017/01/07/zerochan-anime-searcher-in-uwp/" >Zerochan Anime Searcher UWP</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span><a class="archive-post-title" href= "/blog/2017/01/05/swift/" >Swift3</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2016 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/05</span><a class="archive-post-title" href= "/blog/2016/12/05/online-vince-crypography-toolkit/" >Online Vince Crypography Toolkits</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/15</span><a class="archive-post-title" href= "/blog/2016/08/15/a-html-page-with-tab-features/" >A html page with tab features</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/24</span><a class="archive-post-title" href= "/blog/2016/06/24/nvidia-Shield-rice/" >Nvidia Shield 折腾记－吐血篇</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/18</span><a class="archive-post-title" href= "/blog/2016/06/18/collage-ranking/" >College Select</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/08</span><a class="archive-post-title" href= "/blog/2016/06/08/my-gaokao/" >我的高考</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/29</span><a class="archive-post-title" href= "/blog/2016/05/29/google-scared-me/" >妈妈呀谷歌好可怕</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/26</span><a class="archive-post-title" href= "/blog/2016/05/26/the-meaning-of-camera/" >相机的意义</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/20</span><a class="archive-post-title" href= "/blog/2016/05/20/dian-dian-is-dead/" >辛苦弄起来的点点图床都跟别人跑啦</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2015 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/27</span><a class="archive-post-title" href= "/blog/2015/10/27/build-a-bike/" >花闲钱自己组了辆车，妈妈再也不用担心我的动手能力</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/01</span><a class="archive-post-title" href= "/blog/2015/02/01/lucky-day/" >今天难道是我的幸运日吗</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/30</span><a class="archive-post-title" href= "/blog/2015/01/30/unkonwn-title/" >无题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/15</span><a class="archive-post-title" href= "/blog/2015/01/15/no-one-knows-my-closet-even-me/" >呀趴里，寝室衣柜的结构我一个学期都不曾弄明白</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/14</span><a class="archive-post-title" href= "/blog/2015/01/14/09-26-and-11/" >反正也没人看的看了也白看的 09，26和11</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/11</span><a class="archive-post-title" href= "/blog/2015/01/11/music-recomm/" >Music</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/10</span><a class="archive-post-title" href= "/blog/2015/01/10/time-to-sleep/" >该睡觉了</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2014 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/23</span><a class="archive-post-title" href= "/blog/2014/09/23/ios-app-recomm/" >推荐几款个人很喜欢的IOS应用好了</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/18</span><a class="archive-post-title" href= "/blog/2014/09/18/back-to-acg/" >杀回二次元</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/11</span><a class="archive-post-title" href= "/blog/2014/09/11/japanese-calligraphy/" >签名神软——日文書法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/03</span><a class="archive-post-title" href= "/blog/2014/09/03/keys/" >若干软件通用密钥</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/31</span><a class="archive-post-title" href= "/blog/2014/08/31/hand-to-hand-to-shanxun-wifi/" >“手把手”教你WKU闪讯连接WIFI</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/26</span><a class="archive-post-title" href= "/blog/2014/08/26/new-domain/" >换了新域名</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/22</span><a class="archive-post-title" href= "/blog/2014/08/22/mac-postvideo-app/" >MAC上的后期相关APP来一发</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/13</span><a class="archive-post-title" href= "/blog/2014/08/13/kulucolo-benefit-diary/" >KuluColo的完善日记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/05</span><a class="archive-post-title" href= "/blog/2014/08/05/windows-font-rander/" >能使你的Windows字体显示效果接近Mac？</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/04</span><a class="archive-post-title" href= "/blog/2014/08/04/free-vpn-vppn/" >分享免费试用的日本vpn——vppn</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/24</span><a class="archive-post-title" href= "/blog/2014/07/24/music-manage/" >音乐管理，Media Go 还是 iTunes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/19</span><a class="archive-post-title" href= "/blog/2014/07/19/broswer-a-to-z/" >浏览器A到Z</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/19</span><a class="archive-post-title" href= "/blog/2014/07/19/link-your-router/" >将你家的路由器“串联”起来吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/17</span><a class="archive-post-title" href= "/blog/2014/07/17/hello-sekai/" >Hello Sekai</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="随笔"><span class="iconfont-archer">&#xe606;</span>随笔</span>
+    
+        <span class="sidebar-tag-name" data-tags="Javascript"><span class="iconfont-archer">&#xe606;</span>Javascript</span>
+    
+        <span class="sidebar-tag-name" data-tags="Angular"><span class="iconfont-archer">&#xe606;</span>Angular</span>
+    
+        <span class="sidebar-tag-name" data-tags="科学"><span class="iconfont-archer">&#xe606;</span>科学</span>
+    
+        <span class="sidebar-tag-name" data-tags="Linux"><span class="iconfont-archer">&#xe606;</span>Linux</span>
+    
+        <span class="sidebar-tag-name" data-tags="Windows"><span class="iconfont-archer">&#xe606;</span>Windows</span>
+    
+        <span class="sidebar-tag-name" data-tags="MacOS"><span class="iconfont-archer">&#xe606;</span>MacOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="IOS"><span class="iconfont-archer">&#xe606;</span>IOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Android"><span class="iconfont-archer">&#xe606;</span>Android</span>
+    
+        <span class="sidebar-tag-name" data-tags="C++"><span class="iconfont-archer">&#xe606;</span>C++</span>
+    
+        <span class="sidebar-tag-name" data-tags="Anime"><span class="iconfont-archer">&#xe606;</span>Anime</span>
+    
+        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
+    
+        <span class="sidebar-tag-name" data-tags="Leetcode"><span class="iconfont-archer">&#xe606;</span>Leetcode</span>
+    
+        <span class="sidebar-tag-name" data-tags="生活"><span class="iconfont-archer">&#xe606;</span>生活</span>
+    
+        <span class="sidebar-tag-name" data-tags="教程"><span class="iconfont-archer">&#xe606;</span>教程</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tutorial"><span class="iconfont-archer">&#xe606;</span>Tutorial</span>
+    
+        <span class="sidebar-tag-name" data-tags="Csharp"><span class="iconfont-archer">&#xe606;</span>Csharp</span>
+    
+        <span class="sidebar-tag-name" data-tags="UWP"><span class="iconfont-archer">&#xe606;</span>UWP</span>
+    
+        <span class="sidebar-tag-name" data-tags="KuluColo"><span class="iconfont-archer">&#xe606;</span>KuluColo</span>
+    
+        <span class="sidebar-tag-name" data-tags="Blog"><span class="iconfont-archer">&#xe606;</span>Blog</span>
+    
+        <span class="sidebar-tag-name" data-tags="剁手 / Chopping Hands"><span class="iconfont-archer">&#xe606;</span>剁手 / Chopping Hands</span>
+    
+        <span class="sidebar-tag-name" data-tags="CSS"><span class="iconfont-archer">&#xe606;</span>CSS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Gif"><span class="iconfont-archer">&#xe606;</span>Gif</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tools"><span class="iconfont-archer">&#xe606;</span>Tools</span>
+    
+        <span class="sidebar-tag-name" data-tags="Go"><span class="iconfont-archer">&#xe606;</span>Go</span>
+    
+        <span class="sidebar-tag-name" data-tags="技巧"><span class="iconfont-archer">&#xe606;</span>技巧</span>
+    
+        <span class="sidebar-tag-name" data-tags="Course"><span class="iconfont-archer">&#xe606;</span>Course</span>
+    
+        <span class="sidebar-tag-name" data-tags="Algorithm"><span class="iconfont-archer">&#xe606;</span>Algorithm</span>
+    
+        <span class="sidebar-tag-name" data-tags="Tips"><span class="iconfont-archer">&#xe606;</span>Tips</span>
+    
+        <span class="sidebar-tag-name" data-tags="Nodejs"><span class="iconfont-archer">&#xe606;</span>Nodejs</span>
+    
+        <span class="sidebar-tag-name" data-tags="ChromeOS"><span class="iconfont-archer">&#xe606;</span>ChromeOS</span>
+    
+        <span class="sidebar-tag-name" data-tags="Laptop"><span class="iconfont-archer">&#xe606;</span>Laptop</span>
+    
+        <span class="sidebar-tag-name" data-tags="Music"><span class="iconfont-archer">&#xe606;</span>Music</span>
+    
+        <span class="sidebar-tag-name" data-tags="html"><span class="iconfont-archer">&#xe606;</span>html</span>
+    
+        <span class="sidebar-tag-name" data-tags="Crypography"><span class="iconfont-archer">&#xe606;</span>Crypography</span>
+    
+        <span class="sidebar-tag-name" data-tags="Made-bt-V"><span class="iconfont-archer">&#xe606;</span>Made-bt-V</span>
+    
+        <span class="sidebar-tag-name" data-tags="PHP"><span class="iconfont-archer">&#xe606;</span>PHP</span>
+    
+        <span class="sidebar-tag-name" data-tags="Html"><span class="iconfont-archer">&#xe606;</span>Html</span>
+    
+        <span class="sidebar-tag-name" data-tags="Ruby"><span class="iconfont-archer">&#xe606;</span>Ruby</span>
+    
+        <span class="sidebar-tag-name" data-tags="SQL"><span class="iconfont-archer">&#xe606;</span>SQL</span>
+    
+        <span class="sidebar-tag-name" data-tags="Database"><span class="iconfont-archer">&#xe606;</span>Database</span>
+    
+        <span class="sidebar-tag-name" data-tags="Swift"><span class="iconfont-archer">&#xe606;</span>Swift</span>
+    
+        <span class="sidebar-tag-name" data-tags="ux-design"><span class="iconfont-archer">&#xe606;</span>ux-design</span>
+    
+        <span class="sidebar-tag-name" data-tags="CSS3"><span class="iconfont-archer">&#xe606;</span>CSS3</span>
+    
+        <span class="sidebar-tag-name" data-tags="Bootstrap"><span class="iconfont-archer">&#xe606;</span>Bootstrap</span>
+    
+        <span class="sidebar-tag-name" data-tags="React"><span class="iconfont-archer">&#xe606;</span>React</span>
+    
+        <span class="sidebar-tag-name" data-tags="CSharp"><span class="iconfont-archer">&#xe606;</span>CSharp</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="Life"><span class="iconfont-archer">&#xe60a;</span>Life</span>
+    
+        <span class="sidebar-category-name" data-categories="Rice"><span class="iconfont-archer">&#xe60a;</span>Rice</span>
+    
+        <span class="sidebar-category-name" data-categories="Notes"><span class="iconfont-archer">&#xe60a;</span>Notes</span>
+    
+        <span class="sidebar-category-name" data-categories="Config"><span class="iconfont-archer">&#xe60a;</span>Config</span>
+    
+        <span class="sidebar-category-name" data-categories="Path"><span class="iconfont-archer">&#xe60a;</span>Path</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: '/blog/',
+        author: 'VINCEC'
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/blog/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/blog/scripts/main.js"></script>
+    <!-- busuanzi  -->
+    
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/blog/scripts/share.js" async></script>    
+    
+    </body>
+</html>
+
+
